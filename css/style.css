@@ -1,0 +1,30 @@
+@font-face{src: url('/fonts/Roboto/Roboto-Light.ttf') format('myroboto')}
+
+header{
+    background-color: #788B91;
+    color: white;
+    font-size: 34px;
+    position: relative;
+    height: 40px;
+    padding: 10px;
+}
+
+#daser{
+    position: relative;
+    float: left;
+    font-family: Roboto;
+
+}
+
+#menu-bar{
+    position: relative;
+    float: right;
+    color: white;
+    font-size: 20px;
+}
+
+body{
+    margin: 0;
+    background-color: #122F39
+}
+
