@@ -6,7 +6,23 @@ header{
     font-size: 34px;
     position: relative;
     height: 40px;
-    padding: 10px;
+    padding: 15px;
+}
+
+.menu-bar-single-line {
+    width: 35px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+}
+
+#menu-bar:hover > .menu-bar-single-line{
+    width: 45px;
+    height: 7px;
+    background-color: white;
+    margin: 6px 0;
+    transition-duration: 500ms;
+    animation-duration: 500ms;
 }
 
 #daser{
