@@ -45,7 +45,7 @@ body{
 
 #container{
     height: 80vh;
-    margin: 20px;
+    margin: 1vw;
     position: relative;
 }
 
@@ -65,10 +65,11 @@ body{
     font-size: 20px;
     background-color: gray;
     width: 50px;
-    height: 43.5px;
+    height: 43.2px;
     padding: 5px;
     border: none;
     display: inline-block;
+    left: -5px;
 }
 
 .import-button{
@@ -89,7 +90,7 @@ body{
     display: inline-block;
     font-size: 40px; 
     top: 7px;
-    left: 20px;
+    left: 1.3vw;
 }
 
 .sql-buttons{
