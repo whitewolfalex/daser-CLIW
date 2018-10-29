@@ -50,7 +50,7 @@ body{
 }
 
 #sql-command{
-    width: 87.5vw;
+    width: 87.2vw;
     position: relative;
     font-size: 20px;
     padding: 10px;
@@ -71,7 +71,19 @@ body{
     display: inline-block;
 }
 
-.far.fa-file-import{
+.import-button{
+    color: white;
+    position: relative;
+    font-size: 20px;
+    background-color: inherit;
+    width: 50px;
+    height: 43.5px;
+    padding: 5px;
+    border: none;
+    display: inline-block;
+}
+
+.fas.fa-file-import{
     color: white;
     position: relative;
     display: inline-block;
@@ -100,10 +112,11 @@ body{
     float: right;
     margin: 5px;
     font-size: 16px;
+    overflow: hidden;
 }
 
 #container-body{
     background-color: #788B91;
-    margin-top: 10px;
-
+    margin-top: 8px;
+    padding: 5px;
 }
