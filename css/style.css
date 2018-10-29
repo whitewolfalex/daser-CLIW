@@ -66,6 +66,9 @@ body{
     float: left;
     margin: 0;
     border: none;
+    position: relative;
+    float: left;
+    overflow: hidden;
 }
 
 .enter-button{
