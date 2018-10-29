@@ -96,4 +96,14 @@ body{
     background-color: #122F39;
     color: white;
     border: none;
+    position: relative;
+    float: right;
+    margin: 5px;
+    font-size: 16px;
+}
+
+#container-body{
+    background-color: #788B91;
+    margin-top: 10px;
+
 }
