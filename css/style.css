@@ -26,6 +26,7 @@ header{
 #daser{
     position: relative;
     float: left;
+    margin-left: 3px;
     font-family: Roboto;
 
 }
@@ -34,6 +35,9 @@ header{
     position: relative;
     float: right;
     color: white;
+    margin-right: 3px;
+    margin-top: 4px;
+    margin-bottom: 4px;
     font-size: 20px;
 }
 
@@ -44,17 +48,22 @@ body{
 }
 
 #container{
-    height: 80vh;
-    margin: 1vw;
+    margin: 20px;
     position: relative;
+    clear: both;
+}
+
+#header-container{
+  position: relative;
 }
 
 #sql-command{
-    width: 87.2vw;
+    width: calc(100% - 180px);
     position: relative;
     font-size: 20px;
     padding: 10px;
-    display: inline-block;
+    padding-left: 18px;
+    float: left;
     margin: 0;
     border: none;
 }
@@ -63,34 +72,42 @@ body{
     color: white;
     position: relative;
     font-size: 20px;
-    background-color: gray;
+    background-color: #788B91;
     width: 50px;
-    height: 43.2px;
-    padding: 5px;
+    height: 43.5px;
+    float: left;
+    padding: 10px;
     border: none;
-    display: inline-block;
-    left: -5px;
 }
 
 .import-button{
-    color: white;
-    position: relative;
-    font-size: 20px;
-    background-color: inherit;
-    width: 50px;
-    height: 43.5px;
-    padding: 5px;
-    border: none;
-    display: inline-block;
+  color: white;
+  position: relative;
+  font-size: 20px;
+  background-color: #788B91;
+  width: 50px;
+  height: 43.5px;
+  padding: 5px;
+  float: right;
+  margin-right: 3px;
+  border: none;
 }
 
-.fas.fa-file-import{
+.far.fa-file-import{
     color: white;
+    background-color: inherit;
     position: relative;
     display: inline-block;
-    font-size: 40px; 
+    font-size: 40px;
     top: 7px;
-    left: 1.3vw;
+    left: 20px;
+}
+
+#container-body {
+  background-color: #788B91;
+  top: 20px;
+  clear: both;
+  position: relative;
 }
 
 .sql-buttons{
@@ -109,15 +126,5 @@ body{
     background-color: #122F39;
     color: white;
     border: none;
-    position: relative;
     float: right;
-    margin: 5px;
-    font-size: 16px;
-    overflow: hidden;
-}
-
-#container-body{
-    background-color: #788B91;
-    margin-top: 8px;
-    padding: 5px;
 }
