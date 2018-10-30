@@ -35,26 +35,61 @@
                 <span class="tooltiptext">Create table</span>
                 <button class="sql-buttons" onclick="displayCreateTable();"><i class="far fa-window-maximize"></i></button>
             </div>
+            <div id="createTableWindow">
+                <div id="createTableWindow-header">
+                  <p>CREATE TABLE</p>
+                  <button id="close-button" onclick="closePopUp()"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div id="pop-up-body">
+                  <label> Table name
+                    <br>
+                    <input type="text"/>
+                  </label>
+                  <br><br>
+                  <label> Column name <br>
+                    <input type="text"/>
+                  </label>
+                  <br>
+                  <label> Datatype <br>
+                    <select>
+                      <option value="volvo">INT</option>
+                      <option value="saab">CHAR</option>
+                      <option value="opel">VARCHAR</option>
+                      <option value="audi">BOOL</option>
+                    </select>
+                  </label>
+                  <div id="add-button-pop-up">
+                    <button id="add-btn">+</button>
+                  </div>
+                </div>
+            </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>
                 <button class="sql-buttons"><i class="fas fa-project-diagram"></i></button>
             </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Delete</span>
                 <button class="sql-buttons"><i class="fas fa-trash-alt"></i></button>
             </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Zoom in</span>
                 <button class="sql-buttons"><i class="fas fa-search-plus"></i></button>
             </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Zoom out</span>
                 <button class="sql-buttons"><i class="fas fa-search-minus"></i></button>
             </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Selection tool</span>
                 <button class="sql-buttons"><i class="fas fa-mouse-pointer"></i></button>
             </div>
+
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Move tool</span>
                 <button class="sql-buttons" onclick="canMove()"><i class="fas fa-hand-paper"></i></button>
@@ -64,10 +99,12 @@
                 <span class="tooltiptext">Export SQL commands</span>
                 <button class="sql-buttons"><i class="fas fa-file-code"></i></button>
             </div>
+
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Export as SVG</span>
                 <button class="sql-buttons"><i class="fas fa-image"></i></button>
             </div>
+
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Info</span>
                 <button class="sql-buttons"><i class="fas fa-info-circle"></i></button>
