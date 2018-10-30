@@ -50,6 +50,8 @@ body{
     position: relative;
     margin: 0;
     background-color: #122F39;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 #container{
@@ -125,13 +127,6 @@ body{
 .sql-button-container{
   display: inline-block;
   border-right: 3px solid #CCC;
-}
-
-.sql-button-container-right{
-  display: inline-block;
-  border-left: 3px solid #CCC;
-  padding-left: 5px;
-  float: right;
 }
 
 .sql-buttons{
@@ -226,4 +221,20 @@ body{
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+@media only screen and (max-width: 630px) {
+    .sql-button-container-right{
+        display: inline-block;
+        border-right: 3px solid #CCC;
+    }
+}
+
+@media only screen and (min-width: 631px){
+    .sql-button-container-right{
+        display: inline-block;
+        border-left: 3px solid #CCC;
+        padding-left: 5px;
+        float: right;
+    }
 }
