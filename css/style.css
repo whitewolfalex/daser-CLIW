@@ -1,3 +1,7 @@
+button:focus{
+    outline: 0;
+}
+
 header{
     background-color: #788B91;
     color: white;
@@ -21,6 +25,10 @@ header{
     margin: 6px 0;
     transition-duration: 500ms;
     animation-duration: 500ms;
+}
+
+#menu-bar:hover{
+    cursor: pointer;
 }
 
 #daser{
@@ -52,6 +60,7 @@ body{
     background-color: #122F39;
     max-width: 100%;
     overflow-x: hidden;
+    font-family: Roboto;
 }
 
 #container{
@@ -79,7 +88,7 @@ body{
 }
 
 .enter-button{
-    color: white;
+    color: #ccc;
     position: relative;
     font-size: 20px;
     background-color: #788B91;
@@ -91,8 +100,15 @@ body{
     cursor:pointer;
 }
 
+.enter-button:hover,
+.import-button:hover {
+    cursor: pointer;
+    color:white;
+    transition: 0.2s;
+}
+
 .import-button{
-  color: white;
+  color: #ccc;
   position: relative;
   font-size: 20px;
   background-color: #788B91;
@@ -169,6 +185,10 @@ body{
     margin: 0px 3px;
 }
 
+#group-svg{
+    transform: translate(200px,50px);
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -193,7 +213,7 @@ body{
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 100px;
-    background-color: #788B91;
+    background-color: #000;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -215,7 +235,7 @@ body{
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #788B91 transparent transparent transparent;
+    border-color: #000 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
@@ -232,7 +252,6 @@ body{
 
 @media only screen and (min-width: 631px){
     .sql-button-container-right{
-        display: inline-block;
         border-left: 3px solid #CCC;
         padding-left: 5px;
         float: right;
