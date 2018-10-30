@@ -27,6 +27,10 @@ header{
     animation-duration: 500ms;
 }
 
+#menu-bar:hover{
+    cursor: pointer;
+}
+
 #daser{
     position: relative;
     float: left;
@@ -84,7 +88,7 @@ body{
 }
 
 .enter-button{
-    color: white;
+    color: #ccc;
     position: relative;
     font-size: 20px;
     background-color: #788B91;
@@ -96,8 +100,15 @@ body{
     cursor:pointer;
 }
 
+.enter-button:hover,
+.import-button:hover {
+    cursor: pointer;
+    color:white;
+    transition: 0.2s;
+}
+
 .import-button{
-  color: white;
+  color: #ccc;
   position: relative;
   font-size: 20px;
   background-color: #788B91;
