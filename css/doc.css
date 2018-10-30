@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    background-color: #122F39;
+}
+#header-doc{
+    color: white;
+    padding: 30px;
+    background-color: #788B91;
+    font-size: 24px;
+    font-family: Roboto;
+}
+
+.container-doc{
+    margin: 200px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    color: black;
+    padding: 90px;
+    background-color: rgb(255, 255, 255);
+    font-size: 24px;
+    font-family: Roboto;
+    
+}
+
+.daser-header{
+    text-align: center;
+}
+
+.container-doc p{
+    font-size: 16px;
+}
+
+.scatch{
+    width: 20vw;
+}
+
+#myImage{
+    text-align: center;
+}
