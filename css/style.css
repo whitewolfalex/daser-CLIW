@@ -64,7 +64,7 @@ body{
     padding: 10px;
     padding-left: 18px;
     float: left;
-    margin: 0;
+    margin-left: 3px;
     border: none;
     position: relative;
     float: left;
@@ -81,6 +81,7 @@ body{
     float: left;
     padding: 10px;
     border: none;
+    cursor:pointer;
 }
 
 .import-button{
@@ -94,6 +95,7 @@ body{
   float: right;
   margin-right: 3px;
   border: none;
+  cursor: pointer;
 }
 
 .far.fa-file-import{
@@ -109,20 +111,37 @@ body{
 #container-body {
   background-color: #788B91;
   top: 20px;
+  margin-right: 3px;
+  margin-left: 3px;
   clear: both;
   position: relative;
 }
 
+.sql-button-container{
+  display: inline-block;
+  border-right: 3px solid #CCC;
+}
+
 .sql-buttons{
     background-color: inherit;
-    color: white;
-    font-size: 20px;
-    border-top: none;
-    border-bottom: none;
-    border-left: none;
-    border-right: solid white;
+    color: #CCC;
+    font-size: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding-left: 10px;
+    border: none;
     position: relative;
-    display: inline-block;
+    cursor: pointer;
+}
+
+.sql-button-container:first-child .sql-buttons {
+  padding-left: 15px;
+}
+
+.sql-buttons:hover{
+  color: white;
+  transition: 0.2s;
 }
 
 #export-button{
@@ -130,4 +149,9 @@ body{
     color: white;
     border: none;
     float: right;
+    top: 9px;
+    margin-right: 15px;
+    padding: 4px 7px 3px;
+    position: relative;
+    cursor: pointer;
 }

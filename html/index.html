@@ -13,29 +13,40 @@
 
 <body>
 
-<header>
-    <span id="daser">DASER</span>
-    <div id="menu-bar">
-        <div class="menu-bar-single-line"></div>
-        <div class="menu-bar-single-line"></div>
-        <div class="menu-bar-single-line"></div>
-    </div>
-</header>
-
+    <header>
+        <span id="daser">DASER</span>
+        <div id="menu-bar">
+            <div class="menu-bar-single-line"></div>
+            <div class="menu-bar-single-line"></div>
+            <div class="menu-bar-single-line"></div>
+        </div>
+    </header>
 
     <div id="container">
+
         <div id="header-container">
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
             <button class="enter-button"><i class="fas fa-play"></i></button>
             <button class="import-button"><i class="fas fa-file-import"></i></button>
         </div>
+
         <div id="container-body">
-            <button class="sql-buttons">CREATE</button>
-            <button class="sql-buttons">UPDATE</button>
-            <button class="sql-buttons">DELETE</button>
+            <div class="sql-button-container">
+                <button class="sql-buttons"><i class="far fa-window-maximize"></i></button>
+            </div>
+            <div class="sql-button-container">
+                <button class="sql-buttons"><i class="fas fa-bezier-curve"></i></button>
+            </div>
+            <div class="sql-button-container">
+                <button class="sql-buttons"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <div class="sql-button-container">
+                <button class="sql-buttons"><i class="fas fa-info-circle"></i></button>
+            </div>
 
             <button id="export-button">Export as SVG</button>
         </div>
+
     </div>
 
 </body>
