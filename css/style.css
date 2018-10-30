@@ -155,3 +155,9 @@ body{
     position: relative;
     cursor: pointer;
 }
+
+#schema-svg{
+    top: 20px;
+    position: relative;
+    margin: 0px 3px;
+}
