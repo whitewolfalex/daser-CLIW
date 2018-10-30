@@ -16,7 +16,7 @@ header{
 
 #menu-bar:hover > .menu-bar-single-line{
     width: 40px;
-    height: 6px;
+    height: 5px;
     background-color: white;
     margin: 6px 0;
     transition-duration: 500ms;
@@ -39,6 +39,11 @@ header{
     margin-top: 4px;
     margin-bottom: 4px;
     font-size: 20px;
+}
+
+#menu-bar:hover{
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 body{
@@ -122,6 +127,13 @@ body{
   border-right: 3px solid #CCC;
 }
 
+.sql-button-container-right{
+  display: inline-block;
+  border-left: 3px solid #CCC;
+  padding-left: 5px;
+  float: right;
+}
+
 .sql-buttons{
     background-color: inherit;
     color: #CCC;
@@ -160,4 +172,58 @@ body{
     top: 20px;
     position: relative;
     margin: 0px 3px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ccc; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #aaa; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background:  #777; 
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: #788B91;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -50px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #788B91 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

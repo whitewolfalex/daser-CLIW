@@ -31,20 +31,47 @@
         </div>
 
         <div id="container-body">
-            <div class="sql-button-container">
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Create table</span>
                 <button class="sql-buttons"><i class="far fa-window-maximize"></i></button>
             </div>
-            <div class="sql-button-container">
-                <button class="sql-buttons"><i class="fas fa-bezier-curve"></i></button>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Create foreign key</span>
+                <button class="sql-buttons"><i class="fas fa-project-diagram"></i></button>
             </div>
-            <div class="sql-button-container">
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Delete</span>
                 <button class="sql-buttons"><i class="fas fa-trash-alt"></i></button>
             </div>
-            <div class="sql-button-container">
-                <button class="sql-buttons"><i class="fas fa-info-circle"></i></button>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Zoom in</span>
+                <button class="sql-buttons"><i class="fas fa-search-plus"></i></button>
+            </div>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Zoom out</span>
+                <button class="sql-buttons"><i class="fas fa-search-minus"></i></button>
+            </div>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Selection tool</span>
+                <button class="sql-buttons"><i class="fas fa-mouse-pointer"></i></button>
+            </div>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Move tool</span>
+                <button class="sql-buttons"><i class="fas fa-hand-paper"></i></button>
             </div>
 
-            <button id="export-button">Export as SVG</button>
+            <div class="sql-button-container-right tooltip">
+                <span class="tooltiptext">Export SQL commands</span>
+                <button class="sql-buttons"><i class="fas fa-file-code"></i></button>
+            </div>
+            <div class="sql-button-container-right tooltip">
+                <span class="tooltiptext">Export as SVG</span>
+                <button class="sql-buttons"><i class="fas fa-image"></i></button>
+            </div>
+            <div class="sql-button-container-right tooltip">
+                <span class="tooltiptext">Info</span>
+                <button class="sql-buttons"><i class="fas fa-info-circle"></i></button>
+            </div>
         </div>
 
         <svg id="schema-svg" width="calc(100% - 6px)" height="720" style="background-color:#CCC;">
