@@ -194,7 +194,8 @@ body{
   text-align: center;
   font-size: 20px;
   display: inline;
-  top: 10px;
+  top: 15px;
+  left: 10px;
   position: relative;
 }
 
@@ -203,6 +204,12 @@ body{
   color: white;
   border: none;
   float: right;
+}
+
+#close-button i {
+  font-size: 20px;
+  top: 15px;
+  position: relative;
 }
 
 .fas.fa-times{
@@ -224,19 +231,20 @@ body{
   color: white;
   font-size: 20px;
   margin: 100px;
-  margin-left: 140px;
+  margin-left: 120px;
 
 }
 
 input{
     border-radius: 5px;
     border: none;
+    width: 280px;
     font-size: 22px;
 }
 
 select{
   height: 30px;
-  width: 260px;
+  width: 280px;
   border-radius: 5px;
   color: #ccc;
 }
