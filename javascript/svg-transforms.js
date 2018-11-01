@@ -1,45 +1,57 @@
-var moveTool = false;
-var moveToolOn = false;
+var moveToolIsOn = false;
+var schemaSVG = document.getElementById("schema-svg");
+var groupSVG = document.getElementById("group-svg");
 
-var currentGx = 0;
-var currentGy = 0;
 
-function canMove(){
-    moveTool = !moveTool;
-    if(moveTool){
-        svgContainer.style.cursor = "move";
+function canMove()
+{
+    moveToolIsOn = !moveToolIsOn;
+    if(moveToolIsOn)
+    {
+        schemaSVG.style.cursor = "grab";
+    } 
+    else
+    {
+        schemaSVG.style.cursor = "context-menu";
     }
-    else{
-        svgContainer.style.cursor = "initial";
-    }
-        console.log(moveTool);
 }
 
-svgContainer = document.getElementById("schema-svg");
-groupContainer = document.getElementById("group-svg");
+dragElement(groupSVG,schemaSVG);
 
-var mousePositionX;
-var mousePositionY;
-
-function setMouseMoveHandler(event){
-    if(moveToolOn){
-        moveToolOn = false;
-        var difX = event.clientX - mousePositionX;
-        var difY = event.clientY - mousePositionY;
-        currentGx = currentGx + difX;
-        currentGy = currentGy + difY;
-        console.log("difX" + difX + "/ difY" + difY);
-        groupContainer.style.transform = "translate(" + currentGx + "px," + currentGy + "px)"; 
-    }
-    else{
-        if(moveTool){
-            mousePositionX = event.clientX;
-            mousePositionY = event.clientY;
-            moveToolOn = true;
+function dragElement(elmnt,elmnt2)
+{
+    var cursorClickPositionX = 0, cursorClickPositionY = 0, currentPositionX = 0, currentPositionY = 0, lastPositionX = 0, lastPositionY = 0;
+    elmnt2.onmousedown = dragMouseDown;
+    
+    function dragMouseDown(e) 
+    {
+        if(moveToolIsOn)
+        {
+            e = e || window.event;
+            e.preventDefault();
+            cursorClickPositionX = e.clientX;
+            cursorClickPositionY = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
         }
     }
-}
+    
+    function elementDrag(e) 
+    {
+        e = e || window.event;
+        e.preventDefault();
+        currentPositionX = lastPositionX + e.clientX - cursorClickPositionX;
+        currentPositionY = lastPositionY + e.clientY - cursorClickPositionY;
+        elmnt.setAttribute('x', currentPositionX);
+        elmnt.setAttribute('y', currentPositionY);
+    }
+    
+    function closeDragElement() 
+    {
+        lastPositionX = currentPositionX;
+        lastPositionY = currentPositionY;
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
 
-svgContainer.addEventListener('click',function(evt){
-    setMouseMoveHandler(evt);
-},false);
+}
