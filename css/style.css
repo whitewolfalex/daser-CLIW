@@ -84,6 +84,7 @@ body{
     border: none;
     position: relative;
     float: left;
+    height: 23.5px;
     overflow: hidden;
 }
 
