@@ -1,0 +1,33 @@
+Aplicatia este la nivel de client, impartita in urmatoarele module(toate utilizeaza javascript):
+
+Modul pentru crearea/instantierea in pagina a tabelelor SVG:
+
+	Comanda SQL, sau actiunile folosite in popup-ul de creare a tabelelor sunt procesate la nivel de javascript si este generat in pagina, tabelul corespunzator.
+
+Modul pentru crearea/instantierea in pagina a relatiilor dintre tabele
+
+	Comanda SQL, sau actiunile folosite in popup-ul de creare a relatiilor intre tabele sunt procesate la nivel de javascript si este creata relatia intre tabelele corespunzatoare in pagina, ca si SVG
+
+Modul pentru stergerea tabelelor/relatiilor dintre tabele
+
+	Comanda SQL, sau actiunile folosite in popup-ul de stergere, vor sterge tabelele , respectiv relatiile cu aceste tabele, sau doar relatiile dintre tabele
+
+Modul pentru a simula actiunile utilizatorului asupra Schemei de baza de date
+
+	Utilizatorul poate sa faca zoom in sau zoom out, poate selecta tabele, le poate muta, poate muta intreaga schema de baza de date prin simplul double click and drag
+
+Modul pentru a exporta in format SVG
+
+	Utilizatorul poate exporta intrega schema de baza de date in formatul SVG prin simpla apasare a unui buton, in javascript se va crea continutul SVG-ului, si se va folosi tagul a din html pentru a face salvarea locala
+
+Modul pentru a exporta comenzile SQL
+
+	Utilizatorul poate obtine comenzile SQL necesare crearii schemei de baze de date a carei reprezentari a realizat-o pe aplicatia daser prin simpla apasare a unui buton. Acest modul va analiza tabelele si relatiile dintre ele si va genera comenzile necesare, pe care le va exporta local fortat folosind tagul a din html 
+
+Modul pentru a face toggle ferestrelor de creare/stergere/informare
+
+	Folosind javascript, manipularea elementelor html din dom se realizeaza usor, ferestrele sunt ascunse, prin un simplu click este apelata o functie ce va face handling actiunii si va afisa/ascunde fereastra respectiva daca aceasta este ascunsa/afisata.
+
+Modul pentru importarea comenzilor SQL aferente crearii unei scheme de baza de date
+
+	Prin simpla apasare a unui buton, se deschide o fereastra de unde se poate importa in aplicatie un fisier ce contine comenzi SQL. Aceste comenzi vor fi parsate in javascript si vor fi create tabelele impreuna cu relatiile dintre acestea.
