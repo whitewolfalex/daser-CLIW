@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="cliw">
+<html lang="ro" dir="ltr">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
     <article resource="#" typeof="schema:ScholarlyArticle">
         <header>
             <h1 property="schema:name">DASER</h1>
-            <p role="doc-subtitle" property="schema:alternateName">
+            <p role="note" property="schema:alternateName">
                 Editor schema baza de date
             </p>
         </header>
@@ -71,32 +71,32 @@
             <h2>Cuprins</h2>
             <section>
                 <ol>
-                    <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                    <li typeof="schema:content" property="schema:citation">
                         Descrierea aplicatiei web
                     </li>
 
-                    <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                    <li typeof="schema:content" property="schema:citation">
                         Tehnologii utilizate
                     </li>
 
-                    <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                    <li typeof="schema:content" property="schema:citation">
                         User stories
                     </li>
 
-                    <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                    <li typeof="schema:content" property="schema:citation">
                         Actorii si scenariile de utilizare
                     </li>
-                    <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                    <li typeof="schema:content" property="schema:citation">
                         Diagrame:
 
                         <ul>
-                            <li typeof="schema:content" role="doc-biblioentry" property="schema:citation" style="margin-top: 10px;">
+                            <li typeof="schema:content" property="schema:citation" style="margin-top: 10px;">
                                 Arhitecturala
                             </li>
-                            <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                            <li typeof="schema:content" property="schema:citation">
                                 Use case
                             </li>
-                            <li typeof="schema:content" role="doc-biblioentry" property="schema:citation">
+                            <li typeof="schema:content" property="schema:citation">
                                 De activitate
                             </li>
                         </ul>
@@ -118,22 +118,19 @@
                             </span>
                         </span>
                     </span>
-                    </span>
-                    </span>
                 </li>
             </ul>
         </section>
 
         <section>
-            <span property="schema:Description">
-                <h3>1. Descrierea aplicatiei web</h3>
-                <p class="subps">Proiectul consta intr-o aplicatie Web care permite, la nivel de client, construirea interactiva a schemei
-                    unei baze de date relationale, inclusiv generand comenzile SQL aferente – pe baza unei abordari modulare
-                    (i.e. extensii proprii), se vor lua in consideratie multiple sisteme de gestiune a bazelor de date relationale.
-                    Reciproc, preluam local sau de la o distanta o lista de comenzi SQL pentru crearea unei bazei de date,
-                    se va genera reprezetarea grafica a schemei acesteia, inclusiv legaturile dintre tabele, chei primare/straine,
-                    constrangeri de unicitate etc. Reprezentarea grafica a schemei va putea fi exportata in formatul SVG.</p>
-            </span>
+            <h3>1. Descrierea aplicatiei web</h3>
+
+            <p class="subps" role="note">Proiectul consta intr-o aplicatie Web care permite, la nivel de client, construirea interactiva a schemei unei
+                baze de date relationale, inclusiv generand comenzile SQL aferente – pe baza unei abordari modulare (i.e.
+                extensii proprii), se vor lua in consideratie multiple sisteme de gestiune a bazelor de date relationale.
+                Reciproc, preluam local sau de la o distanta o lista de comenzi SQL pentru crearea unei bazei de date, se
+                va genera reprezetarea grafica a schemei acesteia, inclusiv legaturile dintre tabele, chei primare/straine,
+                constrangeri de unicitate etc. Reprezentarea grafica a schemei va putea fi exportata in formatul SVG.</p>
         </section>
 
         <section typeof="sa:Technologies">
@@ -193,190 +190,182 @@
         </section>
 
         <section>
-            <span property="schema:user-stories">
-                <h3>3. User stories</h3>
-                <p class="subps">
-                    Ca utilizator uman, pot efectua diferite operatii pentru o vizualizare buna a bazei mele de date, precum: crearea/stergea
-                    tabele necesare, crearea/stergerea cheilor primare/straine (prin aceesarea butoanelor sau scrierea comenzilor
-                    SQL). Ca utilizator uman, pot avea o baza de date mare si pentru a putea lucra mai usor pe ea, de exemplu
-                    pentru mici modificari pot face zoom in si zoom out prin folosirea mouse-wheel-ului, dar de asemenea
-                    pot muta atat tabele cat si schema bazei de date tot prin folosirea mouse-ului. Ca utilizator uman, pot
-                    importa comenzile SQL in urma caruia va fi creata schema bazei de date. Ca utilizator uman, pot realiza
-                    doua tipuri de export: export ca si SVG dar si export comenzilor SQL. Ca utilizator uman, pot vizualiza
-                    informatiile despre folosirea aplicatiei.
-            </span>
+            <h3>3. User stories</h3>
+
+            <p class="subps" role="note">
+                Ca utilizator uman, pot efectua diferite operatii pentru o vizualizare buna a bazei mele de date, precum: crearea/stergea
+                tabele necesare, crearea/stergerea cheilor primare/straine (prin aceesarea butoanelor sau scrierea comenzilor
+                SQL). Ca utilizator uman, pot avea o baza de date mare si pentru a putea lucra mai usor pe ea, de exemplu
+                pentru mici modificari pot face zoom in si zoom out prin folosirea mouse-wheel-ului, dar de asemenea pot
+                muta atat tabele cat si schema bazei de date tot prin folosirea mouse-ului. Ca utilizator uman, pot importa
+                comenzile SQL in urma caruia va fi creata schema bazei de date. Ca utilizator uman, pot realiza doua tipuri
+                de export: export ca si SVG dar si export comenzilor SQL. Ca utilizator uman, pot vizualiza informatiile
+                despre folosirea aplicatiei.
         </section>
 
         <section>
-            <span property="schema:actori-scenarii-utilizare">
-                <h3>4. Actorii si scenariile de utilizare</h3>
-                <ul>
-                    <li style="font-weight: bold;">Actori: </li>
-                    <ol>
-                        <li>Aplicatia</li>
-                        <li>Utilizatorul uman</li>
-                    </ol>
+            <h3>4. Actorii si scenariile de utilizare</h3>
+            <ul>
+                <li style="font-weight: bold;">Actori: </li>
+                <ol>
+                    <li>Aplicatia</li>
+                    <li>Utilizatorul uman</li>
+                </ol>
 
-                    <li style="font-weight: bold;">Scenarii de utilizare </li>
-                    <ol>
-                        <li style="padding: 10px;">
-                            <h4>Crearea sau stergerea tabelelor si a relatiilor dintre ele:</h4>
-                            <ol>
-                                <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
-                                <li style="padding: 5px;">Accesarea butonului de “create table”, prin scrierea comenzilor SQL in input text sau prin
-                                    aceesarea butonului “Import SQL”. </li>
-                                <li style="padding: 5px;">Daca utilizatorul a creat tabelul va accesa butonul de “create foreign key” pentru realizarea
-                                    cheilor straine/primare.</li>
-                                <li style="padding: 5px;">Daca utilizatorul a creat un tabel gresit il poate sterge prin accesarea butonului “delete”.</li>
-                            </ol>
-                        </li>
+                <li style="font-weight: bold;">Scenarii de utilizare </li>
+                <ol>
+                    <li style="padding: 10px;">
+                        <h4>Crearea sau stergerea tabelelor si a relatiilor dintre ele:</h4>
+                        <ol>
+                            <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
+                            <li style="padding: 5px;">Accesarea butonului de “create table”, prin scrierea comenzilor SQL in input text sau prin aceesarea
+                                butonului “Import SQL”. </li>
+                            <li style="padding: 5px;">Daca utilizatorul a creat tabelul va accesa butonul de “create foreign key” pentru realizarea
+                                cheilor straine/primare.</li>
+                            <li style="padding: 5px;">Daca utilizatorul a creat un tabel gresit il poate sterge prin accesarea butonului “delete”.</li>
+                        </ol>
+                    </li>
 
-                        <li style="padding: 10px;">
-                            <h4>Vizualizarea schemei bazei de date:</h4>
-                            <ol>
-                                <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
-                                <li style="padding: 5px;">Userul poate vizualiza schema bazei de date prin accesarea butonului “move”. </li>
-                                <li style="padding: 5px;">Userul poate de asemenea naviga prin schema bazei de date prin zoom in si zoom out folosint
-                                    mouse-wheel-ului.
-                                </li>
-                            </ol>
-                        </li>
+                    <li style="padding: 10px;">
+                        <h4>Vizualizarea schemei bazei de date:</h4>
+                        <ol>
+                            <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
+                            <li style="padding: 5px;">Userul poate vizualiza schema bazei de date prin accesarea butonului “move”. </li>
+                            <li style="padding: 5px;">Userul poate de asemenea naviga prin schema bazei de date prin zoom in si zoom out folosint mouse-wheel-ului.
+                            </li>
+                        </ol>
+                    </li>
 
-                        <li style="padding: 10px;">
-                            <h4>Export schema bazei de date ca si SVG:</h4>
-                            <ol>
-                                <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
-                                <li style="padding: 5px;">Realizarea schemei bazei de date. </li>
-                                <li style="padding: 5px;">Accesarea butonului “Export as SVG”. </li>
-                            </ol>
-                        </li>
+                    <li style="padding: 10px;">
+                        <h4>Export schema bazei de date ca si SVG:</h4>
+                        <ol>
+                            <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
+                            <li style="padding: 5px;">Realizarea schemei bazei de date. </li>
+                            <li style="padding: 5px;">Accesarea butonului “Export as SVG”. </li>
+                        </ol>
+                    </li>
 
-                        <li style="padding: 10px;">
-                            <h4>Export fisier cu comenzi SQL:</h4>
-                            <ol>
-                                <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
-                                <li style="padding: 5px;">Realizarea schemei bazei de date. </li>
-                                <li style="padding: 5px;">Accesarea butonului “Export SQL commands”. </li>
-                            </ol>
-                        </li>
+                    <li style="padding: 10px;">
+                        <h4>Export fisier cu comenzi SQL:</h4>
+                        <ol>
+                            <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
+                            <li style="padding: 5px;">Realizarea schemei bazei de date. </li>
+                            <li style="padding: 5px;">Accesarea butonului “Export SQL commands”. </li>
+                        </ol>
+                    </li>
 
-                        <li style="padding: 10px;">
-                            <h4>Vizualizarea informatiilor despre aplicatie:</h4>
-                            <ol>
-                                <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
-                                <li style="padding: 5px;">Accesarea butonului “info”.</li>
-                            </ol>
-                        </li>
-                    </ol>
+                    <li style="padding: 10px;">
+                        <h4>Vizualizarea informatiilor despre aplicatie:</h4>
+                        <ol>
+                            <li style="padding: 5px;">Accesarea paginii aplicatiei.</li>
+                            <li style="padding: 5px;">Accesarea butonului “info”.</li>
+                        </ol>
+                    </li>
+                </ol>
 
-                </ul>
+            </ul>
 
-            </span>
-
-            <span property="schema:diagrame" typeof="sa:diagram-list">
-                <h3>5. Diagrame</h3>
-                <section property="schema:architecture">
-                    <h4>a. Arhitecturala</h4>
-                    <img typeof="sa:image" src="../schemaImagini/diagrama arhitecturala.png" alt="diagrama arhitecturala"></img>
-                    <h3>Aplicatia este la nivel de client, impartita in urmatoarele module(toate utilizand javascript):</h3>
-                    <span>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru crearea/instatierea in pagina a tabelelor SVG:</h4>
-                        <datalist>~ Comanda SQL sau actiunile folosite in popup-ul de creare a tabelelor sunt procesate la nivel de
-                            javascript si este generat in pagina, tabelul corespunzator.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> Modul pentru crearea/instantierea in pagina a relatiilor dintre tabele:</h4>
-                        <datalist>~Comanda SQL sau actiunile foloste in popup-ul de creare a relatiilor intre tabele sunt procesate
-                            la nivel de javascript si este creata relatia intre tabelele corespunzatoare in pagina, ca si
-                            SVG.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru stergerea tabelelor/relatiilor dintre tabele:</h4>
-                        <datalist>~Comanda SQL, sau actiunile folosite in popup-ul de stergere, vor sterge tabelele , respectiv relatiile
-                            cu aceste tabele, sau doar relatiile dintre tabele.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru a simula actiunile utilizatorului asupra Schemei de baza de date:</h4>
-                        <datalist>~Utilizatorul poate sa faca zoom in sau zoom out, poate selecta tabele, le poate muta, poate muta
-                            intreaga schema de baza de date prin simplul double click and drag.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru a exporta in format SVG:</h4>
-                        <datalist>~Utilizatorul poate exporta intrega schema de baza de date in formatul SVG prin simpla apasare a
-                            unui buton, in javascript se va crea continutul SVG-ului, si se va folosi tagul a din html pentru
-                            a face salvarea locala.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru a exporta comenzile SQL:</h4>
-                        <datalist>~Utilizatorul poate obtine comenzile SQL necesare crearii schemei de baze de date a carei reprezentari
-                            a realizat-o pe aplicatia daser prin simpla apasare a unui buton. Acest modul va analiza tabelele
-                            si relatiile dintre ele si va genera comenzile necesare, pe care le va exporta local fortat folosind
-                            tagul a din html.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru a face toggle ferestrelor de creare/stergere/informare:</h4>
-                        <datalist>~Folosind javascript, manipularea elementelor html din dom se realizeaza usor, ferestrele sunt ascunse,
-                            prin un simplu click este apelata o functie ce va face handling actiunii si va afisa/ascunde
-                            fereastra respectiva daca aceasta este ascunsa/afisata.
-                        </datalist>
-
-                        <h4 style="font-weight: bold"> -> Modul pentru importarea comenzilor SQL aferente crearii unei scheme de baza de date:</h4>
-                        <datalist>~ Prin simpla apasare a unui buton, se deschide o fereastra de unde se poate importa in aplicatie
-                            un fisier ce contine comenzi SQL. Aceste comenzi vor fi parsate in javascript si vor fi create
-                            tabelele impreuna cu relatiile dintre acestea.
-                        </datalist>
-
-                    </span>
-                </section>
-
-                <section property="schema:use-case">
-                    <h4>b. Use-case</h4>
-                    <img typeof="sa:image" src="../schemaImagini/diagramause-case.png" alt="diagrama-usecase">
-                    <h3>User:</h3>
-                    <ul>
-                        <li>Un user dupa ce a accesat pagina aplicatiei poate crea tabele sau chei primare/straine fie prin folosirea
-                            butonului de “create table”fie prin importarea SVG. De asemenea poate crea si prin utilizarea
-                            input text-ului unde poate scrie comenzi SQL.
-                        </li>
-                        <li>
-                            Dupa ce a creat tabele, poate sa stearga tot prin aceleasi metode (comenzi SQL, import SQL sau prin butonul de “delete”).
-                        </li>
-                        <li>
-                            Un user poate sa exporte schema bazei de date fie prin export SVG, fie prin export SQL commands.
-                        </li>
-
-                        <li>
-                            Un user poate sa navigheze prin schema bazei de date prin mai multe metode, acelea fiind: move – prin click (poate sa mute
-                            atat un tabel cat si intreaga schema bazei de date), select – prin click (selecteaza un tabel
-                            sau relatiile dintre tabele), zoom-in/zoom-out - prin mouse-wheel (poate sa micsoreze sau sa
-                            mareasca intreaga schema a bazei de date).
-                        </li>
-                        <li>
-                            Si nu in ultimul rand, un user poate vizualiza informatiile despre utilizarea aplicatiei prin folosirea butonului “info”
-                            .
-                        </li>
-                    </ul>
-                </section>
-
-                <section property="schema:use-case">
-                    <h4>b. Diagrama de activitate</h4>
-                    <img typeof="sa:image" src="../schemaImagini/DASER ACTIVITY DIAGRAM white.png" alt="diagrama-usecase">
-
-                    <p>
-                        In aceasta diagrama se pot observa activitatile pe care utilizatorul le poate face pe aplicatia Daser. Comenzile utilizatorului
-                        sunt de doua tipuri, prin comenzi de tip text el poate crea tabele sau relatii intre acestea, de
-                        asemenea le poate sterge. Utilizatorul poate face aceste actiuni si cu ajutorul unor butoane, si
-                        prin completarea unor informatii in diferite meniuri. Aceasta aplicatie ii ofera utilizatorului si
-                        o fereastra de informare la care acesta poate ajunge printr-un singur click pe butonul de info, posibilitatea
-                        de a exporta in formatul SVG schema de baza de date creata, cat si exportarea comenzilor SQL intr-un
-                        fisier local pentru a putea recrea baza de date fizic. Utilizatorul poate importa fisiere text cu
-                        comenzi SQL ce creaza tabele si relatii intre ele.
-                    </p>
-                </section>
-            </span>
         </section>
 
+        <section>
+            <h3>5. Diagrame</h3>
+            <section property="schema:architecture">
+                <h4>a. Arhitecturala</h4>
+                <img typeof="sa:image" src="../schemaImagini/diagrama-arhitecturala.png" alt="diagrama arhitecturala">
+                <h3>Aplicatia este la nivel de client, impartita in urmatoarele module(toate utilizand javascript):</h3>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru crearea/instatierea in pagina a tabelelor SVG:</h4>
+                    <datalist>~ Comanda SQL sau actiunile folosite in popup-ul de creare a tabelelor sunt procesate la nivel de javascript
+                        si este generat in pagina, tabelul corespunzator.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> Modul pentru crearea/instantierea in pagina a relatiilor dintre tabele:</h4>
+                    <datalist>~Comanda SQL sau actiunile foloste in popup-ul de creare a relatiilor intre tabele sunt procesate la
+                        nivel de javascript si este creata relatia intre tabelele corespunzatoare in pagina, ca si SVG.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru stergerea tabelelor/relatiilor dintre tabele:</h4>
+                    <datalist>~Comanda SQL, sau actiunile folosite in popup-ul de stergere, vor sterge tabelele , respectiv relatiile
+                        cu aceste tabele, sau doar relatiile dintre tabele.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru a simula actiunile utilizatorului asupra Schemei de baza de date:</h4>
+                    <datalist>~Utilizatorul poate sa faca zoom in sau zoom out, poate selecta tabele, le poate muta, poate muta intreaga
+                        schema de baza de date prin simplul double click and drag.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru a exporta in format SVG:</h4>
+                    <datalist>~Utilizatorul poate exporta intrega schema de baza de date in formatul SVG prin simpla apasare a unui
+                        buton, in javascript se va crea continutul SVG-ului, si se va folosi tagul a din html pentru a face
+                        salvarea locala.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru a exporta comenzile SQL:</h4>
+                    <datalist>~Utilizatorul poate obtine comenzile SQL necesare crearii schemei de baze de date a carei reprezentari
+                        a realizat-o pe aplicatia daser prin simpla apasare a unui buton. Acest modul va analiza tabelele
+                        si relatiile dintre ele si va genera comenzile necesare, pe care le va exporta local fortat folosind
+                        tagul a din html.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru a face toggle ferestrelor de creare/stergere/informare:</h4>
+                    <datalist>~Folosind javascript, manipularea elementelor html din dom se realizeaza usor, ferestrele sunt ascunse,
+                        prin un simplu click este apelata o functie ce va face handling actiunii si va afisa/ascunde fereastra
+                        respectiva daca aceasta este ascunsa/afisata.
+                    </datalist>
+
+                    <h4 style="font-weight: bold"> -> Modul pentru importarea comenzilor SQL aferente crearii unei scheme de baza de date:</h4>
+                    <datalist>~ Prin simpla apasare a unui buton, se deschide o fereastra de unde se poate importa in aplicatie un
+                        fisier ce contine comenzi SQL. Aceste comenzi vor fi parsate in javascript si vor fi create tabelele
+                        impreuna cu relatiile dintre acestea.
+                    </datalist>
+            </section>
+
+            <section property="schema:use-case">
+                <h4>b. Use-case</h4>
+                <img typeof="sa:image" src="../schemaImagini/diagramause-case.png" alt="diagrama-usecase">
+                <h3>User:</h3>
+                <ul>
+                    <li>Un user dupa ce a accesat pagina aplicatiei poate crea tabele sau chei primare/straine fie prin folosirea
+                        butonului de “create table”fie prin importarea SVG. De asemenea poate crea si prin utilizarea input
+                        text-ului unde poate scrie comenzi SQL.
+                    </li>
+                    <li>
+                        Dupa ce a creat tabele, poate sa stearga tot prin aceleasi metode (comenzi SQL, import SQL sau prin butonul de “delete”).
+                    </li>
+                    <li>
+                        Un user poate sa exporte schema bazei de date fie prin export SVG, fie prin export SQL commands.
+                    </li>
+
+                    <li>
+                        Un user poate sa navigheze prin schema bazei de date prin mai multe metode, acelea fiind: move – prin click (poate sa mute
+                        atat un tabel cat si intreaga schema bazei de date), select – prin click (selecteaza un tabel sau
+                        relatiile dintre tabele), zoom-in/zoom-out - prin mouse-wheel (poate sa micsoreze sau sa mareasca
+                        intreaga schema a bazei de date).
+                    </li>
+                    <li>
+                        Si nu in ultimul rand, un user poate vizualiza informatiile despre utilizarea aplicatiei prin folosirea butonului “info”
+                        .
+                    </li>
+                </ul>
+            </section>
+
+            <section property="schema:use-case">
+                <h4>b. Diagrama de activitate</h4>
+                <img typeof="sa:image" src="../schemaImagini/diagrama-activitate.png" alt="diagrama-de-activitate">
+
+                <p>
+                    In aceasta diagrama se pot observa activitatile pe care utilizatorul le poate face pe aplicatia Daser. Comenzile utilizatorului
+                    sunt de doua tipuri, prin comenzi de tip text el poate crea tabele sau relatii intre acestea, de asemenea
+                    le poate sterge. Utilizatorul poate face aceste actiuni si cu ajutorul unor butoane, si prin completarea
+                    unor informatii in diferite meniuri. Aceasta aplicatie ii ofera utilizatorului si o fereastra de informare
+                    la care acesta poate ajunge printr-un singur click pe butonul de info, posibilitatea de a exporta in
+                    formatul SVG schema de baza de date creata, cat si exportarea comenzilor SQL intr-un fisier local pentru
+                    a putea recrea baza de date fizic. Utilizatorul poate importa fisiere text cu comenzi SQL ce creaza tabele
+                    si relatii intre ele.
+                </p>
+            </section>
+        </section>
+    </article>
 </body>
 
 </html>
