@@ -89,7 +89,7 @@ body{
 }
 
 .enter-button{
-    color: #ccc;
+    color: #1e4f60;
     position: relative;
     font-size: 20px;
     background-color: #788B91;
@@ -109,7 +109,7 @@ body{
 }
 
 .import-button{
-  color: #ccc;
+  color: #1e4f60;
   position: relative;
   font-size: 20px;
   background-color: #788B91;
@@ -143,12 +143,12 @@ body{
 
 .sql-button-container{
   display: inline-block;
-  border-right: 3px solid #CCC;
+  border-right: 3px solid #1e4f60;
 }
 
 .sql-buttons{
     background-color: inherit;
-    color: #CCC;
+    color: #1e4f60;
     font-size: 25px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -183,7 +183,7 @@ body{
 #createTableWindow-header {
   height: 50px;
   background-color: #788B91;
-  color: #ccc;
+  color: #1e4f60;
   text-align: center;
   font-size: 20px;
 }
@@ -191,7 +191,7 @@ body{
 #createTableWindow-header > p{
   height: 50px;
   background-color: #788B91;
-  color: #ccc;
+  color: #1e4f60;
   text-align: center;
   font-size: 20px;
   display: inline;
@@ -214,7 +214,7 @@ body{
 }
 
 .fas.fa-times{
-  color: #CCC;
+  color: #1e4f60;
   font-size: 40px;
   position: relative;
   top: 3px;
@@ -247,7 +247,7 @@ select{
   height: 30px;
   width: 280px;
   border-radius: 5px;
-  color: #ccc;
+  color: #1e4f60;
 }
 
 #add-button-pop-up{
@@ -293,7 +293,7 @@ select{
 }
 
 ::-webkit-scrollbar-track {
-    background: #ccc;
+    background: #1e4f60;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -345,13 +345,13 @@ select{
 @media only screen and (max-width: 630px) {
     .sql-button-container-right{
         display: inline-block;
-        border-right: 3px solid #CCC;
+        border-right: 3px solid #1e4f60;
     }
 }
 
 @media only screen and (min-width: 631px){
     .sql-button-container-right{
-        border-left: 3px solid #CCC;
+        border-left: 3px solid #1e4f60;
         padding-left: 5px;
         float: right;
     }
@@ -363,4 +363,8 @@ rect{
     fill: #fff;
     stroke: #aaa;
     stroke-width: 2px;
+}
+
+#group-svg-objects{
+    transform-origin: center;
 }

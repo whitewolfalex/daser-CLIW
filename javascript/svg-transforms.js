@@ -1,57 +1,32 @@
-var moveToolIsOn = false;
 var schemaSVG = document.getElementById("schema-svg");
 var groupSVG = document.getElementById("group-svg");
+var cursorClickPositionX = 0, cursorClickPositionY = 0, currentPositionX = 0, currentPositionY = 0, lastPositionX = 0, lastPositionY = 0;
+schemaSVG.onmousedown = dragMouseDown;
 
-
-function canMove()
+function dragMouseDown(e) 
 {
-    moveToolIsOn = !moveToolIsOn;
-    if(moveToolIsOn)
-    {
-        schemaSVG.style.cursor = "grab";
-    } 
-    else
-    {
-        schemaSVG.style.cursor = "context-menu";
-    }
+    e = e || window.event;
+    e.preventDefault();
+    cursorClickPositionX = e.clientX;
+    cursorClickPositionY = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
 }
 
-dragElement(groupSVG,schemaSVG);
-
-function dragElement(elmnt,elmnt2)
+function elementDrag(e) 
 {
-    var cursorClickPositionX = 0, cursorClickPositionY = 0, currentPositionX = 0, currentPositionY = 0, lastPositionX = 0, lastPositionY = 0;
-    elmnt2.onmousedown = dragMouseDown;
-    
-    function dragMouseDown(e) 
-    {
-        if(moveToolIsOn)
-        {
-            e = e || window.event;
-            e.preventDefault();
-            cursorClickPositionX = e.clientX;
-            cursorClickPositionY = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
-        }
-    }
-    
-    function elementDrag(e) 
-    {
-        e = e || window.event;
-        e.preventDefault();
-        currentPositionX = lastPositionX + e.clientX - cursorClickPositionX;
-        currentPositionY = lastPositionY + e.clientY - cursorClickPositionY;
-        elmnt.setAttribute('x', currentPositionX);
-        elmnt.setAttribute('y', currentPositionY);
-    }
-    
-    function closeDragElement() 
-    {
-        lastPositionX = currentPositionX;
-        lastPositionY = currentPositionY;
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
+    e = e || window.event;
+    e.preventDefault();
+    currentPositionX = lastPositionX + e.clientX - cursorClickPositionX;
+    currentPositionY = lastPositionY + e.clientY - cursorClickPositionY;
+    groupSVG.setAttribute('x', currentPositionX);
+    groupSVG.setAttribute('y', currentPositionY);
+}
 
+function closeDragElement() 
+{
+    lastPositionX = currentPositionX;
+    lastPositionY = currentPositionY;
+    document.onmouseup = null;
+    document.onmousemove = null;
 }
