@@ -356,3 +356,11 @@ select{
         float: right;
     }
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                      INSIDE SVG STYLEING                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+rect{
+    fill: #fff;
+    stroke: #aaa;
+    stroke-width: 2px;
+}
