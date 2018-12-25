@@ -21,11 +21,6 @@ class Property {
         this.notNull = notNull;
         this.isPrimaryKey = isPrimaryKey;
     }
-
-    isPrimaryKey(){
-        this.isPrimaryKey = true;
-        this.notNull = true;
-    }
 }
 
 function getRndInteger(min, max) {
@@ -188,7 +183,14 @@ function processTheCommand(sqlCommand) {
                 } else {
                     columnNames = attributes[4]; // (nume de coloane) se afla dupa Constraint nume_pk primary key, index 4 deci
                 }
-                console.log(columnNames);
+                /*let columnNamesWP = columnNames.split("(")[1].split(")")[0];
+                properties.forEach(p => {
+                    if(p.name == columnNamesWP){
+                        p.isPrimaryKey = true;
+                        p.notNull = true;
+                    }
+                });
+                console.log(columnNamesWP);*/ // schimba proprietatile unei coloane
             }
         }
         if (propAreValid) {
