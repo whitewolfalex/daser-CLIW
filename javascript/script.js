@@ -139,14 +139,36 @@ function deleteTable(title) {
     }
 }
 
+function JavaSplit(string, separator, n) {
+    var split = string.split(separator);
+    if (split.length <= n)
+        return split;
+    var out = split.slice(0,n-1);
+    out.push(split.slice(n-1).join(separator));
+    return out;
+}
+
 function processTheCommand(sqlCommand) {
-    var re = new RegExp("((CREATE TABLE|create table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*\\(((\\s*[a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?\\s*,)*\\s*(([a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?)|(PRIMARY KEY\\s*\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))|(\\s*CONSTRAINT\\s*[a-zA-Z0-9_]+\\s*PRIMARY KEY\\s*\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))))\s*\\));?|((DROP TABLE|drop table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*);?");
+    var re = new RegExp("((CREATE TABLE|create table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*\\(((\\s*[a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?\\s*,)*\\s*(([a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?)|(PRIMARY KEY\\s*\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))|(\\s*CONSTRAINT\\s*[a-zA-Z0-9_]+\\s*PRIMARY KEY\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))))\s*\\));?|((DROP TABLE|drop table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*);?");
     const result = re.exec(sqlCommand);
 
     if (result[2] != null && result[2].toLowerCase() == "create table") {
         let propAreValid = true;
         let properties = [];
-        let res = result[4].split(",");
+        let res;
+        let stopIndex = result[4].indexOf("PRIMARY KEY(");
+        if(stopIndex != -1){
+            let noCommas = 0;
+            for(i = 0; i < stopIndex; i++){
+                if(result[4][i] == ","){
+                    noCommas++;
+                }
+            }
+            res = JavaSplit(result[4], ",", noCommas + 1);
+        } else {
+            res = result[4].split(",");
+        }
+        console.log(res);
         for (let i = 0; i < res.length; i++) {
             let isOk = true;
             let attributes = res[i].trim().split(" ");
@@ -177,20 +199,26 @@ function processTheCommand(sqlCommand) {
                 }
                 
             } else {
+                console.log(attributes[0],"<<<<");
                 let columnNames;
                 if(attributes[0] == "PRIMARY"){
-                    columnNames = attributes[2];
+                    columnNames = JavaSplit(res[i].trim(), " ", 2)[1];
                 } else {
-                    columnNames = attributes[4]; // (nume de coloane) se afla dupa Constraint nume_pk primary key, index 4 deci
+
+                    columnNames = JavaSplit(res[i].trim(), " ", 4)[3]; // (nume de coloane) se afla dupa Constraint nume_pk primary, index 3 deci
                 }
-                /*let columnNamesWP = columnNames.split("(")[1].split(")")[0];
-                properties.forEach(p => {
-                    if(p.name == columnNamesWP){
-                        p.isPrimaryKey = true;
-                        p.notNull = true;
-                    }
-                });
-                console.log(columnNamesWP);*/ // schimba proprietatile unei coloane
+                console.log(columnNames);
+                let columnNamesWP = columnNames.split("(")[1].split(")")[0];
+                console.log(columnNamesWP);
+                let columnNamesArray = columnNamesWP.split(",");
+                for(index = 0; index < columnNamesArray.length; index++){
+                    properties.forEach(p => {
+                        if(p.name == columnNamesArray[index].trim()){
+                            p.isPrimaryKey = true;
+                            p.notNull = true;
+                        }
+                    });
+                }
             }
         }
         if (propAreValid) {
@@ -216,7 +244,7 @@ processTheCommand("CREATE TABLE tabel2(numelemeuecelmailung valoare NOT NULL, nu
 
 processTheCommand("CREATE TABLE tabel3(nume valoare PRIMARY KEY, num1 valu2 PRIMARY KEY NOT NULL, num3 val4 NOT NULL PRIMARY KEY)");
 
-processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, CONSTRAINT PK_Person PRIMARY KEY (ID));");
+processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(ID, FirstName));");
 
 processTheCommand("DROP TABLE tabel1");
 
