@@ -86,6 +86,7 @@ body{
     float: left;
     height: 23.5px;
     overflow: hidden;
+    text-transform: uppercase;
 }
 
 .enter-button{

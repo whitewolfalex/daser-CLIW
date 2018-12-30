@@ -21,111 +21,145 @@
 
         <div id="header-container">
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
-            <button class="enter-button tooltip"><span class="tooltiptext">Run command</span><i class="fas fa-play"></i></button>
-            <button class="import-button tooltip"><span class="tooltiptext">Import SQL</span><i class="fas fa-file-import"></i></button>
+            <button class="enter-button tooltip" onclick="formatSqlInput()">
+                <span class="tooltiptext">Run command</span>
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="import-button tooltip">
+                <span class="tooltiptext">Import SQL</span>
+                <i class="fas fa-file-import"></i>
+            </button>
         </div>
 
         <div id="container-body">
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create table</span>
-                <button class="sql-buttons" onclick="displayCreateTable();"><i class="far fa-window-maximize"></i></button>
+                <button class="sql-buttons" onclick="displayCreateTable();">
+                    <i class="far fa-window-maximize"></i>
+                </button>
             </div>
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Alter table</span>
-                <button class="sql-buttons" onclick="displayAlterTable();"><i class="fas fa-edit"></i></button>
+                <button class="sql-buttons" onclick="displayAlterTable();">
+                    <i class="fas fa-edit"></i>
+                </button>
             </div>
             <div id="createTableWindow">
                 <div id="createTableWindow-header">
-                  <p>CREATE TABLE</p>
-                  <button id="close-button" onclick="closePopUp()"><i class="fas fa-times"></i></button>
+                    <p>CREATE TABLE</p>
+                    <button id="close-button" onclick="closePopUp()">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
 
                 <div id="pop-up-body">
-                  <label> Table name
+                    <label> Table name
+                        <br>
+                        <input type="text" />
+                    </label>
                     <br>
-                    <input type="text"/>
-                  </label>
-                  <br><br>
-                  <label> Column name <br>
-                    <input type="text"/>
-                  </label>
-                  <br>
-                  <label> Datatype <br>
-                    <select>
-                      <option value="int">INT</option>
-                      <option value="char">CHAR</option>
-                      <option value="varchar">VARCHAR</option>
-                      <option value="bool">BOOL</option>
-                    </select>
-                  </label>
-                  <div id="add-button-pop-up">
-                    <button id="add-btn">+</button>
-                  </div>
+                    <br>
+                    <label> Column name
+                        <br>
+                        <input type="text" />
+                    </label>
+                    <br>
+                    <label> Datatype
+                        <br>
+                        <select>
+                            <option value="int">INT</option>
+                            <option value="char">CHAR</option>
+                            <option value="varchar">VARCHAR</option>
+                            <option value="bool">BOOL</option>
+                        </select>
+                    </label>
+                    <div id="add-button-pop-up">
+                        <button id="add-btn">+</button>
+                    </div>
                 </div>
             </div>
 
             <div id="alterTableWindow">
                 <div id="alterTableWindow-header">
-                  <p>ALTER TABLE</p>
-                  <button id="close-button" onclick="closePopUpAlter()"><i class="fas fa-times"></i></button>
+                    <p>ALTER TABLE</p>
+                    <button id="close-button" onclick="closePopUpAlter()">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
 
                 <div id="pop-up-body">
-                  <label> Table name
+                    <label> Table name
+                        <br>
+                        <select id="table-selection" onchange="renderColumnSelection();">
+                            <option value="none">Choose a table</option>
+                        </select>
+                    </label>
                     <br>
-                    <select id="table-selection" onchange="renderColumnSelection();">
-                        <option value="none">Choose a table</option>
-                    </select>
-                  </label>
-                  <br><br>
-                  <label> Column name <br>
-                    <select id="column-selection">
-                        <option value="none">Choose a column</option>
-                    </select>
-                  </label>
-                  <br>
-                  <label> New column name <br>
-                    <input type="text" id="new-column-name"/>
-                  </label>
-                  <div id="submit-button-pop-up">
-                    <button id="submit-btn" onclick="changeColumnName();">Submit</button>
-                  </div>
+                    <br>
+                    <label> Column name
+                        <br>
+                        <select id="column-selection">
+                            <option value="none">Choose a column</option>
+                        </select>
+                    </label>
+                    <br>
+                    <label> New column name
+                        <br>
+                        <input type="text" id="new-column-name" />
+                    </label>
+                    <div id="submit-button-pop-up">
+                        <button id="submit-btn" onclick="changeColumnName();">Submit</button>
+                    </div>
                 </div>
             </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>
-                <button class="sql-buttons"><i class="fas fa-project-diagram"></i></button>
+                <button class="sql-buttons">
+                    <i class="fas fa-project-diagram"></i>
+                </button>
             </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Delete</span>
-                <button class="sql-buttons"><i class="fas fa-trash-alt"></i></button>
+                <button class="sql-buttons">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
             </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Zoom in</span>
-                <button class="sql-buttons" onclick="zoomIn()"><i class="fas fa-search-plus"></i></button>
+                <button class="sql-buttons" onclick="zoomIn()">
+                    <i class="fas fa-search-plus"></i>
+                </button>
             </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Zoom out</span>
-                <button class="sql-buttons" onclick="zoomOut()"><i class="fas fa-search-minus"></i></button>
+                <button class="sql-buttons" onclick="zoomOut()">
+                    <i class="fas fa-search-minus"></i>
+                </button>
             </div>
 
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Export SQL commands</span>
-                <button class="sql-buttons"><i class="fas fa-file-code"></i></button>
+                <button class="sql-buttons">
+                    <i class="fas fa-file-code"></i>
+                </button>
             </div>
 
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Export as SVG</span>
-                <button class="sql-buttons" onclick="saveSvg('schema-svg','schema.svg');"><i class="fas fa-image"></i></button>
+                <button class="sql-buttons" onclick="saveSvg('schema-svg','schema.svg');">
+                    <i class="fas fa-image"></i>
+                </button>
             </div>
 
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Info</span>
-                <button class="sql-buttons"><i class="fas fa-info-circle"></i></button>
+                <button class="sql-buttons">
+                    <i class="fas fa-info-circle"></i>
+                </button>
             </div>
         </div>
 

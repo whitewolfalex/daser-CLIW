@@ -12,10 +12,10 @@ class Table {
         this.title = title;
         this.properties = properties;
     }
-    getX(){
+    getX() {
         return this.x;
     }
-    getY(){
+    getY() {
         return this.y;
     }
 }
@@ -149,94 +149,94 @@ function JavaSplit(string, separator, n) {
     var split = string.split(separator);
     if (split.length <= n)
         return split;
-    var out = split.slice(0,n-1);
-    out.push(split.slice(n-1).join(separator));
+    var out = split.slice(0, n - 1);
+    out.push(split.slice(n - 1).join(separator));
     return out;
 }
 
-function processTheCommand(sqlCommand) {
-    var re = new RegExp("((CREATE TABLE|create table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*\\(((\\s*[a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?\\s*,)*\\s*(([a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?)|(PRIMARY KEY\\s*\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))|(\\s*CONSTRAINT\\s*[a-zA-Z0-9_]+\\s*PRIMARY KEY\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))))\s*\\));?|((DROP TABLE|drop table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*);?");
-    const result = re.exec(sqlCommand);
+// function processTheCommand(sqlCommand) {
+//     var re = new RegExp("((CREATE TABLE|create table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*\\(((\\s*[a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?\\s*,)*\\s*(([a-zA-Z0-9]+\\s[a-zA-Z0-9]+(\\([0-9]+\\))?\\s*(NOT NULL|PRIMARY KEY)?( NOT NULL| PRIMARY KEY)?)|(PRIMARY KEY\\s*\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))|(\\s*CONSTRAINT\\s*[a-zA-Z0-9_]+\\s*PRIMARY KEY\\(\\s*[a-zA-Z0-9]+\\s*(,\\s*[a-zA-Z0-9]+\\s*)*\\))))\s*\\));?|((DROP TABLE|drop table)\\s*([a-zA-Z0-9_\\-\\.]+)\\s*);?");
+//     const result = re.exec(sqlCommand);
 
-    if (result[2] != null && result[2].toLowerCase() == "create table") {
-        let propAreValid = true;
-        let properties = [];
-        let res;
-        let stopIndex = result[4].indexOf("PRIMARY KEY(");
-        if(stopIndex != -1){
-            let noCommas = 0;
-            for(let i = 0; i < stopIndex; i++){
-                if(result[4][i] == ","){
-                    noCommas++;
-                }
-            }
-            res = JavaSplit(result[4], ",", noCommas + 1);
-        } else {
-            res = result[4].split(",");
-        }
-        console.log(res);
-        for (let i = 0; i < res.length; i++) {
-            let isOk = true;
-            let attributes = res[i].trim().split(" ");
-            let property;
-            if(attributes[0] != "PRIMARY" && attributes[0] != "CONSTRAINT"){
+//     if (result[2] != null && result[2].toLowerCase() == "create table") {
+//         let propAreValid = true;
+//         let properties = [];
+//         let res;
+//         let stopIndex = result[4].indexOf("PRIMARY KEY(");
+//         if (stopIndex != -1) {
+//             let noCommas = 0;
+//             for (let i = 0; i < stopIndex; i++) {
+//                 if (result[4][i] == ",") {
+//                     noCommas++;
+//                 }
+//             }
+//             res = JavaSplit(result[4], ",", noCommas + 1);
+//         } else {
+//             res = result[4].split(",");
+//         }
+//         console.log(res);
+//         for (let i = 0; i < res.length; i++) {
+//             let isOk = true;
+//             let attributes = res[i].trim().split(" ");
+//             let property;
+//             if (attributes[0] != "PRIMARY" && attributes[0] != "CONSTRAINT") {
 
-                if (attributes[2] != null && attributes[3] != null && attributes[2] == "PRIMARY" && attributes[3] == "KEY" || 
-                attributes[4] != null && attributes[5] != null && attributes[4] == "PRIMARY" && attributes[5] == "KEY") {
-                    property = new Property(attributes[0], attributes[1], true, true);
-                } else {
-                    if (attributes[2] != null && attributes[3] != null && attributes[2] == "NOT" && attributes[3] == "NULL"){
-                        property = new Property(attributes[0], attributes[1], true, false);
-                    } else {
-                        property = new Property(attributes[0], attributes[1], false, false);
-                    }
-                }
-                properties.forEach(p => {
-                    if (isOk && p.name == property.name) {
-                        isOk = false;
-                    }
-                });
-                if (isOk) {
-                    properties.push(property);
-                } else {
-                    console.log("error , duplicate parameter name");
-                    propAreValid = false;
-                    break;
-                }
-                
-            } else {
-                console.log(attributes[0],"<<<<");
-                let columnNames;
-                if(attributes[0] == "PRIMARY"){
-                    columnNames = JavaSplit(res[i].trim(), " ", 2)[1];
-                } else {
+//                 if (attributes[2] != null && attributes[3] != null && attributes[2] == "PRIMARY" && attributes[3] == "KEY" ||
+//                     attributes[4] != null && attributes[5] != null && attributes[4] == "PRIMARY" && attributes[5] == "KEY") {
+//                     property = new Property(attributes[0], attributes[1], true, true);
+//                 } else {
+//                     if (attributes[2] != null && attributes[3] != null && attributes[2] == "NOT" && attributes[3] == "NULL") {
+//                         property = new Property(attributes[0], attributes[1], true, false);
+//                     } else {
+//                         property = new Property(attributes[0], attributes[1], false, false);
+//                     }
+//                 }
+//                 properties.forEach(p => {
+//                     if (isOk && p.name == property.name) {
+//                         isOk = false;
+//                     }
+//                 });
+//                 if (isOk) {
+//                     properties.push(property);
+//                 } else {
+//                     console.log("error , duplicate parameter name");
+//                     propAreValid = false;
+//                     break;
+//                 }
 
-                    columnNames = JavaSplit(res[i].trim(), " ", 4)[3]; // (nume de coloane) se afla dupa Constraint nume_pk primary, index 3 deci
-                }
-                console.log(columnNames);
-                let columnNamesWP = columnNames.split("(")[1].split(")")[0];
-                console.log(columnNamesWP);
-                let columnNamesArray = columnNamesWP.split(",");
-                for(let index = 0; index < columnNamesArray.length; index++){
-                    properties.forEach(p => {
-                        if(p.name == columnNamesArray[index].trim()){
-                            p.isPrimaryKey = true;
-                            p.notNull = true;
-                        }
-                    });
-                }
-            }
-        }
-        if (propAreValid) {
-            createTable(result[3], properties);
-        }
-    }
-    else {
-        if (result[19] != null && result[19].toLowerCase() == "drop table") {
-            deleteTable(result[20]);
-        }
-    }
-}
+//             } else {
+//                 console.log(attributes[0], "<<<<");
+//                 let columnNames;
+//                 if (attributes[0] == "PRIMARY") {
+//                     columnNames = JavaSplit(res[i].trim(), " ", 2)[1];
+//                 } else {
+
+//                     columnNames = JavaSplit(res[i].trim(), " ", 4)[3]; // (nume de coloane) se afla dupa Constraint nume_pk primary, index 3 deci
+//                 }
+//                 console.log(columnNames);
+//                 let columnNamesWP = columnNames.split("(")[1].split(")")[0];
+//                 console.log(columnNamesWP);
+//                 let columnNamesArray = columnNamesWP.split(",");
+//                 for (let index = 0; index < columnNamesArray.length; index++) {
+//                     properties.forEach(p => {
+//                         if (p.name == columnNamesArray[index].trim()) {
+//                             p.isPrimaryKey = true;
+//                             p.notNull = true;
+//                         }
+//                     });
+//                 }
+//             }
+//         }
+//         if (propAreValid) {
+//             createTable(result[3], properties);
+//         }
+//     }
+//     else {
+//         if (result[19] != null && result[19].toLowerCase() == "drop table") {
+//             deleteTable(result[20]);
+//         }
+//     }
+// }
 
 function showProperties() {
     tables.forEach(table => {
@@ -244,18 +244,147 @@ function showProperties() {
     });
 }
 
-export function getTables()
-{
+export function getTables() {
     return tables;
 }
 
-processTheCommand("CREATE TABLE tabel1(numeeeeeee valoareeee NOT NULL, num1 valu2, num3 val4 )");
+function formatSqlInput(text) {
+    //var input = document.getElementById('sql-command').value;
+    var input = text;
+    var textFormatted = '';
+    var count = 0;
+    var split = true;
+
+    for (let i = 0; i < input.length; i++) {
+        textFormatted += input[i];
+
+        if (input[i] === '(' && count > 0) {
+            split = false;
+        }
+
+        if (input[i] === ')' && count > 0) {
+            split = true;
+        }
+
+        if (input[i] === '(' && count < 1) {
+            textFormatted += '\n';
+            count++;
+        }
+
+        if (input[i] === ',' && split) {
+            textFormatted += '\n';
+        }
+    }
+    return textFormatted;
+}
+
+function processTheCommand(tempText) {
+    //format the input to be easier to parse the sql command
+    var text = formatSqlInput(tempText);
+
+    //split by new line
+    var splittedText = text.split('\n');
+    //take ddl command to check if create or drop etc...
+    var firstElement = splittedText[0];
+
+    
+    if (firstElement.includes("CREATE")) {
+        createSqlCommand(splittedText);
+    }
+    if (firstElement.includes("DROP")) {
+        firstElement = firstElement.split(' ');
+        deleteTable(firstElement[2].trim());
+    }
+
+
+}
+
+function getTableNameFromSplittedText(text) {
+    var tokens = text.split(' ');
+    var tableName = tokens[2];
+    tableName = tableName.substring(0, tableName.length - 1)
+    return tableName;
+}
+
+function getAttributesFromSplittedText(mytext) {
+    var properties = [];
+    var primaryKeys = [];
+
+    for (let i = 1; i < mytext.length; i++) {
+
+        //split text to take every column name with its properties
+        var tokens = mytext[i].split('\n');
+        var subtokens = tokens[0].trim();
+
+        //create new property
+        var property = new Property();
+
+        var title = subtokens.split(' ')[0].trim();
+        var datatype = subtokens.split(' ')[1];
+        var nullable = subtokens.split(' ')[2];
+
+        //check if we have primary key at the end of query
+        if (title != undefined && !title.includes("PRIMARY")) {
+            property.name = title.trim();
+            if (datatype != undefined) {
+                if (datatype.substring(datatype.length - 1, datatype.length) === ',')
+                    datatype = datatype.substring(0, datatype.length - 1);
+
+                property.datatype = datatype;
+            }
+            if (nullable != undefined && nullable == "NOT") {
+                property.notNull = true;
+            } else {
+                property.notNull = false;
+            }
+            properties.push(property);
+        } else {
+
+            var pKeysTokens = subtokens.split(',');
+
+            //get the first key from tokens
+            var firstKey = pKeysTokens[0];
+            firstKey = firstKey.split('(')[1].trim();
+            primaryKeys.push(firstKey);
+
+            //get the rest of the keys from tokens
+            for (let j = 1; j < pKeysTokens.length - 1; j++) {
+                primaryKeys.push(pKeysTokens[j].trim());
+            }
+
+            //get the last keys from token
+            var lastKey = pKeysTokens[pKeysTokens.length - 1];
+            primaryKeys.push(lastKey.split(')')[0].trim());
+        }
+    }
+
+    //define primary key for properties
+    for (let i = 0; i < properties.length; i++) {
+        if (primaryKeys.includes(properties[i].name))
+            console.log(properties[i].name);
+        properties[i].isPrimaryKey = true;
+    }
+
+
+    return properties;
+}
+
+function createSqlCommand(command) {
+
+    var tableName = getTableNameFromSplittedText(command[0]);
+    console.log("table name: " + tableName);
+    var properties = getAttributesFromSplittedText(command);
+
+    createTable(tableName, properties);
+}
+
+processTheCommand("CREATE TABLE tabel1(numeeeeeee valoareeee NOT NULL, num1 valu2, num3 val4 );");
 
 processTheCommand("CREATE TABLE tabel2(numelemeuecelmailung valoare NOT NULL, num1 valu2, num3 val4)");
 
 processTheCommand("CREATE TABLE tabel3(nume valoare PRIMARY KEY, num1 valu2 PRIMARY KEY NOT NULL, num3 val4 NOT NULL PRIMARY KEY)");
 
-processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(ID, FirstName));");
+processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(ID, FirstName, LastName));");
 
 processTheCommand("DROP TABLE tabel1");
 
