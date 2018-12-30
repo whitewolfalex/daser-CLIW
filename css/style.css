@@ -168,7 +168,8 @@ body{
   transition: 0.2s;
 }
 
-#createTableWindow {
+#createTableWindow,
+#alterTableWindow {
   width: 500px;
   height: 700px;
   background-color: #122F39;
@@ -180,7 +181,8 @@ body{
   display: none;
 }
 
-#createTableWindow-header {
+#createTableWindow-header,
+#alterTableWindow-header {
   height: 50px;
   background-color: #788B91;
   color: #1e4f60;
@@ -188,8 +190,8 @@ body{
   font-size: 20px;
 }
 
-#createTableWindow-header > p{
-  height: 50px;
+#createTableWindow-header > p,
+#alterTableWindow-header > p{
   background-color: #788B91;
   color: #1e4f60;
   text-align: center;

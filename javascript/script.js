@@ -12,6 +12,12 @@ class Table {
         this.title = title;
         this.properties = properties;
     }
+    getX(){
+        return this.x;
+    }
+    getY(){
+        return this.y;
+    }
 }
 
 class Property {
@@ -69,7 +75,7 @@ function getRandomPosition(width, height) {
 function replaceWithDots(text) {
     if (text.length > 10) {
         let showName = "";
-        for (j = 0; j < 8; j++) {
+        for (let j = 0; j < 8; j++) {
             showName += text[j];
         }
         showName += "...";
@@ -78,7 +84,7 @@ function replaceWithDots(text) {
     return text;
 }
 
-function createTable(title, properties) {
+export function createTable(title, properties) {
     let noOfParams = properties.length;
     let table = new Table(260, 60 + noOfParams * 20, title, properties);
     //#region DrawTheTable 
@@ -102,7 +108,7 @@ function createTable(title, properties) {
     newElementTitle.appendChild(txt);
     grp.appendChild(newElementTitle);
 
-    for (i = 0; i < properties.length; i++) {
+    for (let i = 0; i < properties.length; i++) {
         let newParam = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         newParam.setAttribute("class", table.title);
         newParam.setAttribute("x", table.x + 40);
@@ -122,16 +128,16 @@ function createTable(title, properties) {
     tables.push(table);
 }
 
-function removeElementsByClass(className) {
+export function removeElementsByClass(className) {
     var elements = document.getElementsByClassName(className);
     while (elements.length > 0) {
         elements[0].parentNode.removeChild(elements[0]);
     }
 }
 
-function deleteTable(title) {
+export function deleteTable(title) {
     removeElementsByClass(title);
-    for (i = 0; i < tables.length; i++) {
+    for (let i = 0; i < tables.length; i++) {
         if (tables[i].title == title) {
             tables.splice(i, 1);
             break;
@@ -159,7 +165,7 @@ function processTheCommand(sqlCommand) {
         let stopIndex = result[4].indexOf("PRIMARY KEY(");
         if(stopIndex != -1){
             let noCommas = 0;
-            for(i = 0; i < stopIndex; i++){
+            for(let i = 0; i < stopIndex; i++){
                 if(result[4][i] == ","){
                     noCommas++;
                 }
@@ -211,7 +217,7 @@ function processTheCommand(sqlCommand) {
                 let columnNamesWP = columnNames.split("(")[1].split(")")[0];
                 console.log(columnNamesWP);
                 let columnNamesArray = columnNamesWP.split(",");
-                for(index = 0; index < columnNamesArray.length; index++){
+                for(let index = 0; index < columnNamesArray.length; index++){
                     properties.forEach(p => {
                         if(p.name == columnNamesArray[index].trim()){
                             p.isPrimaryKey = true;
@@ -238,6 +244,11 @@ function showProperties() {
     });
 }
 
+export function getTables()
+{
+    return tables;
+}
+
 processTheCommand("CREATE TABLE tabel1(numeeeeeee valoareeee NOT NULL, num1 valu2, num3 val4 )");
 
 processTheCommand("CREATE TABLE tabel2(numelemeuecelmailung valoare NOT NULL, num1 valu2, num3 val4)");
@@ -249,3 +260,5 @@ processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) 
 processTheCommand("DROP TABLE tabel1");
 
 showProperties();
+
+export default getTables;

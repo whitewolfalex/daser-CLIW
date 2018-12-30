@@ -30,6 +30,10 @@
                 <span class="tooltiptext">Create table</span>
                 <button class="sql-buttons" onclick="displayCreateTable();"><i class="far fa-window-maximize"></i></button>
             </div>
+            <div class="sql-button-container tooltip">
+                <span class="tooltiptext">Alter table</span>
+                <button class="sql-buttons" onclick="displayAlterTable();"><i class="fas fa-edit"></i></button>
+            </div>
             <div id="createTableWindow">
                 <div id="createTableWindow-header">
                   <p>CREATE TABLE</p>
@@ -56,6 +60,35 @@
                   </label>
                   <div id="add-button-pop-up">
                     <button id="add-btn">+</button>
+                  </div>
+                </div>
+            </div>
+
+            <div id="alterTableWindow">
+                <div id="alterTableWindow-header">
+                  <p>ALTER TABLE</p>
+                  <button id="close-button" onclick="closePopUpAlter()"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div id="pop-up-body">
+                  <label> Table name
+                    <br>
+                    <select id="table-selection" onchange="renderColumnSelection();">
+                        <option value="none">Choose a table</option>
+                    </select>
+                  </label>
+                  <br><br>
+                  <label> Column name <br>
+                    <select id="column-selection">
+                        <option value="none">Choose a column</option>
+                    </select>
+                  </label>
+                  <br>
+                  <label> New column name <br>
+                    <input type="text" id="new-column-name"/>
+                  </label>
+                  <div id="submit-button-pop-up">
+                    <button id="submit-btn" onclick="changeColumnName();">Submit</button>
                   </div>
                 </div>
             </div>
@@ -175,8 +208,8 @@
     <script src="../javascript/svg-transforms.js"></script>
     <script src="../javascript/svg-zoom.js"></script>
     <script src="../javascript/svg-export.js"></script>
-    <script src="../javascript/displayWindows.js"></script>
-    <script src="../javascript/script.js"></script>
+    <script type="module" src="../javascript/displayWindows.js"></script>
+    <script type="module" src="../javascript/script.js"></script>
 </body>
 
 </html>
