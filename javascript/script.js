@@ -379,7 +379,7 @@ processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int NOT 
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
-processTheCommand("DROP TABLE tabel");
+//processTheCommand("DROP TABLE tabel");
 
 showProperties();
 

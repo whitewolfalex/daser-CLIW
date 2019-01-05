@@ -14,7 +14,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
     var primaryKeys = [];
     var references = [];
-
+    var contentToWrite = '';
 
     for (let i = 0; i < tables.length; i++) {
 
@@ -43,20 +43,20 @@ window.exportSqlCommands = function exportSqlCommands() {
             if (property.isPrimaryKey)
                 primaryKeys.push(property.name);
 
-            //get the array with foreign keys as in the end to create the command for fks
-            references = tables[i].references;
-
         }//end of properties building index j
 
+        //get the array with foreign keys as in the end to create the command for fks
+        references = tables[i].references;
+
         //check if we have primary keys and concat them to table create command
-        if (primaryKeys.length != 0){
+        if (primaryKeys.length != 0) {
             content += ', PRIMARY KEY(';
 
             //get the columns that compose the primary key
-            for (let k = 0; k < primaryKeys.length; k++){
+            for (let k = 0; k < primaryKeys.length; k++) {
                 content += primaryKeys[k];
 
-                if( k < primaryKeys.length - 1){
+                if (k < primaryKeys.length - 1) {
                     content += ', ';
                 }
 
@@ -64,9 +64,37 @@ window.exportSqlCommands = function exportSqlCommands() {
             //close pk group
             content += ')';
         }
-
-
         primaryKeys = [];
+
+        if (references.length > 0) {
+            content += ', FOREIGN KEY(';
+
+            //get the columns that compose the primary key
+            for (let k = 0; k < references[0].currentColumns.length; k++) {
+                content += references[0].currentColumns[k];
+
+                if (k < references[0].currentColumns.length - 1) {
+                    content += ', ';
+                }
+
+            }
+            //close fk group
+            content += ') REFERENCES ';
+
+            //generate referenced table and its columns eg references table(col, col)
+            content += references[0].referencedTable + '(';
+
+            //generate the referenced columns from the other table
+            for (let m = 0; m < references[0].referencedColumns.length; m++) {
+                content += references[0].referencedColumns[m];
+
+                if (m < references[0].referencedColumns.length - 1) {
+                    content += ', ';
+                }
+
+            }
+        }
+        references = [];
 
         //close last parantheses
         content += ")";
@@ -78,11 +106,25 @@ window.exportSqlCommands = function exportSqlCommands() {
         //add new line after slash
         content += "\n";
         console.log(content);
+        contentToWrite += content;
         content = '';
 
     }//end of tables building index i
 
-    var uriContent = "data:text/csv," + encodeURIComponent(content);
-    var newWindow = window.open(uriContent, "newDoc");
+    //download("daser-schema.sql", contentToWrite);
 
 }
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
