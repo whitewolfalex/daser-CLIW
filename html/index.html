@@ -143,7 +143,7 @@
 
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Export SQL commands</span>
-                <button class="sql-buttons">
+                <button class="sql-buttons" onclick="exportSqlCommands()">
                     <i class="fas fa-file-code"></i>
                 </button>
             </div>
@@ -163,7 +163,7 @@
             </div>
         </div>
 
-        <svg id="schema-svg" width="calc(100% - 6px)" height="720" style="background-color:#1e4f60;">
+        <svg id="schema-svg"  width="calc(100% - 6px)" height="720" style="background-color:#1e4f60;">
             <svg id="group-svg" x="0" y="0" style="overflow: visible;">
                 <g id="group-svg-objects">
                     <!--<rect x="390" y="285" rx="10" ry="10" width="300" height="150"  style="fill:#FFF;stroke:#AAA;stroke-width:2;" />
@@ -242,6 +242,7 @@
     <script src="../javascript/svg-transforms.js"></script>
     <script src="../javascript/svg-zoom.js"></script>
     <script src="../javascript/svg-export.js"></script>
+    <script type="module" src="../javascript/buttonsFunctionality.js"></script>
     <script type="module" src="../javascript/displayWindows.js"></script>
     <script type="module" src="../javascript/script.js"></script>
 </body>

@@ -1,4 +1,5 @@
 import * as script from "./script.js";
+import * as btns from "./buttonsFunctionality.js";
 
 var tables = [];
 var properties = [];
@@ -119,5 +120,7 @@ window.closePopUpAlter = function closePopUpAlter() {
     element.style.display = "none";
   }
 }
+
+
 
 export default closePopUp;

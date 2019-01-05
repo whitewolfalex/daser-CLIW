@@ -215,7 +215,7 @@ function processTheCommand(tempText) {
         deleteTable(firstElement[2].trim());
     }
 
-
+    
 }
 
 function getTableNameFromSplittedText(text) {
@@ -359,7 +359,7 @@ processTheCommand("CREATE TABLE          tabel1(       nume valoareeee NOT NULL,
 
 processTheCommand("CREATE TABLE tabel2(numelemeuecelmailung valoare NOT NULL, num1 valu2, num3 val4, FOREIGN KEY(num1, num3) REFERENCES tabel1(nume, num1))");
 
-processTheCommand("CREATE TABLE tabel3(nume valoare PRIMARY KEY, num1 valu2 PRIMARY KEY NOT NULL, num3 val4 NOT NULL PRIMARY KEY)");
+processTheCommand("CREATE TABLE tabel3(nume valoare, num1 valu2 NOT NULL, num3 val4 NOT NULL)");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
