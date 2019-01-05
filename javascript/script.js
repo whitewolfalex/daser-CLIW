@@ -167,7 +167,9 @@ export function getTables() {
     return tables;
 }
 
-function formatSqlInput(text) {
+
+
+window.formatSqlInput=function formatSqlInput(text) {
     //var input = document.getElementById('sql-command').value;
     var input = text;
     var textFormatted = '';
@@ -196,6 +198,10 @@ function formatSqlInput(text) {
     }
     return textFormatted;
 }
+window.runSQL=function runSQL(){
+    var text = document.getElementById('sql-command').value;
+    processTheCommand(text);
+}
 
 function processTheCommand(tempText) {
     
@@ -211,10 +217,6 @@ function processTheCommand(tempText) {
     if (re.test(tempText.trim().toUpperCase())) {
 
         createSqlCommand(splittedText);
-    }
-    if (firstElement.includes("DROP")) {
-        firstElement = firstElement.split(' ');
-        deleteTable(firstElement[2].trim());
     } 
     else 
     {
@@ -227,8 +229,7 @@ function processTheCommand(tempText) {
         } 
         else 
         {
-            // aruncare eroare
-            ;    
+            document.getElementById("alert").style.display = 'block';
         }
     }
 }
@@ -374,7 +375,7 @@ processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int
 
 processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, num int, FOREIGN KEY(num, num) REFERENCES tabel(nume, num))");
 
-processTheCommand("CREATE TABLE tabel3(nume valoare, num1 valu2 NOT NULL, num3 val4 NOT NULL)");
+processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int NOT NULL)");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
