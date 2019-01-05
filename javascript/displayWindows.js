@@ -123,7 +123,12 @@ window.changeColumnName = function changeColumnName() {
 
 //inchiderea ferestei de creare/alter/delete tabel la nivel de front-end
 window.closePopUp = function closePopUp(event) {
-  alert(event.target.id);
+  var closeBtn = document.getElementById(event.target.parentNode.parentNode.parentNode.id);
+  if(closeBtn.style.display == 'none'){
+    closeBtn.style.display = 'block';
+  }else{
+    closeBtn.style.display = 'none';
+  }
 
 }
 
