@@ -86,7 +86,9 @@ window.exportSqlCommands = function exportSqlCommands() {
 
             //generate the referenced columns from the other table
             for (let m = 0; m < references[0].referencedColumns.length; m++) {
+                console.log(references[0].referencedColumns);
                 content += references[0].referencedColumns[m];
+                //console.log("am adaugat foreign " + references[0].referencedColumns[m]);
 
                 if (m < references[0].referencedColumns.length - 1) {
                     content += ', ';
@@ -94,6 +96,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
             }
         }
+
         references = [];
 
         //close last parantheses
@@ -111,7 +114,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
     }//end of tables building index i
 
-    //download("daser-schema.sql", contentToWrite);
+    download("daser-schema.sql", contentToWrite);
 
 }
 

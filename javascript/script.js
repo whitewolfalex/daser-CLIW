@@ -142,8 +142,8 @@ export function removeElementsByClass(className) {
 export function deleteTable(title) {
     removeElementsByClass(title);
     for (let index_table = 0; index_table < tables.length; index_table++) {
-        for(let index_references = 0; index_references < tables[index_table].references.length; index_references++){
-            if (tables[index_table].references[index_references].referencedTable == title){
+        for (let index_references = 0; index_references < tables[index_table].references.length; index_references++) {
+            if (tables[index_table].references[index_references].referencedTable == title) {
                 console.log(tables[index_table].references);
                 tables[index_table].references.splice(index_references, 1);
             }
@@ -154,7 +154,7 @@ export function deleteTable(title) {
         }
     }
 
-    tables.splice(index_deletetable,1);
+    tables.splice(index_deletetable, 1);
 }
 
 function JavaSplit(string, separator, n) {
@@ -178,7 +178,7 @@ export function getTables() {
 
 
 
-window.formatSqlInput=function formatSqlInput(text) {
+window.formatSqlInput = function formatSqlInput(text) {
     //var input = document.getElementById('sql-command').value;
     var input = text;
     var textFormatted = '';
@@ -207,13 +207,13 @@ window.formatSqlInput=function formatSqlInput(text) {
     }
     return textFormatted;
 }
-window.runSQL=function runSQL(){
+window.runSQL = function runSQL() {
     var text = document.getElementById('sql-command').value;
     processTheCommand(text);
 }
 
 function processTheCommand(tempText) {
-    
+
     //format the input to be easier to parse the sql command
     var text = formatSqlInput(tempText.trim().toUpperCase());
 
@@ -222,22 +222,19 @@ function processTheCommand(tempText) {
 
     var re = RegExp("CREATE\\s+TABLE\\s+([A-Z_]+)\\s*\\(\\s*([A-Z_]+\\s+((TINY|SMALL|MEDIUM)?INT|BIGINT|DATE|DATETIME|TIMESTAMP|TIME|(TINY|MEDIUM|LONG)?TEXT|(TINY|MEDIUM|LONG)?BLOB|ENUM|(CHAR|VARCHAR)\\(([1-9]|[1-9][0-9]|[1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\\))\\s*(\\sNOT\\s+NULL|\\sNULL)?\\s*(,|\\);?)\\s*)+(((PRIMARY\\s+KEY|UNIQUE)\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*(,|\\);?)\\s*)|(FOREIGN\\s+KEY\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*REFERENCES\\s+[A-Z_]+\\s*\\(\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*(,|\\);?)\\s*))*")
     var re2 = RegExp("^DROP\\s+TABLE\\s+([A-Z_]+)\\s*;?$")
-    
+
     if (re.test(tempText.trim().toUpperCase())) {
 
         createSqlCommand(splittedText);
-    } 
-    else 
-    {
-        
-        if (re2.test(tempText.trim().toUpperCase()))
-        {
+    }
+    else {
+
+        if (re2.test(tempText.trim().toUpperCase())) {
             var firstElement = splittedText[0];
             firstElement = firstElement.split(' ');
             deleteTable(firstElement[2].trim());
-        } 
-        else 
-        {
+        }
+        else {
             document.getElementById("alert").style.display = 'block';
         }
     }
@@ -259,7 +256,8 @@ function createSqlCommand(mytext) {
     var globalReferences = [];
     var primaryKeys = [];
     var tableName = getTableNameFromSplittedText(mytext[0]);
-    console.log("1table name: " + tableName);
+    console.log("First text: " + mytext);
+
 
     for (let i = 1; i < mytext.length; i++) {
 
@@ -332,9 +330,10 @@ function createSqlCommand(mytext) {
                 firstKey = firstKey.split('(')[2].trim();
                 firstKey = firstKey.split(')')[0].trim();
                 firstKey = firstKey.split(',');
-
+                console.log("The referenced columns are: ");
+                console.log(firstKey);
                 var refTable = getTable(references.referencedTable);
-
+                console.log("Referenced table is: " + refTable.title);
 
                 if (refTable != undefined) {
                     var allKeysPrimary = true;
@@ -342,7 +341,10 @@ function createSqlCommand(mytext) {
                         var ok = false;
                         for (let j = 0; j < refTable.properties.length; j++) {
                             if (refTable.properties[j].name == firstKey[i].trim() && refTable.properties[j].isPrimaryKey) {
-                                references.referencedColumns.push(firstKey[i].trim());
+                                //check for duplicates of columns name
+                                if( !exists(references.referencedColumns, firstKey[i].trim()) )
+                                    references.referencedColumns.push(firstKey[i].trim());
+                                console.log("Am facut push la: " + firstKey[i]);
                                 ok = true;
                             }
                         }
@@ -350,6 +352,8 @@ function createSqlCommand(mytext) {
                             allKeysPrimary = false;
                     }
                     if (allKeysPrimary) {
+                        console.log("final references ");
+                        console.log(references);
                         globalReferences.push(references);
                     }
                 }
@@ -380,9 +384,17 @@ function getTable(tableName) {
     }
 }
 
-processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, num int, PRIMARY KEY(num, nume));");
+function exists(array, element) {
+    for (let i = 0; i < array.length; i++) {
+        if (element == array[i])
+            return true;
+    }
+    return false;
+}
 
-processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, num int, FOREIGN KEY(num, num) REFERENCES tabel(nume, num))");
+processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, nume2 int, PRIMARY KEY(num, nume));");
+
+processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, numiii int, FOREIGN KEY(num, numiii) REFERENCES tabel(nume, num))");
 
 processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int NOT NULL)");
 
