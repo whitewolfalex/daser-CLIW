@@ -138,14 +138,23 @@ export function removeElementsByClass(className) {
     }
 }
 
+//stergerea tabelului ca si tabel independent dar si ca referinta
 export function deleteTable(title) {
     removeElementsByClass(title);
-    for (let i = 0; i < tables.length; i++) {
-        if (tables[i].title == title) {
-            tables.splice(i, 1);
-            break;
+    for (let index_table = 0; index_table < tables.length; index_table++) {
+        for(let index_references = 0; index_references < tables[index_table].references.length; index_references++){
+            if (tables[index_table].references[index_references].referencedTable == title){
+                console.log(tables[index_table].references);
+                tables[index_table].references.splice(index_references, 1);
+            }
+        }
+        if (tables[index_table].title == title) {
+
+            var index_deletetable = index_table;
         }
     }
+
+    tables.splice(index_deletetable,1);
 }
 
 function JavaSplit(string, separator, n) {

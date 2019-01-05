@@ -127,15 +127,24 @@
                     <div id="pop-up-body">
                         <label> Table name
                             <br>
-                            <select id="table-delete-selection">
+                            <select id="table-delete-selection" onchange="renderReferencedTables()">
                                 <option value="none">Choose a table</option>
                             </select>
                         </label>
+                        <div id="referencedTables"></div>
                         <div id="submit-button-pop-up">
-                            <button id="delete-btn" onclick="deleteTable();">Delete</button>
+                            <button id="delete-btn" onclick="requestDelete()">Delete</button>
+                        </div>
+                        <div id="delete-pop-up-window">
+                            <p>Warning! The following referenced tables will be also deleted.
+                                    Are you sure ?
+                            </p>
+                            <button onclick="confirmDelete()">Confirm</button>
+                            <button onclick="cancelDelete()">Cancel</button>
                         </div>
                     </div>
-                </div>
+            </div>
+            
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>

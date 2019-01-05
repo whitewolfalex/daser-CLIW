@@ -237,6 +237,23 @@ body{
   position: relative;
 }
 
+#delete-pop-up-window{
+    background-color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+}
+#delete-pop-up-window button{
+    background-color:none;
+    border:none;
+    font-size: 20px;
+}
+#delete-pop-up-window p{
+    color: #000;
+}
+
 #close-button{
   background-color: inherit;
   color: white;
