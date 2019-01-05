@@ -198,24 +198,39 @@ function formatSqlInput(text) {
 }
 
 function processTheCommand(tempText) {
+    
     //format the input to be easier to parse the sql command
-    var text = formatSqlInput(tempText);
+    var text = formatSqlInput(tempText.trim().toUpperCase());
 
     //split by new line
     var splittedText = text.split('\n');
-    //take ddl command to check if create or drop etc...
-    var firstElement = splittedText[0];
 
+    var re = RegExp("CREATE\\s+TABLE\\s+([A-Z_]+)\\s*\\(\\s*([A-Z_]+\\s+((TINY|SMALL|MEDIUM)?INT|BIGINT|DATE|DATETIME|TIMESTAMP|TIME|(TINY|MEDIUM|LONG)?TEXT|(TINY|MEDIUM|LONG)?BLOB|ENUM|(CHAR|VARCHAR)\\(([1-9]|[1-9][0-9]|[1][0-9][0-9]|[2][0-4][0-9]|[2][5][0-5])\\))\\s*(\\sNOT\\s+NULL|\\sNULL)?\\s*(,|\\);?)\\s*)+(((PRIMARY\\s+KEY|UNIQUE)\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*(,|\\);?)\\s*)|(FOREIGN\\s+KEY\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*REFERENCES\\s+[A-Z_]+\\s*\\(\\s*\\(\\s*([A-Z_]+\\s*,)*\\s*[A-Z_]+\\s*\\)\\s*(,|\\);?)\\s*))*")
+    var re2 = RegExp("^DROP\\s+TABLE\\s+([A-Z_]+)\\s*;?$")
+    
+    if (re.test(tempText.trim().toUpperCase())) {
 
-    if (firstElement.includes("CREATE")) {
         createSqlCommand(splittedText);
     }
     if (firstElement.includes("DROP")) {
         firstElement = firstElement.split(' ');
         deleteTable(firstElement[2].trim());
+    } 
+    else 
+    {
+        
+        if (re2.test(tempText.trim().toUpperCase()))
+        {
+            var firstElement = splittedText[0];
+            firstElement = firstElement.split(' ');
+            deleteTable(firstElement[2].trim());
+        } 
+        else 
+        {
+            // aruncare eroare
+            ;    
+        }
     }
-
-    
 }
 
 function getTableNameFromSplittedText(text) {
@@ -309,7 +324,7 @@ function createSqlCommand(mytext) {
                 firstKey = firstKey.split(',');
 
                 var refTable = getTable(references.referencedTable);
-                
+
 
                 if (refTable != undefined) {
                     var allKeysPrimary = true;
@@ -325,7 +340,7 @@ function createSqlCommand(mytext) {
                             allKeysPrimary = false;
                     }
                     if (allKeysPrimary) {
-                       globalReferences.push(references);
+                        globalReferences.push(references);
                     }
                 }
 
@@ -355,15 +370,15 @@ function getTable(tableName) {
     }
 }
 
-processTheCommand("CREATE TABLE          tabel1(       nume valoareeee NOT NULL, num1 valu2, num3 val4, PRIMARY KEY(num1, nume));");
+processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, num int, PRIMARY KEY(num, nume));");
 
-processTheCommand("CREATE TABLE tabel2(numelemeuecelmailung valoare NOT NULL, num1 valu2, num3 val4, FOREIGN KEY(num1, num3) REFERENCES tabel1(nume, num1))");
+processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, num int, FOREIGN KEY(num, num) REFERENCES tabel(nume, num))");
 
 processTheCommand("CREATE TABLE tabel3(nume valoare, num1 valu2 NOT NULL, num3 val4 NOT NULL)");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
-//processTheCommand("DROP TABLE tabel1");
+processTheCommand("DROP TABLE tabel");
 
 showProperties();
 
