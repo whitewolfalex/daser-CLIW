@@ -106,20 +106,10 @@ window.changeColumnName = function changeColumnName() {
 }
 
 window.closePopUp = function closePopUp() {
-  var element = document.getElementById("createTableWindow");
-  if (element.style.display == "block") {
-
-  }
-  element.style.display = "none";
+  console.log()
 
 }
 
-window.closePopUpAlter = function closePopUpAlter() {
-  var element = document.getElementById("alterTableWindow");
-  if (element.style.display == "block") {
-    element.style.display = "none";
-  }
-}
 
 
 

@@ -82,7 +82,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
     }//end of tables building index i
 
-    //var uriContent = "data:application/text," + encodeURIComponent(content);
-    //var newWindow = window.open(uriContent, "newDoc");
+    var uriContent = "data:text/csv," + encodeURIComponent(content);
+    var newWindow = window.open(uriContent, "newDoc");
 
 }
