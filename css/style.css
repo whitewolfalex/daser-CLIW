@@ -109,6 +109,37 @@ body{
     transition: 0.2s;
 }
 
+#alert {
+    display: none;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    position: fixed;
+    top : 50%;
+    left: 50%;
+    width: 400px;
+    height: 60px;
+    margin-left: -200px;
+    margin-top: -30px;
+    box-sizing: border-box;
+    z-index: 1000;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+
 .import-button{
   color: #1e4f60;
   position: relative;

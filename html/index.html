@@ -20,8 +20,12 @@
     <div id="container">
 
         <div id="header-container">
+            <div id="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <strong>Error!</strong> Invalid mysql command.
+            </div>
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
-            <button class="enter-button tooltip" onclick="formatSqlInput()">
+            <button class="enter-button tooltip" onclick="runSQL()">
                 <span class="tooltiptext">Run command</span>
                 <i class="fas fa-play"></i>
             </button>
