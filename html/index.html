@@ -51,7 +51,7 @@
             <div id="createTableWindow">
                 <div id="createTableWindow-header">
                     <p>CREATE TABLE</p>
-                    <button id="close-button" onclick="closePopUp()">
+                    <button id="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -86,7 +86,7 @@
             <div id="alterTableWindow">
                 <div id="alterTableWindow-header">
                     <p>ALTER TABLE</p>
-                    <button id="close-button" onclick="closePopUpAlter()">
+                    <button id="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -116,6 +116,23 @@
                     </div>
                 </div>
             </div>
+            <div id="deleteTableWindow">
+                    <div id="deleteTableWindow-header">
+                        <p>Delete TABLE</p>
+                        <button id="close-button" onclick="closePopUp(event)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+    
+                    <div id="pop-up-body">
+                        <label> Table name
+                            <br>
+                            <select id="table-delete-selection">
+                                <option value="none">Choose a table</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>
@@ -126,7 +143,7 @@
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Delete</span>
-                <button class="sql-buttons">
+                <button class="sql-buttons" onclick="displayDeleteWindow()">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>

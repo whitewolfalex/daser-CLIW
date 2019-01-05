@@ -9,7 +9,7 @@ function getTables() {
 }
 getTables();
 
-
+//creare de tabele la nivel de front-end
 window.displayCreateTable = function displayCreateTable() {
   var createTable = document.getElementById("createTableWindow");
   if (createTable.style.display == "block") {
@@ -20,6 +20,7 @@ window.displayCreateTable = function displayCreateTable() {
   }
 }
 
+//modificare nume coloana a unui tabel deja existent la nivel de front-end
 window.displayAlterTable = function displayAlterTable() {
   var alterTable = document.getElementById("alterTableWindow");
   if (alterTable.style.display == "block") {
@@ -28,22 +29,36 @@ window.displayAlterTable = function displayAlterTable() {
   else {
     alterTable.style.display = "block";
   }
-  renderTablesSelection();
+  renderTablesSelection("table-options", "table-selection");
 }
 
-window.renderTablesSelection = function renderTablesSelection() {
-  script.removeElementsByClass("table-options");
-  var selectElement = document.getElementById('table-selection');
+//stergerea unui tabel deja existent la nivel de front-end
+window.displayDeleteWindow = function displayDeleteWindow() {
+  var deleteTableWindow = document.getElementById("deleteTableWindow");
+  if (deleteTableWindow.style.display == "block") {
+    delteTableWindow.style.display = "none";
+  }
+  else {
+    deleteTableWindow.style.display = "block";
+  }
+  renderTablesSelection("table-delete-options", "table-delete-selection");
+}
+
+//randarea tabelelor existente
+window.renderTablesSelection = function renderTablesSelection(myclass, id) {
+  script.removeElementsByClass(myclass);
+  var selectElement = document.getElementById(id);
 
   for (let i = 0; i < tables.length; i++) {
     var optionElement = document.createElement("option");
-    optionElement.setAttribute("class", "table-options");
+    optionElement.setAttribute("class", myclass);
     var textNode = document.createTextNode(tables[i].title);
     optionElement.appendChild(textNode);
     selectElement.appendChild(optionElement);
   }
 }
 
+//randarea coloanelor tabelului selectat la alterTable
 window.renderColumnSelection = function renderColumnSelection() {
   script.removeElementsByClass("column-options");
 
@@ -65,6 +80,7 @@ window.renderColumnSelection = function renderColumnSelection() {
   }
 }
 
+//schimbarea numelui coloanei tabelului selectat la alterTable
 window.changeColumnName = function changeColumnName() {
   var currentTable = document.getElementById('table-selection').value;
   var newColumnName = document.getElementById('new-column-name').value;
@@ -105,22 +121,10 @@ window.changeColumnName = function changeColumnName() {
   closePopUpAlter();
 }
 
-window.closePopUp = function closePopUp() {
-  var element = document.getElementById("createTableWindow");
-  if (element.style.display == "block") {
-
-  }
-  element.style.display = "none";
+//inchiderea ferestei de creare/alter/delete tabel la nivel de front-end
+window.closePopUp = function closePopUp(event) {
+  alert(event.target.id);
 
 }
-
-window.closePopUpAlter = function closePopUpAlter() {
-  var element = document.getElementById("alterTableWindow");
-  if (element.style.display == "block") {
-    element.style.display = "none";
-  }
-}
-
-
 
 export default closePopUp;

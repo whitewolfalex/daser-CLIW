@@ -201,7 +201,8 @@ body{
 }
 
 #createTableWindow,
-#alterTableWindow {
+#alterTableWindow,
+#deleteTableWindow {
   width: 500px;
   height: 700px;
   background-color: #122F39;
@@ -214,7 +215,8 @@ body{
 }
 
 #createTableWindow-header,
-#alterTableWindow-header {
+#alterTableWindow-header,
+#deleteTableWindow-header {
   height: 50px;
   background-color: #788B91;
   color: #1e4f60;
@@ -223,7 +225,8 @@ body{
 }
 
 #createTableWindow-header > p,
-#alterTableWindow-header > p{
+#alterTableWindow-header > p,
+#deleteTableWindow-header > p{
   background-color: #788B91;
   color: #1e4f60;
   text-align: center;
