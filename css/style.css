@@ -109,7 +109,8 @@ body{
     transition: 0.2s;
 }
 
-#alert {
+#alert,
+#alert2 {
     display: none;
     padding: 20px;
     background-color: #f44336;
@@ -123,9 +124,17 @@ body{
     margin-top: -30px;
     box-sizing: border-box;
     z-index: 1000;
-  }
+}
+
+#alert2 {
+    height: 80px;
+}
+
+#alert2 .closebtn{
+    margin-top: 10px;
+}
   
-  .closebtn {
+.closebtn {
     margin-left: 15px;
     color: white;
     font-weight: bold;
@@ -134,24 +143,24 @@ body{
     line-height: 20px;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  .closebtn:hover {
+}
+
+.closebtn:hover {
     color: black;
-  }
+}
 
 .import-button{
-  color: #1e4f60;
-  position: relative;
-  font-size: 20px;
-  background-color: #788B91;
-  width: 50px;
-  height: 43.5px;
-  padding: 5px;
-  float: right;
-  margin-right: 3px;
-  border: none;
-  cursor: pointer;
+    color: #1e4f60;
+    position: relative;
+    font-size: 20px;
+    background-color: #788B91;
+    width: 50px;
+    height: 43.5px;
+    padding: 5px;
+    float: right;
+    margin-right: 3px;
+    border: none;
+    cursor: pointer;
 }
 
 .far.fa-file-import{

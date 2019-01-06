@@ -24,12 +24,16 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                 <strong>Error!</strong> Invalid mysql command.
             </div>
+            <div id="alert2">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <strong>Invalid file.</strong> Please upload a .txt extension file with sql commands separated by /.
+            </div>
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
             <button class="enter-button tooltip" onclick="runSQL()">
                 <span class="tooltiptext">Run command</span>
                 <i class="fas fa-play"></i>
             </button>
-            <button class="import-button tooltip">
+            <button class="import-button tooltip" id="custom-button">
                 <span class="tooltiptext">Import SQL</span>
                 <i class="fas fa-file-import"></i>
             </button>
@@ -278,6 +282,8 @@
     <script type="module" src="../javascript/buttonsFunctionality.js"></script>
     <script type="module" src="../javascript/displayWindows.js"></script>
     <script type="module" src="../javascript/script.js"></script>
+    <script type="module" src="../javascript/importSql.js"></script>
+    <input type="file" id="real-file" accept="text/plain" hidden="hidden" /> 
 </body>
 
 </html>

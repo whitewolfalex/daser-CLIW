@@ -212,7 +212,7 @@ window.runSQL = function runSQL() {
     processTheCommand(text);
 }
 
-function processTheCommand(tempText) {
+export function processTheCommand(tempText) {
 
     //format the input to be easier to parse the sql command
     var text = formatSqlInput(tempText.trim().toUpperCase());
