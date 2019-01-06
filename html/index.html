@@ -131,13 +131,24 @@
                             <option value="none">Choose a column</option>
                         </select>
                     </label>
+
+                    <label> Data type
+                        <br>
+                        <select id="datatype-selection">
+                            <option value="INT">INT</option>
+                            <option value="VARCHAR">VARCHAR</option>
+                            <option value="CHAR">CHAR</option>
+                            <option value="BOOL">BOOL</option>
+                            <option value="DATE">DATE</option>
+                        </select>
+                    </label>
                     <br>
                     <label> New column name
                         <br>
                         <input type="text" id="new-column-name" />
                     </label>
                     <div id="submit-button-pop-up">
-                        <button id="submit-btn" onclick="changeColumnName();">Submit</button>
+                        <button id="submit-btn" onclick="changeColumnName(event);">Submit</button>
                     </div>
                 </div>
             </div>
@@ -161,8 +172,7 @@
                         <button id="delete-btn" onclick="requestDelete()">Delete</button>
                     </div>
                     <div id="delete-pop-up-window">
-                        <p>Warning! The following referenced tables will be also deleted.
-                            Are you sure ?
+                        <p>Warning! The following referenced tables will be also deleted. Are you sure ?
                         </p>
                         <button onclick="confirmDelete()">Confirm</button>
                         <button onclick="cancelDelete()">Cancel</button>
