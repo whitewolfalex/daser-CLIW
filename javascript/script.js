@@ -2,7 +2,7 @@ var tables = [];
 var svg = document.getElementById("schema-svg");
 var grp = document.getElementById("group-svg-objects");
 
-class Table {
+export class Table {
     constructor(width, height, title, properties, references) {
         this.width = width;
         this.height = height;
@@ -12,6 +12,14 @@ class Table {
         this.title = title;
         this.properties = properties;
         this.references = references;
+    }
+
+    setX(newX){
+        this.x = newX;
+    }
+
+    setY(newY){
+        this.y = newY;
     }
 }
 
@@ -87,9 +95,20 @@ function replaceWithDots(text) {
     return text;
 }
 
-export function createTable(title, properties, references) {
+export function createTable(title, properties, references, coordinates) {
     let noOfParams = properties.length;
     let table = new Table(260, 60 + noOfParams * 20, title, properties, references);
+    console.log("tabelul creat este: ", table.title + " coordinates are: x " , table.x + " y: " + table.y);
+
+    if(coordinates != undefined){
+        console.log(coordinates);
+
+    table.x = coordinates[0];
+    table.y= coordinates[1];
+    }
+
+    console.log("tabelul creat este dupa if: ", table.title + " coordinates are: x " , table.x + " y: " + table.y)
+
     //#region DrawTheTable 
     let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
     newElement.setAttribute("class", table.title);
@@ -129,6 +148,7 @@ export function createTable(title, properties, references) {
     }
     //#endregion
     tables.push(table);
+    return table;
 }
 
 export function removeElementsByClass(className) {

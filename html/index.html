@@ -21,7 +21,7 @@
 
         <div id="header-container">
             <div id="alert">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <strong>Error!</strong> Invalid mysql command.
             </div>
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
@@ -106,45 +106,55 @@
                             <option value="none">Choose a column</option>
                         </select>
                     </label>
+
+                    <label> Data type
+                        <br>
+                        <select id="datatype-selection">
+                            <option value="INT">INT</option>
+                            <option value="VARCHAR">VARCHAR</option>
+                            <option value="CHAR">CHAR</option>
+                            <option value="BOOL">BOOL</option>
+                            <option value="DATE">DATE</option>
+                        </select>
+                    </label>
                     <br>
                     <label> New column name
                         <br>
                         <input type="text" id="new-column-name" />
                     </label>
                     <div id="submit-button-pop-up">
-                        <button id="submit-btn" onclick="changeColumnName();">Submit</button>
+                        <button id="submit-btn" onclick="changeColumnName(event);">Submit</button>
                     </div>
                 </div>
             </div>
             <div id="deleteTableWindow">
-                    <div id="deleteTableWindow-header">
-                        <p>Delete TABLE</p>
-                        <button id="close-button" onclick="closePopUp(event)">
-                            <i class="fas fa-times"></i>
-                        </button>
+                <div id="deleteTableWindow-header">
+                    <p>Delete TABLE</p>
+                    <button id="close-button" onclick="closePopUp(event)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div id="pop-up-body">
+                    <label> Table name
+                        <br>
+                        <select id="table-delete-selection" onchange="renderReferencedTables()">
+                            <option value="none">Choose a table</option>
+                        </select>
+                    </label>
+                    <div id="referencedTables"></div>
+                    <div id="submit-button-pop-up">
+                        <button id="delete-btn" onclick="requestDelete()">Delete</button>
                     </div>
-    
-                    <div id="pop-up-body">
-                        <label> Table name
-                            <br>
-                            <select id="table-delete-selection" onchange="renderReferencedTables()">
-                                <option value="none">Choose a table</option>
-                            </select>
-                        </label>
-                        <div id="referencedTables"></div>
-                        <div id="submit-button-pop-up">
-                            <button id="delete-btn" onclick="requestDelete()">Delete</button>
-                        </div>
-                        <div id="delete-pop-up-window">
-                            <p>Warning! The following referenced tables will be also deleted.
-                                    Are you sure ?
-                            </p>
-                            <button onclick="confirmDelete()">Confirm</button>
-                            <button onclick="cancelDelete()">Cancel</button>
-                        </div>
+                    <div id="delete-pop-up-window">
+                        <p>Warning! The following referenced tables will be also deleted. Are you sure ?
+                        </p>
+                        <button onclick="confirmDelete()">Confirm</button>
+                        <button onclick="cancelDelete()">Cancel</button>
                     </div>
+                </div>
             </div>
-            
+
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>
@@ -196,7 +206,7 @@
             </div>
         </div>
 
-        <svg id="schema-svg"  width="calc(100% - 6px)" height="720" style="background-color:#1e4f60;">
+        <svg id="schema-svg" width="calc(100% - 6px)" height="720" style="background-color:#1e4f60;">
             <svg id="group-svg" x="0" y="0" style="overflow: visible;">
                 <g id="group-svg-objects">
                     <!--<rect x="390" y="285" rx="10" ry="10" width="300" height="150"  style="fill:#FFF;stroke:#AAA;stroke-width:2;" />
