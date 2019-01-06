@@ -40,6 +40,16 @@ crossBtn.addEventListener("click", function () {
     datatypeValueDiv.appendChild(datatypeValueInput);
     newTableProperty.appendChild(datatypeValueDiv);
 
+    var notNullAndUniqueDiv = document.createElement("DIV");
+    var notNullParagraph = document.createElement("P");
+    notNullParagraph.textContent = "Not Null";
+    var firstCheckbox = document.createElement("input");
+    firstCheckbox.setAttribute("type","checkbox");
+    firstCheckbox.setAttribute("class","checkbox");
+    notNullAndUniqueDiv.appendChild(notNullParagraph);
+    notNullAndUniqueDiv.appendChild(firstCheckbox);
+    newTableProperty.appendChild(notNullAndUniqueDiv);
+
     popupBody.appendChild(newTableProperty);
 });
 
@@ -51,6 +61,7 @@ runBtn.addEventListener("click", function(){
     // table name validation
     if(!tableName.toUpperCase().match(/[A-Z]+$/)){
         // show error popup
+        console.log("error at table name");
         return;
     }
     
@@ -60,6 +71,7 @@ runBtn.addEventListener("click", function(){
         // column name validation
         if(!columnName.toUpperCase().match(/[A-Z]+$/)){
             // show error popup
+            console.log("error at column name");
             return;
         }
         sqlCommand += columnName.toUpperCase() + " ";
@@ -68,8 +80,9 @@ runBtn.addEventListener("click", function(){
         var datatypeValue = tableProperties[i].getElementsByTagName("input")[1];
         
         // datatype validation
-        if(!datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+        if((datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR"))||((datatypeValue.value < 1 || datatypeValue.value > 255)  && (datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR"))){
             //show popup error
+            console.log("error at datatype");
             return;
         }
         
@@ -77,12 +90,17 @@ runBtn.addEventListener("click", function(){
         if(datatypeValue.value != ''){
             sqlCommand += "(" + datatypeValue.value + ")";
         }
+
+        var checkboxes = tableProperties[i].getElementsByClassName("checkbox");
+        if(checkboxes[0].checked){
+            sqlCommand += " NOT NULL";
+        }
+
         if(i != tableProperties.length - 1){
             sqlCommand += ",";
         } else {
             sqlCommand += ");";
         }
     }
-    //console.log(sqlCommand);
     script.processTheCommand(sqlCommand);
 });
