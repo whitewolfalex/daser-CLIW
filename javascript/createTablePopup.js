@@ -26,7 +26,7 @@ crossBtn.addEventListener("click", function () {
 
     for (var i = 0; i < array.length; i++) {
         var option = document.createElement("option");
-        option.value = array[i];
+        option.value = array[i].toUpperCase();
         option.text = array[i].toUpperCase();
         datatypeSelect.appendChild(option);
     }
@@ -44,10 +44,45 @@ crossBtn.addEventListener("click", function () {
 });
 
 runBtn.addEventListener("click", function(){
-    var tableName = document.getElementById("table-name");
+    var tableName = document.getElementById("table-name").value;
     var tableProperties = document.getElementsByClassName("table-property");
-    for(var i=0; i<tableProperties.length; ++i){
-        var columnName = tableProperties[i].getElementsByTagName("input")[0];
-        console.log(columnName.value);
+    var sqlCommand = "CREATE TABLE ";
+    
+    // table name validation
+    if(!tableName.toUpperCase().match(/[A-Z]+$/)){
+        // show error popup
+        return;
     }
+    
+    sqlCommand += tableName.toUpperCase() + "(";
+    for(var i=0; i<tableProperties.length; ++i){
+        var columnName = tableProperties[i].getElementsByTagName("input")[0].value;
+        // column name validation
+        if(!columnName.toUpperCase().match(/[A-Z]+$/)){
+            // show error popup
+            return;
+        }
+        sqlCommand += columnName.toUpperCase() + " ";
+        var datatype = tableProperties[i].getElementsByTagName("select")[0];
+        var datatype = datatype.options[datatype.selectedIndex].value;
+        var datatypeValue = tableProperties[i].getElementsByTagName("input")[1];
+        
+        // datatype validation
+        if(!datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+            //show popup error
+            return;
+        }
+        
+        sqlCommand += datatype.toUpperCase(); 
+        if(datatypeValue.value != ''){
+            sqlCommand += "(" + datatypeValue.value + ")";
+        }
+        if(i != tableProperties.length - 1){
+            sqlCommand += ",";
+        } else {
+            sqlCommand += ");";
+        }
+    }
+    //console.log(sqlCommand);
+    script.processTheCommand(sqlCommand);
 });
