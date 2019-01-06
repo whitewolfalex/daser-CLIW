@@ -1,3 +1,7 @@
+input{
+    text-transform: uppercase;
+}
+
 button:focus{
     outline: 0;
 }
@@ -292,11 +296,14 @@ body{
 }
 
 #pop-up-body{
-  color: white;
-  font-size: 20px;
-  margin: 100px;
-  margin-left: 120px;
-
+    color: white;
+    font-size: 20px;
+    margin: 100px;
+    margin-bottom: 20px; 
+    height: 400px;
+    padding-right:10px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 input:not([id*='sql-command']){
@@ -327,6 +334,39 @@ select{
   font-size: 30px;
   width: 40px;
   height: 40px;
+}
+#add-btn:active{
+    color: rgb(131, 152, 158);
+    background-color: rgb(87, 100, 104);
+}
+
+#run-button-pop-up{
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+#run-btn{
+    border-radius: 50px;
+    background-color: #788B91;
+    border: none;
+    color: white;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+}
+#run-btn:active{
+    color: rgb(131, 152, 158);
+    background-color: rgb(87, 100, 104);
+}
+  
+
+.table-property div{
+    margin-bottom: 5px;
+}
+
+.table-property div:nth-of-type(3){
+    margin-bottom: 20px;
 }
 
 #export-button{

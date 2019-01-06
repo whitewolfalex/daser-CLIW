@@ -25,7 +25,7 @@
                 <strong>Error!</strong> Invalid mysql command.
             </div>
             <div id="alert2">
-                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <strong>Invalid file.</strong> Please upload a .txt extension file with sql commands separated by /.
             </div>
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
@@ -63,27 +63,48 @@
                 <div id="pop-up-body">
                     <label> Table name
                         <br>
-                        <input type="text" />
+                        <input type="text" id="table-name" pattern="[A-Z]+" title="Use only letters"/>
                     </label>
                     <br>
                     <br>
-                    <label> Column name
-                        <br>
-                        <input type="text" />
-                    </label>
-                    <br>
-                    <label> Datatype
-                        <br>
-                        <select>
-                            <option value="int">INT</option>
-                            <option value="char">CHAR</option>
-                            <option value="varchar">VARCHAR</option>
-                            <option value="bool">BOOL</option>
-                        </select>
-                    </label>
-                    <div id="add-button-pop-up">
-                        <button id="add-btn">+</button>
+                    <div class="table-property">
+                        <div> Column name
+                            <input type="text" pattern="[A-Z]+" title="Use only letters"/>
+                        </div>
+                        <div> Datatype
+                            <select>
+                                <option value="tinyint">TINYINT</option>
+                                <option value="smallint">SMALLINT</option>
+                                <option value="mediumint">MEDIUMINT</option>
+                                <option value="bigint">BIGINT</option>
+                                <option value="int">INT</option>
+                                <option value="date">DATE</option>
+                                <option value="datetime">DATETIME</option>
+                                <option value="timestamp">TIMESTAMP</option>
+                                <option value="time">TIME</option>
+                                <option value="tinytext">TINYTEXT</option>
+                                <option value="mediumtext">MEDIUMTEXT</option>
+                                <option value="longtext">LONGTEXT</option>
+                                <option value="text">TEXT</option>
+                                <option value="tinyblob">TINYBLOB</option>
+                                <option value="mediumblob">MEDIUMBLOB</option>
+                                <option value="longblob">LONGBLOB</option>
+                                <option value="blob">BLOB</option>
+                                <option value="enum">ENUM</option>
+                                <option value="char">CHAR</option>
+                                <option value="varchar">VARCHAR</option>
+                            </select>
+                        </div>
+                        <div> Datatype value
+                            <input type="text" pattern="[0-9]+" title="Use only digits"/>
+                        </div>
                     </div>
+                </div>
+                <div id="add-button-pop-up">
+                    <button id="add-btn">+</button>
+                </div>
+                <div id="run-button-pop-up">
+                    <button id="run-btn">></button>
                 </div>
             </div>
 
@@ -290,11 +311,12 @@
     <script src="../javascript/svg-transforms.js"></script>
     <script src="../javascript/svg-zoom.js"></script>
     <script src="../javascript/svg-export.js"></script>
+    <script type="module" src="../javascript/createTablePopup.js"></script>
     <script type="module" src="../javascript/buttonsFunctionality.js"></script>
     <script type="module" src="../javascript/displayWindows.js"></script>
     <script type="module" src="../javascript/script.js"></script>
     <script type="module" src="../javascript/importSql.js"></script>
-    <input type="file" id="real-file" accept="text/plain" hidden="hidden" /> 
+    <input type="file" id="real-file" accept="text/plain" hidden="hidden" />
 </body>
 
 </html>
