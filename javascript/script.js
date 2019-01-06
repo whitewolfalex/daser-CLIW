@@ -14,11 +14,11 @@ export class Table {
         this.references = references;
     }
 
-    setX(newX){
+    setX(newX) {
         this.x = newX;
     }
 
-    setY(newY){
+    setY(newY) {
         this.y = newY;
     }
 }
@@ -98,13 +98,13 @@ function replaceWithDots(text) {
 export function createTable(title, properties, references, coordinates) {
     let noOfParams = properties.length;
     let table = new Table(260, 60 + noOfParams * 20, title, properties, references);
-    
 
-    if(coordinates != undefined){
+
+    if (coordinates != undefined) {
         console.log(coordinates);
 
-    table.x = coordinates[0];
-    table.y= coordinates[1];
+        table.x = coordinates[0];
+        table.y = coordinates[1];
     }
 
     //#region DrawTheTable 
@@ -173,6 +173,18 @@ export function deleteTable(title) {
     }
 
     tables.splice(index_deletetable, 1);
+}
+
+//stergerea tabelului temporara pentru refacerea proprietatilor 
+export function temporaryRemoveTable(title) {
+
+    removeElementsByClass(title);
+    for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == title) {
+            tables.splice(i, 1);
+            break;
+        }
+    }
 }
 
 function JavaSplit(string, separator, n) {
@@ -356,7 +368,7 @@ function createSqlCommand(mytext) {
                         for (let j = 0; j < refTable.properties.length; j++) {
                             if (refTable.properties[j].name == firstKey[i].trim() && refTable.properties[j].isPrimaryKey) {
                                 //check for duplicates of columns name
-                                if( !exists(references.referencedColumns, firstKey[i].trim()) )
+                                if (!exists(references.referencedColumns, firstKey[i].trim()))
                                     references.referencedColumns.push(firstKey[i].trim());
                                 ok = true;
                             }

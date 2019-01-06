@@ -1,8 +1,7 @@
 import * as script from "./script.js";
 import * as btns from "./buttonsFunctionality.js";
 
-var tables = script.tables;
-var properties = [];
+var tables;
 {
   tables = script.tables;
 }
@@ -20,6 +19,7 @@ window.displayCreateTable = function displayCreateTable() {
 
 //modificare nume coloana a unui tabel deja existent la nivel de front-end
 window.displayAlterTable = function displayAlterTable() {
+  script.removeElementsByClass('column-selection');
   var alterTable = document.getElementById("alterTableWindow");
   if (alterTable.style.display == "block") {
     alterTable.style.display = "none";
@@ -61,7 +61,7 @@ window.renderTablesSelection = function renderTablesSelection(myclass, id) {
 window.renderColumnSelection = function renderColumnSelection() {
   script.removeElementsByClass("column-options");
 
-
+  var properties;
   var selectElement = document.getElementById('column-selection');
   var currentTable = document.getElementById('table-selection').value;
 
@@ -85,64 +85,136 @@ function changeDataTypeOfSelectedColumn() {
   var selectedDatatype = document.getElementById('datatype-selection').value;
   var selectedColumn = document.getElementById('column-selection').value;
   var selectedTable = document.getElementById('table-selection').value;
-  var props = [];
+  var newColumnName = document.getElementById('new-column-name').value;
+  alert(selectedColumn);
+  selectedColumn = selectedColumn.split(' ')[0];
 
-  for (let i = 0; i < tables.length; i++) {
-    if (tables[i].title == selectedTable) {
-      props = tables[i].properties;
+  if (newColumnName != undefined && newColumnName != '') {
 
-      for (let j = 0; j < props.length; j++) {
-        if (props[j].name == selectedColumn) {
-          props[j].datatype = selectedDatatype;
+    if (selectedDatatype != 'none') {
+
+      for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == selectedTable) {
+          var props = tables[i].properties;
+
+          console.log("properties found : ", props);
+          for (let i = 0; i < props.length; i++) {
+            if (props[i].name == newColumnName)
+              props[i].datatype = selectedDatatype;
+          }
+
         }
       }
-    }
-  }
+    }//datatype is valid
+  }//new name is valid
+  else {
+    if (selectedDatatype != 'none') {
 
+      for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == selectedTable) {
+          var props = tables[i].properties;
+
+          console.log("properties found : ", props);
+          for (let i = 0; i < props.length; i++) {
+            if (props[i].name == selectedColumn)
+              props[i].datatype = selectedDatatype;
+          }
+
+        }
+      }
+    }//datatype is valid
+  }
 }
 
 //schimbarea numelui coloanei tabelului selectat la alterTable
 window.changeColumnName = function changeColumnName(event) {
   var mytables = script.tables;
-  console.log('my tables: ', mytables);
+  var properties;
+  var coordinates = [];
+  var references;
 
   var currentTable = document.getElementById('table-selection').value;
   var newColumnName = document.getElementById('new-column-name').value;
   var oldColumnNameVector = document.getElementById('column-selection').value;
+  var selectedDatatype = document.getElementById('datatype-selection').value;
   var oldColumnName = oldColumnNameVector.split(' ')[0].trim();
 
-  var coordinates = [];
+  //check if datatype has changed-------------------------------------------------------------
+  if (selectedDatatype != undefined && selectedDatatype != 'none') {
 
-  for (let index_tables = 0; index_tables < mytables.length; index_tables++) {
+    alert('s-a schimbat tipul de date');
+    alert(oldColumnName);
+    for( let i =0; i < tables.length; i++){
+      if( tables[i].title == currentTable){
+        properties = tables[i].properties;
 
-    if (mytables[index_tables].title.trim() == currentTable.trim()) {
-
-      //get old references to pass to the new object created
-      var references = mytables[index_tables].references;
-      coordinates[0] = mytables[index_tables].x;
-      coordinates[1] = mytables[index_tables].y;
-
-      //delete the table
-      script.deleteTable(currentTable);
-
-      for (let index_props = 0; index_props < properties.length; index_props++) {
-        if (properties[index_props].name === oldColumnName) {
-            properties[index_props].name = newColumnName;
+        for(let j = 0; j < properties.length; j++){
+          if(properties[j].name == oldColumnName){
+            properties[j].datatype = selectedDatatype;
+            alert(properties[j].datatype);
+          }
         }
       }
-
-      //create the table with new properties
-      var newTable = script.createTable(currentTable, properties, references, coordinates);
-      tables = script.tables;
     }
-
-    closePopUp(event);
-    console.log("tables modified references", tables);
   }
 
-  //change datatype of the selected column
-  //changeDataTypeOfSelectedColumn();
+  //check if new name is passed in -------------------------------------------------------------
+  if (newColumnName != undefined && newColumnName != '') {
+    if (!isAForeignKey(oldColumnName)) {
+
+      for (let index_tables = 0; index_tables < mytables.length; index_tables++) {
+
+        if (mytables[index_tables].title.trim() == currentTable.trim()) {
+          properties = mytables[index_tables].properties;
+
+          //get old references to pass to the new object created
+          var references = mytables[index_tables].references;
+          coordinates[0] = mytables[index_tables].x;
+          coordinates[1] = mytables[index_tables].y;
+
+          //delete the table
+          script.temporaryRemoveTable(currentTable);
+
+          for (let index_props = 0; index_props < properties.length; index_props++) {
+            if (properties[index_props].name === oldColumnName) {
+              properties[index_props].name = newColumnName;
+            }
+          }
+          //create the table with new properties
+          var newTable = script.createTable(currentTable, properties, references, coordinates);
+          tables = script.tables;
+        }
+
+        closePopUp(event);
+        console.log("tables modified references", tables);
+      }
+      //the column is foreign key
+    } else {
+      alert("foreign key");
+    }
+    //new column name is null or undefined
+  } else {
+    alert("not selected new name");
+  }
+
+  script.removeElementsByClass('column-options');
   closePopUp(event);
+}
+
+function isAForeignKey(key) {
+  for (let i = 0; i < tables.length; i++) {
+    var references = tables[i].references;
+
+    for (let j = 0; j < references.length; j++) {
+      var refCols = references[j].referencedColumns;
+
+      for (let k = 0; k < refCols.length; k++) {
+        if (refCols[k] == key)
+          return true;
+      }
+    }
+  }
+  return false;
 }
 
 //afisez referintele tabelului selectat pentru stergere la nivel de front-end
