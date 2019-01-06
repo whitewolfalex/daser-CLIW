@@ -1,4 +1,4 @@
-var tables = [];
+export var tables = [];
 var svg = document.getElementById("schema-svg");
 var grp = document.getElementById("group-svg-objects");
 
@@ -98,7 +98,7 @@ function replaceWithDots(text) {
 export function createTable(title, properties, references, coordinates) {
     let noOfParams = properties.length;
     let table = new Table(260, 60 + noOfParams * 20, title, properties, references);
-    console.log("tabelul creat este: ", table.title + " coordinates are: x " , table.x + " y: " + table.y);
+    
 
     if(coordinates != undefined){
         console.log(coordinates);
@@ -106,8 +106,6 @@ export function createTable(title, properties, references, coordinates) {
     table.x = coordinates[0];
     table.y= coordinates[1];
     }
-
-    console.log("tabelul creat este dupa if: ", table.title + " coordinates are: x " , table.x + " y: " + table.y)
 
     //#region DrawTheTable 
     let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
@@ -148,7 +146,7 @@ export function createTable(title, properties, references, coordinates) {
     }
     //#endregion
     tables.push(table);
-    return table;
+    console.log(tables);
 }
 
 export function removeElementsByClass(className) {
@@ -188,7 +186,6 @@ function JavaSplit(string, separator, n) {
 
 function showProperties() {
     tables.forEach(table => {
-        console.log(table.properties);
     });
 }
 
@@ -276,7 +273,6 @@ function createSqlCommand(mytext) {
     var globalReferences = [];
     var primaryKeys = [];
     var tableName = getTableNameFromSplittedText(mytext[0]);
-    console.log("First text: " + mytext);
 
 
     for (let i = 1; i < mytext.length; i++) {
@@ -350,10 +346,8 @@ function createSqlCommand(mytext) {
                 firstKey = firstKey.split('(')[2].trim();
                 firstKey = firstKey.split(')')[0].trim();
                 firstKey = firstKey.split(',');
-                console.log("The referenced columns are: ");
-                console.log(firstKey);
+
                 var refTable = getTable(references.referencedTable);
-                console.log("Referenced table is: " + refTable.title);
 
                 if (refTable != undefined) {
                     var allKeysPrimary = true;
@@ -364,7 +358,6 @@ function createSqlCommand(mytext) {
                                 //check for duplicates of columns name
                                 if( !exists(references.referencedColumns, firstKey[i].trim()) )
                                     references.referencedColumns.push(firstKey[i].trim());
-                                console.log("Am facut push la: " + firstKey[i]);
                                 ok = true;
                             }
                         }
@@ -372,8 +365,6 @@ function createSqlCommand(mytext) {
                             allKeysPrimary = false;
                     }
                     if (allKeysPrimary) {
-                        console.log("final references ");
-                        console.log(references);
                         globalReferences.push(references);
                     }
                 }
@@ -393,7 +384,6 @@ function createSqlCommand(mytext) {
     }
 
     createTable(tableName, properties, globalReferences);
-    console.log(tables);
 }
 
 function getTable(tableName) {

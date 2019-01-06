@@ -1,13 +1,11 @@
 import * as script from "./script.js";
 import * as btns from "./buttonsFunctionality.js";
 
-var tables = [];
+var tables = script.tables;
 var properties = [];
-
-function getTables() {
-  tables = script.getTables();
+{
+  tables = script.tables;
 }
-getTables();
 
 //creare de tabele la nivel de front-end
 window.displayCreateTable = function displayCreateTable() {
@@ -46,6 +44,7 @@ window.displayDeleteWindow = function displayDeleteWindow() {
 
 //randarea tabelelor existente
 window.renderTablesSelection = function renderTablesSelection(myclass, id) {
+
   script.removeElementsByClass(myclass);
   var selectElement = document.getElementById(id);
 
@@ -61,6 +60,7 @@ window.renderTablesSelection = function renderTablesSelection(myclass, id) {
 //randarea coloanelor tabelului selectat la alterTable
 window.renderColumnSelection = function renderColumnSelection() {
   script.removeElementsByClass("column-options");
+
 
   var selectElement = document.getElementById('column-selection');
   var currentTable = document.getElementById('table-selection').value;
@@ -103,43 +103,45 @@ function changeDataTypeOfSelectedColumn() {
 
 //schimbarea numelui coloanei tabelului selectat la alterTable
 window.changeColumnName = function changeColumnName(event) {
-  tables = script.getTables();
+  var mytables = script.tables;
+  console.log('my tables: ', mytables);
+
   var currentTable = document.getElementById('table-selection').value;
   var newColumnName = document.getElementById('new-column-name').value;
   var oldColumnNameVector = document.getElementById('column-selection').value;
-  var oldColumnName = oldColumnNameVector.split(' ')[0];
+  var oldColumnName = oldColumnNameVector.split(' ')[0].trim();
 
-  var references = [];
   var coordinates = [];
 
-  for (let i = 0; i < tables.length; i++) {
-    if (tables[i].title.trim() == currentTable.trim()) {
-      console.log("am gasit tabelul", tables[i]);
+  for (let index_tables = 0; index_tables < mytables.length; index_tables++) {
+
+    if (mytables[index_tables].title.trim() == currentTable.trim()) {
+
       //get old references to pass to the new object created
-      references = tables[i].references;
-      coordinates[0] = tables[i].x;
-      coordinates[1] = tables[i].y;
-      console.log("Inainte sa sterg tabelul " + tables[i].x + " " + tables[i].y);
+      var references = mytables[index_tables].references;
+      coordinates[0] = mytables[index_tables].x;
+      coordinates[1] = mytables[index_tables].y;
 
       //delete the table
       script.deleteTable(currentTable);
 
-      for (let j = 0; j < properties.length; j++) {
-        if (properties[j].name === oldColumnName) {
-          properties[j].name = newColumnName;
-          console.log("am schimbat coloana in : " + properties[j].name);
+      for (let index_props = 0; index_props < properties.length; index_props++) {
+        if (properties[index_props].name === oldColumnName) {
+            properties[index_props].name = newColumnName;
         }
       }
 
       //create the table with new properties
       var newTable = script.createTable(currentTable, properties, references, coordinates);
+      tables = script.tables;
     }
 
-
+    closePopUp(event);
+    console.log("tables modified references", tables);
   }
 
   //change datatype of the selected column
-  changeDataTypeOfSelectedColumn();
+  //changeDataTypeOfSelectedColumn();
   closePopUp(event);
 }
 
