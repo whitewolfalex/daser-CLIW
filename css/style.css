@@ -215,7 +215,8 @@ body{
 
 #createTableWindow,
 #alterTableWindow,
-#deleteTableWindow {
+#deleteTableWindow,
+#infoWindow {
   width: 500px;
   height: 700px;
   background-color: #122F39;
@@ -229,7 +230,8 @@ body{
 
 #createTableWindow-header,
 #alterTableWindow-header,
-#deleteTableWindow-header {
+#deleteTableWindow-header,
+#infoWindow-header {
   height: 50px;
   background-color: #788B91;
   color: #1e4f60;
@@ -239,7 +241,8 @@ body{
 
 #createTableWindow-header > p,
 #alterTableWindow-header > p,
-#deleteTableWindow-header > p{
+#deleteTableWindow-header > p,
+#infoWindow-header > p{
   background-color: #788B91;
   color: #1e4f60;
   text-align: center;
@@ -278,6 +281,15 @@ body{
   font-size: 20px;
   top: 15px;
   position: relative;
+}
+
+#infoWindow-text-container {
+    padding: 10px;
+
+}
+#infoWindow-text-container h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
 }
 
 .fas.fa-times{

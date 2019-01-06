@@ -42,6 +42,17 @@ window.displayDeleteWindow = function displayDeleteWindow() {
   renderTablesSelection("table-delete-options", "table-delete-selection");
 }
 
+//afisarea informatiilor despre aplicatia noastra minunata^^
+window.displayInfoWindow = function displayInfoWindow() {
+  var infoWindow = document.getElementById("infoWindow");
+  if (infoWindow.style.display == "block") {
+    infoWindow.style.display = "none";
+  }
+  else {
+    infoWindow.style.display = "block";
+  }
+}
+
 //randarea tabelelor existente
 window.renderTablesSelection = function renderTablesSelection(myclass, id) {
 
@@ -108,7 +119,7 @@ window.changeColumnName = function changeColumnName(event) {
 
   //check if datatype has changed and modify it
   if (selectedDatatype != undefined && selectedDatatype != 'none') {
-    
+
     for (let j = 0; j < properties.length; j++) {
       if (properties[j].name == oldColumnName) {
         properties[j].datatype = selectedDatatype;
