@@ -31,7 +31,7 @@ class References {
     }
 }
 
-class Property {
+export class Property {
     constructor(name, datatype, notNull, isPrimaryKey) {
         this.name = name;
         this.datatype = datatype;
