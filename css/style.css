@@ -377,8 +377,20 @@ select{
     margin-bottom: 5px;
 }
 
-.table-property div:nth-of-type(3){
+.table-property div:nth-of-type(4){
     margin-bottom: 20px;
+}
+
+.table-property div:nth-of-type(4) p {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.table-property div:nth-of-type(4) input{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 13px;
 }
 
 #export-button{
