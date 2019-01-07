@@ -114,7 +114,11 @@ body{
 }
 
 #alert,
-#alert2 {
+#alert2,
+#alert3,
+#alert4,
+#alert5,
+#alert6{
     display: none;
     padding: 20px;
     background-color: #f44336;
@@ -130,12 +134,22 @@ body{
     z-index: 1000;
 }
 
-#alert2 {
+#alert2,
+#alert5 {
     height: 80px;
 }
 
-#alert2 .closebtn{
+#alert6 {
+    height: 100px;
+}
+
+#alert2 .closebtn,
+#alert5 .closebtn{
     margin-top: 10px;
+}
+
+#alert6 .closebtn{
+    margin-top: 20px;
 }
   
 .closebtn {

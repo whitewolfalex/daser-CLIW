@@ -60,8 +60,7 @@ runBtn.addEventListener("click", function(){
     
     // table name validation
     if(!tableName.toUpperCase().match(/[A-Z]+$/)){
-        // show error popup
-        console.log("error at table name");
+        document.getElementById("alert3").style.display = 'block';
         return;
     }
     
@@ -70,8 +69,7 @@ runBtn.addEventListener("click", function(){
         var columnName = tableProperties[i].getElementsByTagName("input")[0].value;
         // column name validation
         if(!columnName.toUpperCase().match(/[A-Z]+$/)){
-            // show error popup
-            console.log("error at column name");
+            document.getElementById("alert4").style.display = 'block';
             return;
         }
         sqlCommand += columnName.toUpperCase() + " ";
@@ -80,12 +78,14 @@ runBtn.addEventListener("click", function(){
         var datatypeValue = tableProperties[i].getElementsByTagName("input")[1];
         
         // datatype validation
-        if((datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR"))||((datatypeValue.value < 1 || datatypeValue.value > 255)  && (datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR"))){
-            //show popup error
-            console.log("error at datatype");
+        if(datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+            document.getElementById("alert5").style.display = 'block';
             return;
         }
-        
+        if((datatypeValue.value < 1 || datatypeValue.value > 255)  && (datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+            document.getElementById("alert6").style.display = 'block';
+            return;
+        }
         sqlCommand += datatype.toUpperCase(); 
         if(datatypeValue.value != ''){
             sqlCommand += "(" + datatypeValue.value + ")";
