@@ -319,6 +319,7 @@ body{
   position: relative;
   top: 3px;
   right: 10px;
+  cursor: pointer;
 }
 
 #pop-up-body{
@@ -360,16 +361,11 @@ select{
   font-size: 30px;
   width: 40px;
   height: 40px;
+  margin-right: 30px;
 }
 #add-btn:active{
     color: rgb(131, 152, 158);
     background-color: rgb(87, 100, 104);
-}
-
-#run-button-pop-up{
-    text-align: center;
-    position: relative;
-    top: 10px;
 }
 
 #run-btn{

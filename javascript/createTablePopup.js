@@ -103,4 +103,15 @@ runBtn.addEventListener("click", function(){
         }
     }
     script.processTheCommand(sqlCommand);
+    ResetTheCreateTablePopup();
 });
+
+window.ResetTheCreateTablePopup = function ResetTheCreateTablePopup(){
+    document.getElementById("table-name").value = "";
+    document.getElementById("createTableWindow").style.display = "none";
+    let tableProperties = document.getElementsByClassName("table-property");
+    while(tableProperties[0]) {
+        tableProperties[0].parentNode.removeChild(tableProperties[0]);
+    }
+    crossBtn.click();
+}
