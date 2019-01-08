@@ -114,7 +114,11 @@ body{
 }
 
 #alert,
-#alert2 {
+#alert2,
+#alert3,
+#alert4,
+#alert5,
+#alert6{
     display: none;
     padding: 20px;
     background-color: #f44336;
@@ -130,12 +134,22 @@ body{
     z-index: 1000;
 }
 
-#alert2 {
+#alert2,
+#alert5 {
     height: 80px;
 }
 
-#alert2 .closebtn{
+#alert6 {
+    height: 100px;
+}
+
+#alert2 .closebtn,
+#alert5 .closebtn{
     margin-top: 10px;
+}
+
+#alert6 .closebtn{
+    margin-top: 20px;
 }
   
 .closebtn {
@@ -216,7 +230,8 @@ body{
 #createTableWindow,
 #alterTableWindow,
 #deleteTableWindow,
-#fkTableWindow {
+#fkTableWindow ,
+#infoWindow {
   width: 500px;
   height: 700px;
   background-color: #122F39;
@@ -231,7 +246,8 @@ body{
 #createTableWindow-header,
 #alterTableWindow-header,
 #deleteTableWindow-header,
-#fkTableWindow-header {
+#fkTableWindow-header,
+#infoWindow-header {
   height: 50px;
   background-color: #788B91;
   color: #1e4f60;
@@ -242,7 +258,8 @@ body{
 #createTableWindow-header > p,
 #alterTableWindow-header > p,
 #deleteTableWindow-header > p,
-#fkTableWindow-header > p{
+#fkTableWindow-header > p,
+#infoWindow-header > p{
   background-color: #788B91;
   color: #1e4f60;
   text-align: center;
@@ -281,6 +298,15 @@ body{
   font-size: 20px;
   top: 15px;
   position: relative;
+}
+
+#infoWindow-text-container {
+    padding: 10px;
+
+}
+#infoWindow-text-container h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
 }
 
 .fas.fa-times{
@@ -337,6 +363,7 @@ body{
   position: relative;
   top: 3px;
   right: 10px;
+  cursor: pointer;
 }
 
 #pop-up-body{
@@ -378,16 +405,11 @@ select{
   font-size: 30px;
   width: 40px;
   height: 40px;
+  margin-right: 30px;
 }
 #add-btn:active{
     color: rgb(131, 152, 158);
     background-color: rgb(87, 100, 104);
-}
-
-#run-button-pop-up{
-    text-align: center;
-    position: relative;
-    top: 10px;
 }
 
 #run-btn{
@@ -409,8 +431,20 @@ select{
     margin-bottom: 5px;
 }
 
-.table-property div:nth-of-type(3){
+.table-property div:nth-of-type(4){
     margin-bottom: 20px;
+}
+
+.table-property div:nth-of-type(4) p {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.table-property div:nth-of-type(4) input{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 13px;
 }
 
 #export-button{

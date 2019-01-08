@@ -28,6 +28,23 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <strong>Invalid file.</strong> Please upload a .txt extension file with sql commands separated by /.
             </div>
+            <div id="alert3">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Invalid table name.</strong> Please use only letters.
+            </div>
+            <div id="alert4">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Invalid column name.</strong> Please use only letters.
+            </div>
+            <div id="alert5">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Invalid datatype value.</strong> Datatype value is only for Char and Varchar.
+            </div>
+            <div id="alert6">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Invalid datatype value.</strong> Datatype value should not be empty and the value should be between 1 and 255 for Char and Varchar.
+            </div>
+            
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
             <button class="enter-button tooltip" onclick="runSQL()">
                 <span class="tooltiptext">Run command</span>
@@ -55,7 +72,7 @@
             <div id="createTableWindow">
                 <div id="createTableWindow-header">
                     <p>CREATE TABLE</p>
-                    <button id="close-button" onclick="closePopUp(event)">
+                    <button id="close-button" onclick="closePopUp(event);ResetTheCreateTablePopup();">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -97,13 +114,18 @@
                         </div>
                         <div> Datatype value
                             <input type="text" pattern="[0-9]+" title="Use only digits" />
+<<<<<<< HEAD
+=======
+                        </div>
+                        <div>
+                            <p>Not Null</p> 
+                            <input type="checkbox" class="checkbox"/>
+>>>>>>> bd4d9f7053e9df4cf023399501c483daa9547ad3
                         </div>
                     </div>
                 </div>
                 <div id="add-button-pop-up">
                     <button id="add-btn">+</button>
-                </div>
-                <div id="run-button-pop-up">
                     <button id="run-btn">></button>
                 </div>
             </div>
@@ -215,7 +237,7 @@
 
             <div id="deleteTableWindow">
                 <div id="deleteTableWindow-header">
-                    <p>Delete TABLE</p>
+                    <p>DELETE TABLE</p>
                     <button id="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
@@ -240,7 +262,22 @@
                     </div>
                 </div>
             </div>
-
+            <div id="infoWindow">
+                <div id="infoWindow-header">
+                    <p>INFO</p>
+                    <button id="close-button" onclick="closePopUp(event)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="infoWindow-text-container">
+                    <!-- adaug infoooo despre aplicatie^^ -->
+                    <h1>Si quieres saber algo sobre esta aplicacion, porfavor vete a la mierda ^_^!!!!</h1>
+                    <h1>Si quieres saber algo sobre esta aplicacion, porfavor vete a la mierda ^_^!!!!</h1>
+                    <h1>Si quieres saber algo sobre esta aplicacion, porfavor vete a la mierda ^_^!!!!</h1>
+                    <h1>Si quieres saber algo sobre esta aplicacion, porfavor vete a la mierda ^_^!!!!</h1>
+                    <h1>Si quieres saber algo sobre esta aplicacion, porfavor vete a la mierda ^_^!!!!</h1>
+                </div>
+            </div>
 
             <div class="sql-button-container tooltip">
                 <span class="tooltiptext">Create foreign key</span>
@@ -286,7 +323,7 @@
 
             <div class="sql-button-container-right tooltip">
                 <span class="tooltiptext">Info</span>
-                <button class="sql-buttons">
+                <button class="sql-buttons" onclick="displayInfoWindow()">
                     <i class="fas fa-info-circle"></i>
                 </button>
             </div>

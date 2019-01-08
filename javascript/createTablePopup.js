@@ -40,6 +40,16 @@ crossBtn.addEventListener("click", function () {
     datatypeValueDiv.appendChild(datatypeValueInput);
     newTableProperty.appendChild(datatypeValueDiv);
 
+    var notNullAndUniqueDiv = document.createElement("DIV");
+    var notNullParagraph = document.createElement("P");
+    notNullParagraph.textContent = "Not Null";
+    var firstCheckbox = document.createElement("input");
+    firstCheckbox.setAttribute("type","checkbox");
+    firstCheckbox.setAttribute("class","checkbox");
+    notNullAndUniqueDiv.appendChild(notNullParagraph);
+    notNullAndUniqueDiv.appendChild(firstCheckbox);
+    newTableProperty.appendChild(notNullAndUniqueDiv);
+
     popupBody.appendChild(newTableProperty);
 });
 
@@ -50,7 +60,7 @@ runBtn.addEventListener("click", function(){
     
     // table name validation
     if(!tableName.toUpperCase().match(/[A-Z]+$/)){
-        // show error popup
+        document.getElementById("alert3").style.display = 'block';
         return;
     }
     
@@ -59,7 +69,7 @@ runBtn.addEventListener("click", function(){
         var columnName = tableProperties[i].getElementsByTagName("input")[0].value;
         // column name validation
         if(!columnName.toUpperCase().match(/[A-Z]+$/)){
-            // show error popup
+            document.getElementById("alert4").style.display = 'block';
             return;
         }
         sqlCommand += columnName.toUpperCase() + " ";
@@ -68,21 +78,40 @@ runBtn.addEventListener("click", function(){
         var datatypeValue = tableProperties[i].getElementsByTagName("input")[1];
         
         // datatype validation
-        if(!datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
-            //show popup error
+        if(datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+            document.getElementById("alert5").style.display = 'block';
             return;
         }
-        
+        if((datatypeValue.value < 1 || datatypeValue.value > 255)  && (datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
+            document.getElementById("alert6").style.display = 'block';
+            return;
+        }
         sqlCommand += datatype.toUpperCase(); 
         if(datatypeValue.value != ''){
             sqlCommand += "(" + datatypeValue.value + ")";
         }
+
+        var checkboxes = tableProperties[i].getElementsByClassName("checkbox");
+        if(checkboxes[0].checked){
+            sqlCommand += " NOT NULL";
+        }
+
         if(i != tableProperties.length - 1){
             sqlCommand += ",";
         } else {
             sqlCommand += ");";
         }
     }
-    //console.log(sqlCommand);
     script.processTheCommand(sqlCommand);
+    ResetTheCreateTablePopup();
 });
+
+window.ResetTheCreateTablePopup = function ResetTheCreateTablePopup(){
+    document.getElementById("table-name").value = "";
+    document.getElementById("createTableWindow").style.display = "none";
+    let tableProperties = document.getElementsByClassName("table-property");
+    while(tableProperties[0]) {
+        tableProperties[0].parentNode.removeChild(tableProperties[0]);
+    }
+    crossBtn.click();
+}

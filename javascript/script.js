@@ -306,8 +306,11 @@ function createSqlCommand(mytext) {
             if (datatype != undefined) {
                 if (datatype.substring(datatype.length - 1, datatype.length) === ',')
                     datatype = datatype.substring(0, datatype.length - 1);
-
-                property.datatype = datatype;
+                if(!"0123456789".includes(datatype[datatype.length-2]) && datatype[datatype.length-1]==")")
+                    datatype = datatype.substring(0, datatype.length - 1);
+                if(!"0123456789".includes(datatype[datatype.length-3]) && datatype[datatype.length-2]==")")
+                    datatype = datatype.substring(0, datatype.length - 2);
+                property.datatype = datatype.trim();
             }
             if (nullable != undefined && nullable == "NOT") {
                 property.notNull = true;
@@ -418,7 +421,7 @@ processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int
 
 processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, numiii int, FOREIGN KEY(num, numiii) REFERENCES tabel(nume, num))");
 
-processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int NOT NULL)");
+processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int);");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
