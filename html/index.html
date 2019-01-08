@@ -42,9 +42,10 @@
             </div>
             <div id="alert6">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>Invalid datatype value.</strong> Datatype value should not be empty and the value should be between 1 and 255 for Char and Varchar.
+                <strong>Invalid datatype value.</strong> Datatype value should not be empty and the value should be between 1 and
+                255 for Char and Varchar.
             </div>
-            
+
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
             <button class="enter-button tooltip" onclick="runSQL()">
                 <span class="tooltiptext">Run command</span>
@@ -116,8 +117,8 @@
                             <input type="text" pattern="[0-9]+" title="Use only digits" />
                         </div>
                         <div>
-                            <p>Not Null</p> 
-                            <input type="checkbox" class="checkbox"/>
+                            <p>Not Null</p>
+                            <input type="checkbox" class="checkbox" />
                         </div>
                     </div>
                 </div>
@@ -203,27 +204,15 @@
                             <option value="none">Choose a table</option>
                         </select>
                     </label>
-                    <label> Column name
-                        <br>
-                        <select id="column-selection-fk" onchange="renderSecondTablesWithPrimaryKey();">
-                            <option value="none">Choose a column</option>
-                        </select>
-                    </label>
+                    <div id="first-fk-columns-container">
+                    </div>
                     <label> Table name
                         <br>
                         <select id="table-selection-fk2" onchange="renderColumnSelectionFk2();">
                             <option value="none">Choose a table</option>
                         </select>
                     </label>
-                    <!-- <label> Column name
-                        <br>
-                        <select id="column-selection-fk2">
-                            <option value="none">Choose a column</option>
-                        </select>
-                    </label> -->
                     <div id="second-fk-columns-container">
-                        
-
                     </div>
 
                     <div id="submit-button-pop-up">

@@ -4,6 +4,7 @@ import * as popUps from "./displayWindows.js";
 var tables = [];
 var exportText = '';
 var tablePksMap = new Map();
+var currentRadioColumnName = '';
 
 //Initialize Data
 {
@@ -146,7 +147,8 @@ window.displayFkWindow = function displayFkWindow() {
 
 function renderFirstTablesWithPrimaryKey() {
     script.removeElementsByClass('table-selections-fk');
-    script.removeElementsByClass('column-option-fk');
+    script.removeElementsByClass('first-fk-columns-span');
+
     var selectElement = document.getElementById("table-selection-fk");
 
     //iterate through tables and render them if contains primary keys
@@ -168,19 +170,23 @@ function renderFirstTablesWithPrimaryKey() {
 }
 
 //render the tables of the second inpput selection
-window.renderSecondTablesWithPrimaryKey = function renderSecondTablesWithPrimaryKey() {
+window.renderSecondTablesWithPrimaryKey = function renderSecondTablesWithPrimaryKey(event) {
     //clear the options before rendering new options 
     script.removeElementsByClass('table-selections-fk2');
-    // script.removeElementsByClass('column-option-fk2');
+
+    //get the name of the selected column to search in the second table the column with the same datatype
+    var selectedRadioColumnName = event.target.nextSibling.nodeValue;
+    currentRadioColumnName = selectedRadioColumnName;
 
     //get the select element of tables option
     var selectElement = document.getElementById("table-selection-fk2");
+
     //get the first table selection to exclude it from second choice of foreign key
     var firstSelectedTableElement = document.getElementById('table-selection-fk').value;
 
     //iterate through tables and render them if contains primary key and not selected in the first input
     for (let i = 0; i < tables.length; i++) {
-        if (tablesHasPK(tables[i]) && tables[i].title != firstSelectedTableElement) {
+        if (tables[i].title != firstSelectedTableElement) {
             var option = document.createElement('option');
             option.setAttribute('class', 'table-selections-fk2');
             //create text node with table name
@@ -191,82 +197,104 @@ window.renderSecondTablesWithPrimaryKey = function renderSecondTablesWithPrimary
             selectElement.appendChild(option);
         }
     }
+
 }
 
 //render the primary key(s) of selectedFkTable
 window.renderColumnSelectionFk = function renderColumnSelectionFk() {
-    script.removeElementsByClass('column-option-fk');
+    //clear checkboxes
+    script.removeElementsByClass('first-fk-columns-span');
+    //table name from DOM
     var tableName = document.getElementById("table-selection-fk").value;
-    var selectedPKElement = document.getElementById('column-selection-fk');
-    var pks = '';
+    //get the div container for columns
+    var spanContainer = document.getElementById('first-fk-columns-container');
 
-    for (let i = 0; i < tables.length; i++) {
-        if (tables[i].title == tableName) {
-            pks = getPrimaryKeysOfTable(tables[i]);
-            i = tables.length;
-            //create option element and assign a class
-            var option = document.createElement('option');
-            option.setAttribute('class', 'column-option-fk');
-            //create text node with table name
-            var text = document.createTextNode(pks);
-            //add text to option element
-            option.appendChild(text);
-            //add option to select element
-            selectedPKElement.appendChild(option);
-        }
-    }
-}
+    //get the columns of the tabel
+    var cols = getPrimaryKeysOfTable(tableName);
 
-//render column of the second selected table
-window.renderColumnSelectionFk2 = function renderColumnSelectionFk2(){
-    //clear the options for the column rendered before
-    script.removeElementsByClass('column-option-fk2');
-
-    //second table name
-    var tableName = document.getElementById("table-selection-fk2").value;
-    
-
-    //get container id to populate the columns of the second table selected
-    var columnsContainer = document.getElementById("second-fk-columns-container");
-    
-    //get the columns of the selected table
-    var columns = getColumnsOfATable(tableName);
-
-    //render the columns of the table
-    for(let i = 0; i < columns.length; i++){
-        console.log("columns are: " , columns[i]);
+    //render the columns as inputs checkbox
+    for (let i = 0; i < cols.length; i++) {
         //create span element
         var span = document.createElement('span');
-        span.setAttribute('class', 'second-fk-columns-container-span');
+        span.setAttribute('class', 'first-fk-columns-span');
 
-        //create input element of type checkbox
+        //create input type radio
         var input = document.createElement('input');
-        input.setAttribute('type', 'checkbox');
-        input.setAttribute('class', 'second-fk-columns-container-span_input');
-        input.setAttribute('name', columns[i]);
+        input.setAttribute('type', 'radio');
+        input.setAttribute('name', 'fk-primary-key-radio');
+        input.setAttribute('class', 'fk-primary-key-radio-class');
         input.style.width = '20px';
+        input.addEventListener('change', renderSecondTablesWithPrimaryKey, true);
 
-        //add input to span
+        //attach input to span
         span.appendChild(input);
 
         //create text node
-        var text = document.createTextNode(columns[i]);
+        var text = document.createTextNode(cols[i]);
         //add text to span
         span.appendChild(text);
 
         //create br element
         var br = document.createElement('br');
         span.appendChild(br);
-        
+
+        //attach the span to container
+        spanContainer.appendChild(span);
+
+    }
+}
+
+//render column of the second selected table
+window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
+    //clear the options for the column rendered before
+    script.removeElementsByClass('column-option-fk2');
+    var tableName = document.getElementById('table-selection-fk2');
+
+    //second table name
+    var tableName = document.getElementById("table-selection-fk2").value;
+
+    //get container id to populate the columns of the second table selected
+    var columnsContainer = document.getElementById("second-fk-columns-container");
+
+    //get the datatype that respect the datatype of first column selected above
+    var datatype = getDataTypeOfColumn(tableName, currentRadioColumnName);
+
+    //get the columns of second selected table based on datatype
+    var cols = getColumnsOfATablesByDataType(tableName, datatype);
+
+    //render the columns of the table
+    for (let i = 0; i < cols.length; i++) {
+        console.log("columns are: ", cols[i]);
+        //create span element
+        var span = document.createElement('span');
+        span.setAttribute('class', 'second-fk-columns-container-span');
+
+        //create input element of type checkbox
+        var input = document.createElement('input');
+        input.setAttribute('type', 'radio');
+        input.setAttribute('class', 'second-fk-columns-container-span_input');
+        input.setAttribute('name', 'fk-foreign-key-radio');
+        input.style.width = '20px';
+
+        //add input to span
+        span.appendChild(input);
+
+        //create text node
+        var text = document.createTextNode(cols[i]);
+        //add text to span
+        span.appendChild(text);
+
+        //create br element
+        var br = document.createElement('br');
+        span.appendChild(br);
+
         //add span to container
         columnsContainer.appendChild(span);
     }
-    
-    
+
+
     console.log("the map is: ", tablePksMap);
 }
-
-
 
 //get table object by name
 function getTableByName(name) {
@@ -290,23 +318,70 @@ function tablesHasPK(table) {
     return false;
 }
 
-//get the pkeys of a table concatenated eg. ( pk, pk )
+//get the pkeys of a table
 function getPrimaryKeysOfTable(table) {
+    var keys = [];
+
+    for (let i = 0; i < tables.length; i++) {
+        if (table == tables[i].title) {
+            var props = tables[i].properties;
+            for (let j = 0; j < props.length; j++) {
+                if (props[j].isPrimaryKey) {
+                    keys.push(props[j].name);
+                }
+            }
+        }
+    }
+    return keys;
 }
 
-//get columns of a table
-function getColumnsOfATable(tableName){
+//get all columns of a table
+function getColumnsOfATable(tableName) {
     var columnNames = [];
     var props = [];
 
-    for(let i = 0; i < tables.length; i++){
-        if (tables[i].title == tableName){ 
+    for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == tableName) {
             props = tables[i].properties;
-            for(let j = 0; j < props.length; j++){
+            for (let j = 0; j < props.length; j++) {
                 columnNames.push(props[j].name);
             }
         }
     }
-    
+
     return columnNames;
+}
+
+//get columns of a table based on a table and a datatype
+function getColumnsOfATablesByDataType(tableName, datatype) {
+    var cols = [];
+
+    for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == tableName) {
+            var props = tables[i].properties;
+            for (let j = 0; j < props.length; j++) {
+                if (props[j].datatype == datatype) {
+                    cols.push(props[j].name);
+                }
+            }
+        }
+    }
+
+    return cols;
+}
+
+//get datatype based on the name of the table and column
+function getDataTypeOfColumn(tableName, columnName) {
+    console.log(columnName);
+    for (let i = 0; i < tables.length; i++) {
+        if (tables[i].title == tableName) {
+            var props = tables[i].properties;
+            for (let j = 0; j < props.length; j++) {
+                if (props[j].name == columnName) {
+                    return props[j].datatype;
+                }
+            }
+        }
+    }
+
 }
