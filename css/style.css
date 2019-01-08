@@ -215,7 +215,8 @@ body{
 
 #createTableWindow,
 #alterTableWindow,
-#deleteTableWindow {
+#deleteTableWindow,
+#fkTableWindow {
   width: 500px;
   height: 700px;
   background-color: #122F39;
@@ -229,7 +230,8 @@ body{
 
 #createTableWindow-header,
 #alterTableWindow-header,
-#deleteTableWindow-header {
+#deleteTableWindow-header,
+#fkTableWindow-header {
   height: 50px;
   background-color: #788B91;
   color: #1e4f60;
@@ -239,7 +241,8 @@ body{
 
 #createTableWindow-header > p,
 #alterTableWindow-header > p,
-#deleteTableWindow-header > p{
+#deleteTableWindow-header > p,
+#fkTableWindow-header > p{
   background-color: #788B91;
   color: #1e4f60;
   text-align: center;
@@ -287,6 +290,47 @@ body{
   top: 3px;
   right: 10px;
 }
+
+/* pop up foreign key */
+#table-selection-fk,
+#column-selection-fk,
+#table-selection-fk2,
+#column-selection-fk2
+{
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    font-size: 15px;
+    outline: none;
+
+}
+
+.second-fk-columns-container-span_input{
+    padding: 2px;
+    width: 15px;
+    margin: 2px;
+    margin-right: 5px;
+}
+
+/* pop up foreign key */
+
+#submit-btn{
+    background-color: inherit;
+    color: white;
+    border: solid white 1px;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#submit-btn:hover{
+    background-color: white;
+    color: black;
+    border: solid white 1px;
+    border-radius: 15px;
+    animation-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
 .fas.fa-times:hover{
   color: #FFF;
   font-size: 40px;
