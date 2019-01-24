@@ -116,6 +116,7 @@ export function createTable(title, properties, references, coordinates) {
     newElement.setAttribute("ry", "10");
     newElement.setAttribute("width", table.width);
     newElement.setAttribute("height", table.height);
+    newElement.setAttribute("style","fill:#FFF;stroke:#AAA;stroke-width:2;");
     grp.appendChild(newElement);
 
     let newElementTitle = document.createElementNS("http://www.w3.org/2000/svg", 'text');

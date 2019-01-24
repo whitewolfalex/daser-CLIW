@@ -540,12 +540,6 @@ select{
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                      INSIDE SVG STYLEING                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-rect{
-    fill: #fff;
-    stroke: #aaa;
-    stroke-width: 2px;
-}
-
 #group-svg-objects{
     transform-origin: center;
 }
