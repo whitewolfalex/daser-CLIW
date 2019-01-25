@@ -339,22 +339,39 @@ body{
 }
 
 /* pop up foreign key */
-
 #submit-btn{
     background-color: inherit;
     color: white;
     border: solid white 1px;
-    border-radius: 15px;
     padding: 10px;
+    margin-top: 10px;
+    margin-left: 110px;
 }
 
 #submit-btn:hover{
     background-color: white;
     color: black;
     border: solid white 1px;
-    border-radius: 15px;
     animation-duration: 0.5s;
     transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+#submit-btn-fk{
+    background-color: inherit;
+    color: white;
+    border: solid white 1px;
+    padding: 10px;
+    margin-left: 120px;
+}
+
+#submit-btn-fk:hover{
+    background-color: white;
+    color: black;
+    border: solid white 1px;
+    animation-duration: 0.5s;
+    transition-duration: 0.5s;
+    cursor: pointer;
 }
 
 .fas.fa-times:hover{

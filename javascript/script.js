@@ -23,7 +23,7 @@ export class Table {
     }
 }
 
-class References {
+export class References {
     constructor() {
         this.referencedTable = '';
         this.currentColumns = [];
@@ -424,6 +424,10 @@ processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num in
 processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int);");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
+
+processTheCommand("CREATE TABLE employee(id int, name varchar(100), PRIMARY KEY(id));");
+
+processTheCommand("CREATE TABLE employee_details(idd int, address varchar(100), PRIMARY KEY(idd));");
 
 //processTheCommand("DROP TABLE tabel");
 
