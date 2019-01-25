@@ -4,6 +4,15 @@ import closePopUp, * as popUps from "./displayWindows.js";
 var tables = [];
 var tablePksMap = new Map();
 
+//prevent back button
+{
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        document.getElementById('alert8').style.display = 'block';
+        history.go(1);
+    };
+}
+
 //Initialize Data
 {
     tables = script.getTables();
