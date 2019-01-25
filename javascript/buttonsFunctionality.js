@@ -2,9 +2,7 @@ import * as script from "./script.js";
 import closePopUp, * as popUps from "./displayWindows.js";
 
 var tables = [];
-var exportText = '';
 var tablePksMap = new Map();
-var currentRadioColumnName = '';
 
 //Initialize Data
 {
@@ -133,19 +131,7 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-window.displayFkWindow = function displayFkWindow() {
-    var window = document.getElementById('fkTableWindow');
-
-    if (window.style.display == "block") {
-        window.style.display = "none";
-
-    } else {
-        window.style.display = "block";
-    }
-    renderFirstTablesWithPrimaryKey();
-}
-
-function renderFirstTablesWithPrimaryKey() {
+export function renderFirstTablesWithPrimaryKey() {
     script.removeElementsByClass('table-selections-fk');
     script.removeElementsByClass('first-fk-columns-span');
 

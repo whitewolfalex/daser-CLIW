@@ -339,7 +339,8 @@ body{
 }
 
 /* pop up foreign key */
-#submit-btn{
+#submit-btn,
+#delete-btn{
     background-color: inherit;
     color: white;
     border: solid white 1px;
@@ -348,7 +349,8 @@ body{
     margin-left: 110px;
 }
 
-#submit-btn:hover{
+#submit-btn:hover,
+#delete-btn:hover{
     background-color: white;
     color: black;
     border: solid white 1px;
@@ -423,6 +425,7 @@ select{
   width: 40px;
   height: 40px;
   margin-right: 30px;
+  cursor: pointer;
 }
 #add-btn:active{
     color: rgb(131, 152, 158);
@@ -437,6 +440,7 @@ select{
     font-size: 30px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 #run-btn:active{
     color: rgb(131, 152, 158);

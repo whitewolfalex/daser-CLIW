@@ -1,6 +1,8 @@
 import * as script from "./script.js";
 import * as btns from "./buttonsFunctionality.js";
 
+
+var popUpWindows = ["createTableWindow", "alterTableWindow", "fkTableWindow", "deleteTableWindow"];
 var tables;
 {
   tables = script.tables;
@@ -8,24 +10,43 @@ var tables;
 
 //creare de tabele la nivel de front-end
 window.displayCreateTable = function displayCreateTable() {
-  var createTable = document.getElementById("createTableWindow");
-  if (createTable.style.display == "block") {
-    createTable.style.display = "none";
+  var createTableWindow = document.getElementById("createTableWindow");
+
+  if (createTableWindow.style.display == "block") {
+    createTableWindow.style.display = "none";
   }
   else {
-    createTable.style.display = "block";
+    createTableWindow.style.display = "block";
+    closeInactivePopUps(createTableWindow);
   }
+}
+
+// display foreign key window
+window.displayFkWindow = function displayFkWindow() {
+  var window = document.getElementById('fkTableWindow');
+
+  if (window.style.display == "block") {
+    window.style.display = "none";
+
+  } else {
+    window.style.display = "block";
+    closeInactivePopUps(window);
+  }
+  btns.renderFirstTablesWithPrimaryKey();
 }
 
 //modificare nume coloana a unui tabel deja existent la nivel de front-end
 window.displayAlterTable = function displayAlterTable() {
+  var alterTableWindow = document.getElementById("alterTableWindow");
+
   script.removeElementsByClass('column-selection');
-  var alterTable = document.getElementById("alterTableWindow");
-  if (alterTable.style.display == "block") {
-    alterTable.style.display = "none";
+
+  if (alterTableWindow.style.display == "block") {
+    alterTableWindow.style.display = "none";
   }
   else {
-    alterTable.style.display = "block";
+    alterTableWindow.style.display = "block";
+    closeInactivePopUps(alterTableWindow);
   }
   renderTablesSelection("table-options", "table-selection");
 }
@@ -33,11 +54,13 @@ window.displayAlterTable = function displayAlterTable() {
 //stergerea unui tabel deja existent la nivel de front-end
 window.displayDeleteWindow = function displayDeleteWindow() {
   var deleteTableWindow = document.getElementById("deleteTableWindow");
+
   if (deleteTableWindow.style.display == "block") {
-    delteTableWindow.style.display = "none";
+    deleteTableWindow.style.display = "none";
   }
   else {
     deleteTableWindow.style.display = "block";
+    closeInactivePopUps(deleteTableWindow);
   }
   renderTablesSelection("table-delete-options", "table-delete-selection");
 }
@@ -45,11 +68,13 @@ window.displayDeleteWindow = function displayDeleteWindow() {
 //afisarea informatiilor despre aplicatia noastra minunata^^
 window.displayInfoWindow = function displayInfoWindow() {
   var infoWindow = document.getElementById("infoWindow");
+
   if (infoWindow.style.display == "block") {
     infoWindow.style.display = "none";
   }
   else {
     infoWindow.style.display = "block";
+    closeInactivePopUps(deleteTableWindow);
   }
 }
 
@@ -269,6 +294,20 @@ window.closePopUp = function closePopUp(event) {
     closeBtn.style.display = 'block';
   } else {
     closeBtn.style.display = 'none';
+  }
+}
+
+// close all pop ups excluding the selected one 
+function closeInactivePopUps(activePopUp) {
+  var elem = activePopUp;
+  var id = activePopUp.id;
+
+  for (let i = 0; i < popUpWindows.length; i++) {
+    if (popUpWindows[i] != id) {
+      var toCloseElement = document.getElementById(popUpWindows[i]);
+        if(toCloseElement.style.display == 'block')
+          toCloseElement.style.display = 'none';
+    }
   }
 }
 
