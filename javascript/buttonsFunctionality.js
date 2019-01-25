@@ -249,8 +249,8 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
 
     // get the radio selected
     var currentRadioColumnName;
-    for (let i = 0; i< currentRadioColumnNames.length; i++){
-        if(currentRadioColumnNames[i].checked == true){
+    for (let i = 0; i < currentRadioColumnNames.length; i++) {
+        if (currentRadioColumnNames[i].checked == true) {
             currentRadioColumnName = currentRadioColumnNames[i].nextSibling.nodeValue;
             console.log("am luat coloana ", currentRadioColumnName, "de la tabelul ", tableName);
         }
@@ -298,7 +298,8 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
 }
 
 //function that creates foreign key
-window.requestCreateForeignKey = function requestCreateForeignKey(){
+window.requestCreateForeignKey = function requestCreateForeignKey() {
+
     // first table selected
     var firstTable = document.getElementById('table-selection-fk').value;
 
@@ -309,37 +310,46 @@ window.requestCreateForeignKey = function requestCreateForeignKey(){
     // get the second table selected if the first column was selected
     var secondTable = document.getElementById('table-selection-fk2').value;
 
-    // array with radio buttons for first columns of the first table 
-    var secondColumns = document.getElementsByClassName('second-fk-columns-container-span_input');
-    var secondColumn;
+    if (secondTable != 'none') {
 
-    // get the first column - radio button that is checked by the user 
-    for (let i = 0; i< firstColumns.length; i++){
-        if ( firstColumns[i].checked == true){
-            firstColumn = firstColumns[i].nextSibling.nodeValue;
-            break;
+        // array with radio buttons for first columns of the first table 
+        var secondColumns = document.getElementsByClassName('second-fk-columns-container-span_input');
+        var secondColumn;
+
+        // get the first column - radio button that is checked by the user 
+        for (let i = 0; i < firstColumns.length; i++) {
+            if (firstColumns[i].checked == true) {
+                firstColumn = firstColumns[i].nextSibling.nodeValue;
+                break;
+            }
         }
-    }
-    
-    //get the second column - radion button that is checked by the user
-    for (let i = 0; i< secondColumns.length; i++){
-        if ( secondColumns[i].checked == true){
-            secondColumn = secondColumns[i].nextSibling.nodeValue;
-            break;
+
+        //get the second column - radion button that is checked by the user
+        for (let i = 0; i < secondColumns.length; i++) {
+            if (secondColumns[i].checked == true) {
+                secondColumn = secondColumns[i].nextSibling.nodeValue;
+                break;
+            }
         }
+
+        // now we create the foreign key between selected tables / columns 
+        var firstTableObject = getTableByName(firstTable);
+
+        var ftReferences = new script.References();
+        ftReferences.referencedTable = secondTable;
+        ftReferences.currentColumns.push(firstColumn);
+        ftReferences.referencedColumns.push(secondColumn);
+
+        firstTableObject.references.push(ftReferences);
+        console.log(tables);
+    }else{
+        displayValidateFieldsError();
     }
+}
 
-    // now we create the foreign key between selected tables / columns 
-    var firstTableObject = getTableByName(firstTable);
-    var secondTableObject = getTableByName(secondTable);
-
-    var ftReferences = new script.References();
-    ftReferences.referencedTable = secondTable;
-    ftReferences.currentColumns.push(firstColumn);
-    ftReferences.referencedColumns.push(secondColumn);
-
-    firstTableObject.references.push(ftReferences);
-    console.log(tables);
+// display error message when user did not choose tables and columns for foreign key
+export function displayValidateFieldsError() {
+    document.getElementById('alert7').style.display = 'block';
 }
 
 //get table object by name
