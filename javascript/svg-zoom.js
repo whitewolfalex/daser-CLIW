@@ -1,7 +1,7 @@
 var schemaSVG = document.getElementById("schema-svg");
 var SvgGroup = document.getElementById("group-svg-objects");
 var SvgGroupSize = 1;
-var SvgGroupVariation = 0.1;
+var SvgGroupVariation = 0.01;
 //SvgGroup.style.transformOrigin = "0 0";
 
 function zoomIn() {

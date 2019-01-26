@@ -1,0 +1,5 @@
+CREATE TABLE          tabel(       nume INT NOT NULL, num int, nume2 int, PRIMARY KEY(num, nume));
+/
+CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, numiii int, FOREIGN KEY(num, numiii) REFERENCES tabel(nume, num))
+/
+CREATE TABLE tabelul(nume int, num int NOT NULL, num int NOT NULL)
