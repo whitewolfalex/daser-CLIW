@@ -1,10 +1,17 @@
 import * as script from "./script.js";
-import * as popUps from "./displayWindows.js";
+import closePopUp, * as popUps from "./displayWindows.js";
 
 var tables = [];
-var exportText = '';
 var tablePksMap = new Map();
-var currentRadioColumnName = '';
+
+//prevent back button
+{
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        document.getElementById('alert8').style.display = 'block';
+        history.go(1);
+    };
+}
 
 //Initialize Data
 {
@@ -88,7 +95,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
             //generate the referenced columns from the other table
             for (let m = 0; m < references[0].referencedColumns.length; m++) {
-                console.log(references[0].referencedColumns);
+                //console.log(references[0].referencedColumns);
                 content += references[0].referencedColumns[m];
                 //console.log("am adaugat foreign " + references[0].referencedColumns[m]);
 
@@ -110,7 +117,7 @@ window.exportSqlCommands = function exportSqlCommands() {
 
         //add new line after slash
         content += "\n";
-        console.log(content);
+        //.log(content);
         contentToWrite += content;
         content = '';
 
@@ -133,19 +140,7 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-window.displayFkWindow = function displayFkWindow() {
-    var window = document.getElementById('fkTableWindow');
-
-    if (window.style.display == "block") {
-        window.style.display = "none";
-
-    } else {
-        window.style.display = "block";
-    }
-    renderFirstTablesWithPrimaryKey();
-}
-
-function renderFirstTablesWithPrimaryKey() {
+export function renderFirstTablesWithPrimaryKey() {
     script.removeElementsByClass('table-selections-fk');
     script.removeElementsByClass('first-fk-columns-span');
 
@@ -248,7 +243,9 @@ window.renderColumnSelectionFk = function renderColumnSelectionFk() {
 window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
     //clear the options for the column rendered before
     script.removeElementsByClass('column-option-fk2');
-    var tableName = document.getElementById('table-selection-fk2');
+
+    //first table name
+    var firstTableName = document.getElementById('table-selection-fk').value;
 
     //second table name
     var tableName = document.getElementById("table-selection-fk2").value;
@@ -256,15 +253,28 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
     //get container id to populate the columns of the second table selected
     var columnsContainer = document.getElementById("second-fk-columns-container");
 
+    // take the column name selected by the user
+    var currentRadioColumnNames = document.getElementsByClassName('fk-primary-key-radio-class');
+
+    // get the radio selected
+    var currentRadioColumnName;
+    for (let i = 0; i < currentRadioColumnNames.length; i++) {
+        if (currentRadioColumnNames[i].checked == true) {
+            currentRadioColumnName = currentRadioColumnNames[i].nextSibling.nodeValue;
+            console.log("am luat coloana ", currentRadioColumnName, "de la tabelul ", tableName);
+        }
+    }
+
     //get the datatype that respect the datatype of first column selected above
-    var datatype = getDataTypeOfColumn(tableName, currentRadioColumnName);
+    var datatype = getDataTypeOfColumn(firstTableName, currentRadioColumnName);
+    alert(datatype);
 
     //get the columns of second selected table based on datatype
     var cols = getColumnsOfATablesByDataType(tableName, datatype);
 
     //render the columns of the table
     for (let i = 0; i < cols.length; i++) {
-        console.log("columns are: ", cols[i]);
+        //console.log("columns are: ", cols[i]);
         //create span element
         var span = document.createElement('span');
         span.setAttribute('class', 'second-fk-columns-container-span');
@@ -296,6 +306,61 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
     console.log("the map is: ", tablePksMap);
 }
 
+//function that creates foreign key
+window.requestCreateForeignKey = function requestCreateForeignKey() {
+
+    // first table selected
+    var firstTable = document.getElementById('table-selection-fk').value;
+
+    // array with radio buttons for first columns of the first table 
+    var firstColumns = document.getElementsByClassName('fk-primary-key-radio-class');
+    var firstColumn;
+
+    // get the second table selected if the first column was selected
+    var secondTable = document.getElementById('table-selection-fk2').value;
+
+    if (secondTable != 'none') {
+
+        // array with radio buttons for first columns of the first table 
+        var secondColumns = document.getElementsByClassName('second-fk-columns-container-span_input');
+        var secondColumn;
+
+        // get the first column - radio button that is checked by the user 
+        for (let i = 0; i < firstColumns.length; i++) {
+            if (firstColumns[i].checked == true) {
+                firstColumn = firstColumns[i].nextSibling.nodeValue;
+                break;
+            }
+        }
+
+        //get the second column - radion button that is checked by the user
+        for (let i = 0; i < secondColumns.length; i++) {
+            if (secondColumns[i].checked == true) {
+                secondColumn = secondColumns[i].nextSibling.nodeValue;
+                break;
+            }
+        }
+
+        // now we create the foreign key between selected tables / columns 
+        var firstTableObject = getTableByName(firstTable);
+
+        var ftReferences = new script.References();
+        ftReferences.referencedTable = secondTable;
+        ftReferences.currentColumns.push(firstColumn);
+        ftReferences.referencedColumns.push(secondColumn);
+
+        firstTableObject.references.push(ftReferences);
+        console.log(tables);
+    }else{
+        displayValidateFieldsError();
+    }
+}
+
+// display error message when user did not choose tables and columns for foreign key
+export function displayValidateFieldsError() {
+    document.getElementById('alert7').style.display = 'block';
+}
+
 //get table object by name
 function getTableByName(name) {
     for (let i = 0; i < tables.length; i++) {
@@ -323,6 +388,7 @@ function getPrimaryKeysOfTable(table) {
     var keys = [];
 
     for (let i = 0; i < tables.length; i++) {
+        console.log(tables[i]);
         if (table == tables[i].title) {
             var props = tables[i].properties;
             for (let j = 0; j < props.length; j++) {
@@ -355,8 +421,10 @@ function getColumnsOfATable(tableName) {
 //get columns of a table based on a table and a datatype
 function getColumnsOfATablesByDataType(tableName, datatype) {
     var cols = [];
+    console.log(tableName, datatype);
 
     for (let i = 0; i < tables.length; i++) {
+
         if (tables[i].title == tableName) {
             var props = tables[i].properties;
             for (let j = 0; j < props.length; j++) {
@@ -372,12 +440,17 @@ function getColumnsOfATablesByDataType(tableName, datatype) {
 
 //get datatype based on the name of the table and column
 function getDataTypeOfColumn(tableName, columnName) {
-    console.log(columnName);
+
+    console.log('caut in tabelul ', tableName, ' coloana ', columnName);
+
     for (let i = 0; i < tables.length; i++) {
+        console.log(tables[i].title, tables[i].title == tableName)
         if (tables[i].title == tableName) {
+            console.log("am gasit tabelul ", tables[i]);
             var props = tables[i].properties;
             for (let j = 0; j < props.length; j++) {
                 if (props[j].name == columnName) {
+                    alert("am gasit tipul ", props[j].datatype);
                     return props[j].datatype;
                 }
             }

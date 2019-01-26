@@ -1,6 +1,8 @@
 import * as script from "./script.js";
 import * as btns from "./buttonsFunctionality.js";
 
+
+var popUpWindows = ["createTableWindow", "alterTableWindow", "fkTableWindow", "deleteTableWindow"];
 var tables;
 {
   tables = script.tables;
@@ -8,24 +10,43 @@ var tables;
 
 //creare de tabele la nivel de front-end
 window.displayCreateTable = function displayCreateTable() {
-  var createTable = document.getElementById("createTableWindow");
-  if (createTable.style.display == "block") {
-    createTable.style.display = "none";
+  var createTableWindow = document.getElementById("createTableWindow");
+
+  if (createTableWindow.style.display == "block") {
+    createTableWindow.style.display = "none";
   }
   else {
-    createTable.style.display = "block";
+    createTableWindow.style.display = "block";
+    closeInactivePopUps(createTableWindow);
   }
+}
+
+// display foreign key window
+window.displayFkWindow = function displayFkWindow() {
+  var window = document.getElementById('fkTableWindow');
+
+  if (window.style.display == "block") {
+    window.style.display = "none";
+
+  } else {
+    window.style.display = "block";
+    closeInactivePopUps(window);
+  }
+  btns.renderFirstTablesWithPrimaryKey();
 }
 
 //modificare nume coloana a unui tabel deja existent la nivel de front-end
 window.displayAlterTable = function displayAlterTable() {
+  var alterTableWindow = document.getElementById("alterTableWindow");
+
   script.removeElementsByClass('column-selection');
-  var alterTable = document.getElementById("alterTableWindow");
-  if (alterTable.style.display == "block") {
-    alterTable.style.display = "none";
+
+  if (alterTableWindow.style.display == "block") {
+    alterTableWindow.style.display = "none";
   }
   else {
-    alterTable.style.display = "block";
+    alterTableWindow.style.display = "block";
+    closeInactivePopUps(alterTableWindow);
   }
   renderTablesSelection("table-options", "table-selection");
 }
@@ -33,11 +54,13 @@ window.displayAlterTable = function displayAlterTable() {
 //stergerea unui tabel deja existent la nivel de front-end
 window.displayDeleteWindow = function displayDeleteWindow() {
   var deleteTableWindow = document.getElementById("deleteTableWindow");
+
   if (deleteTableWindow.style.display == "block") {
-    delteTableWindow.style.display = "none";
+    deleteTableWindow.style.display = "none";
   }
   else {
     deleteTableWindow.style.display = "block";
+    closeInactivePopUps(deleteTableWindow);
   }
   renderTablesSelection("table-delete-options", "table-delete-selection");
 }
@@ -45,11 +68,13 @@ window.displayDeleteWindow = function displayDeleteWindow() {
 //afisarea informatiilor despre aplicatia noastra minunata^^
 window.displayInfoWindow = function displayInfoWindow() {
   var infoWindow = document.getElementById("infoWindow");
+
   if (infoWindow.style.display == "block") {
     infoWindow.style.display = "none";
   }
   else {
     infoWindow.style.display = "block";
+    closeInactivePopUps(deleteTableWindow);
   }
 }
 
@@ -104,52 +129,56 @@ window.changeColumnName = function changeColumnName(event) {
   var selectedDatatype = document.getElementById('datatype-selection').value;
   var oldColumnName = oldColumnNameVector.split(' ')[0].trim();
 
-  //obtinem proprietatile tabelului selectat
-  for (let i = 0; i < tables.length; i++) {
-    if (tables[i].title == currentTable) {
-      properties = tables[i].properties;
+  console.log(oldColumnName != 'none' && oldColumnName != undefined);
 
-      //get old references to pass to the new object created
-      //coordonatele tmb
-      references = tables[i].references;
-      coordinates[0] = tables[i].x;
-      coordinates[1] = tables[i].y;
-    }
-  }
+  if (oldColumnName != 'none' && newColumnName != '') {
+    //obtinem proprietatile tabelului selectat
+    for (let i = 0; i < tables.length; i++) {
+      if (tables[i].title == currentTable) {
+        properties = tables[i].properties;
 
-  //check if datatype has changed and modify it
-  if (selectedDatatype != undefined && selectedDatatype != 'none') {
-
-    for (let j = 0; j < properties.length; j++) {
-      if (properties[j].name == oldColumnName) {
-        properties[j].datatype = selectedDatatype;
-        alert(properties[j].datatype);
+        //get old references to pass to the new object created
+        //coordonatele tmb
+        references = tables[i].references;
+        coordinates[0] = tables[i].x;
+        coordinates[1] = tables[i].y;
       }
     }
-  }
 
-  //check if new name is passed in
-  if (newColumnName != undefined && newColumnName != '') {
-    if (!isAForeignKey(oldColumnName)) {
+    //check if datatype has changed and modify it
+    if (selectedDatatype != undefined && selectedDatatype != 'none') {
 
-      for (let index_props = 0; index_props < properties.length; index_props++) {
-        if (properties[index_props].name === oldColumnName) {
-          properties[index_props].name = newColumnName;
+      for (let j = 0; j < properties.length; j++) {
+        if (properties[j].name == oldColumnName) {
+          properties[j].datatype = selectedDatatype;
+          alert(properties[j].datatype);
         }
       }
-      //the column is foreign key
-    } else {
-      alert("foreign key");
     }
-    //new column name is null or undefined
+
+    //check if new name is passed in
+    if (newColumnName != undefined && newColumnName != '') {
+      if (!isAForeignKey(oldColumnName)) {
+
+        for (let index_props = 0; index_props < properties.length; index_props++) {
+          if (properties[index_props].name === oldColumnName) {
+            properties[index_props].name = newColumnName;
+          }
+        }
+        //the column is foreign key
+      } else {
+        alert("You changed the data.");
+      }
+      //new column name is null or undefined
+    }
+
+    rebuildTable(currentTable, properties, references, coordinates);
+
+    script.removeElementsByClass('column-options');
+    closePopUp(event);
   } else {
-    alert("not selected new name");
+    btns.displayValidateFieldsError();
   }
-
-  rebuildTable(currentTable, properties, references, coordinates);
-
-  script.removeElementsByClass('column-options');
-  closePopUp(event);
 }
 
 //sterg tabelul si il creez cu noile proprietati la aceleasi coordonate
@@ -217,16 +246,19 @@ function getTableReferences(tableSelection) {
 window.requestDelete = function requestDelete() {
   var tableSelection = document.getElementById('table-delete-selection').value;
 
-  var references = getTableReferences(tableSelection);
+  if (tableSelection != 'none') {
+    var references = getTableReferences(tableSelection);
 
-  if (references.length > 0) {
-    var confirmare = document.getElementById('delete-pop-up-window');
-    confirmare.style.display = 'block';
+    if (references.length > 0) {
+      var confirmare = document.getElementById('delete-pop-up-window');
+      confirmare.style.display = 'block';
+    }
+    else {
+      deleteTableSelection(tableSelection);
+    }
+  }else{
+    btns.displayValidateFieldsError();
   }
-  else {
-    deleteTableSelection(tableSelection);
-  }
-
 }
 
 //stergerea tabelului selectat
@@ -269,6 +301,20 @@ window.closePopUp = function closePopUp(event) {
     closeBtn.style.display = 'block';
   } else {
     closeBtn.style.display = 'none';
+  }
+}
+
+// close all pop ups excluding the selected one 
+function closeInactivePopUps(activePopUp) {
+  var elem = activePopUp;
+  var id = activePopUp.id;
+
+  for (let i = 0; i < popUpWindows.length; i++) {
+    if (popUpWindows[i] != id) {
+      var toCloseElement = document.getElementById(popUpWindows[i]);
+      if (toCloseElement.style.display == 'block')
+        toCloseElement.style.display = 'none';
+    }
   }
 }
 

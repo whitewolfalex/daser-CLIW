@@ -118,7 +118,9 @@ body{
 #alert3,
 #alert4,
 #alert5,
-#alert6{
+#alert6,
+#alert7,
+#alert8{
     display: none;
     padding: 20px;
     background-color: #f44336;
@@ -339,22 +341,41 @@ body{
 }
 
 /* pop up foreign key */
-
-#submit-btn{
+#submit-btn,
+#delete-btn{
     background-color: inherit;
     color: white;
     border: solid white 1px;
-    border-radius: 15px;
     padding: 10px;
+    margin-top: 10px;
+    margin-left: 110px;
 }
 
-#submit-btn:hover{
+#submit-btn:hover,
+#delete-btn:hover{
     background-color: white;
     color: black;
     border: solid white 1px;
-    border-radius: 15px;
     animation-duration: 0.5s;
     transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+#submit-btn-fk{
+    background-color: inherit;
+    color: white;
+    border: solid white 1px;
+    padding: 10px;
+    margin-left: 120px;
+}
+
+#submit-btn-fk:hover{
+    background-color: white;
+    color: black;
+    border: solid white 1px;
+    animation-duration: 0.5s;
+    transition-duration: 0.5s;
+    cursor: pointer;
 }
 
 .fas.fa-times:hover{
@@ -406,6 +427,7 @@ select{
   width: 40px;
   height: 40px;
   margin-right: 30px;
+  cursor: pointer;
 }
 #add-btn:active{
     color: rgb(131, 152, 158);
@@ -420,6 +442,7 @@ select{
     font-size: 30px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 #run-btn:active{
     color: rgb(131, 152, 158);
