@@ -108,6 +108,9 @@ export function createTable(title, properties, references, coordinates) {
     }
 
     //#region DrawTheTable 
+    let newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+    newGroup.setAttribute("id", "group-"+table.title);
+
     let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
     newElement.setAttribute("class", table.title);
     newElement.setAttribute("x", table.x);
@@ -117,7 +120,7 @@ export function createTable(title, properties, references, coordinates) {
     newElement.setAttribute("width", table.width);
     newElement.setAttribute("height", table.height);
     newElement.setAttribute("style","fill:#FFF;stroke:#AAA;stroke-width:2;");
-    grp.appendChild(newElement);
+    newGroup.appendChild(newElement);
 
     let newElementTitle = document.createElementNS("http://www.w3.org/2000/svg", 'text');
     newElementTitle.setAttribute("class", table.title);
@@ -127,7 +130,7 @@ export function createTable(title, properties, references, coordinates) {
     newElementTitle.setAttribute("text-anchor", "middle");
     let txt = document.createTextNode(table.title);
     newElementTitle.appendChild(txt);
-    grp.appendChild(newElementTitle);
+    newGroup.appendChild(newElementTitle);
 
     for (let i = 0; i < properties.length; i++) {
         let newParam = document.createElementNS("http://www.w3.org/2000/svg", 'text');
@@ -136,15 +139,16 @@ export function createTable(title, properties, references, coordinates) {
         newParam.setAttribute("y", 30 + table.y + 20 * (i + 1));
         let txt = document.createTextNode(replaceWithDots(properties[i].name));
         newParam.appendChild(txt);
-        grp.appendChild(newParam);
+        newGroup.appendChild(newParam);
         let newParam2 = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         newParam2.setAttribute("class", table.title);
         newParam2.setAttribute("x", (table.x + table.width / 2));
         newParam2.setAttribute("y", 30 + table.y + 20 * (i + 1));
         let txt2 = document.createTextNode(properties[i].datatype);
         newParam2.appendChild(txt2);
-        grp.appendChild(newParam2);
+        newGroup.appendChild(newParam2);
     }
+    grp.appendChild(newGroup);
     //#endregion
     tables.push(table);
     console.log(tables);
@@ -418,6 +422,68 @@ function exists(array, element) {
     return false;
 }
 
+function drawReferencedLines(){
+    for (let i = 0; i < tables.length; ++i){
+        if(tables[i].references.length){
+            let refTable = getTable(tables[i].references[0].referencedTable);
+            let startPointX = tables[i].x + tables[i].width/2;
+            let startPointY = tables[i].y + tables[i].height/2;
+            let endPointX = refTable.x + refTable.width/2;
+            let endPointY = refTable.y + refTable.height/2;
+            let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
+
+            let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+            newElement.setAttribute("class", "line"+tables[i].title);
+            newElement.setAttribute("x1", startPointX);
+            newElement.setAttribute("y1", startPointY);
+            newElement.setAttribute("x2", intermediatePointX);
+            newElement.setAttribute("y2", startPointY);
+            newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+            grp.insertAdjacentElement("afterbegin", newElement);
+            newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+            newElement.setAttribute("class", "line"+tables[i].title);
+            newElement.setAttribute("x1", endPointX);
+            newElement.setAttribute("y1", startPointY);
+            newElement.setAttribute("x2", endPointX);
+            newElement.setAttribute("y2", endPointY);
+            newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+            grp.insertAdjacentElement("afterbegin", newElement);
+        }
+    }
+}
+
+function redrawReferencedLines(baseTable){
+
+    if(baseTable.references.length){
+    
+        removeElementsByClass("line"+baseTable.title);
+        let refTable = getTable(baseTable.references[0].referencedTable);
+        let startPointX = baseTable.x + baseTable.width/2;
+        let startPointY = baseTable.y + baseTable.height/2;
+        let endPointX = refTable.x + refTable.width/2;
+        let endPointY = refTable.y + refTable.height/2;
+        let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
+
+        let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+        newElement.setAttribute("class", "line"+baseTable.title);
+        newElement.setAttribute("x1", startPointX);
+        newElement.setAttribute("y1", startPointY);
+        newElement.setAttribute("x2", intermediatePointX);
+        newElement.setAttribute("y2", startPointY);
+        newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+        grp.insertAdjacentElement("afterbegin", newElement);
+        newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+        newElement.setAttribute("class", "line"+baseTable.title);
+        newElement.setAttribute("x1", endPointX);
+        newElement.setAttribute("y1", startPointY);
+        newElement.setAttribute("x2", endPointX);
+        newElement.setAttribute("y2", endPointY);
+        newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+        grp.insertAdjacentElement("afterbegin", newElement);
+
+    }
+}
+
 processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, nume2 int, PRIMARY KEY(num, nume));");
 
 processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, numiii int, FOREIGN KEY(num, numiii) REFERENCES tabel(nume, num))");
@@ -433,5 +499,8 @@ processTheCommand("CREATE TABLE employee_details(idd int, address varchar(100), 
 //processTheCommand("DROP TABLE tabel");
 
 showProperties();
+
+drawReferencedLines();
+redrawReferencedLines(getTable("TABELU"));
 
 export default getTables;
