@@ -266,12 +266,36 @@ export function processTheCommand(tempText) {
         if (re2.test(tempText.trim().toUpperCase())) {
             var firstElement = splittedText[0];
             firstElement = firstElement.split(' ');
-            deleteTable(firstElement[2].trim());
+    
+            if(getTable(firstElement[2].trim())){
+                var references = getTable(firstElement[2].trim()).references;
+                if (references.length > 0) {
+                    for(let i=0; i<references.length; ++i){
+                        removeElementsByClass(firstElement[2].trim()+"-"+references[i].referencedTable);
+                        deleteTable(references[i].referencedTable);
+                    }
+                }
+
+                deleteReferencedLines(firstElement[2].trim());
+                deleteTable(firstElement[2].trim());
+            }
         }
         else {
             document.getElementById("alert").style.display = 'block';
         }
     }
+}
+
+function deleteReferencedLines(baseTable){
+    tables.forEach(table => {
+        if(table.references.length){
+            for(let i = 0; i < table.references.length; ++i){
+                if(table.references[i].referencedTable == baseTable){
+                    removeElementsByClass(table.title+"-"+baseTable);
+                }
+            }
+        }
+    });
 }
 
 function getTableNameFromSplittedText(text) {
@@ -433,7 +457,7 @@ function drawReferencedLines(){
             let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
 
             let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-            newElement.setAttribute("class", "line"+tables[i].title);
+            newElement.setAttribute("class", tables[i].title+"-"+tables[i].references[0].referencedTable);
             newElement.setAttribute("x1", startPointX);
             newElement.setAttribute("y1", startPointY);
             newElement.setAttribute("x2", intermediatePointX);
@@ -441,7 +465,7 @@ function drawReferencedLines(){
             newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
             grp.insertAdjacentElement("afterbegin", newElement);
             newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-            newElement.setAttribute("class", "line"+tables[i].title);
+            newElement.setAttribute("class", tables[i].title+"-"+tables[i].references[0].referencedTable);
             newElement.setAttribute("x1", endPointX);
             newElement.setAttribute("y1", startPointY);
             newElement.setAttribute("x2", endPointX);
@@ -456,7 +480,7 @@ function redrawReferencedLines(baseTable){
 
     if(baseTable.references.length){
     
-        removeElementsByClass("line"+baseTable.title);
+        removeElementsByClass("line-"+baseTable.title);
         let refTable = getTable(baseTable.references[0].referencedTable);
         let startPointX = baseTable.x + baseTable.width/2;
         let startPointY = baseTable.y + baseTable.height/2;
@@ -465,7 +489,7 @@ function redrawReferencedLines(baseTable){
         let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
 
         let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-        newElement.setAttribute("class", "line"+baseTable.title);
+        newElement.setAttribute("class", "line-"+baseTable.title);
         newElement.setAttribute("x1", startPointX);
         newElement.setAttribute("y1", startPointY);
         newElement.setAttribute("x2", intermediatePointX);
@@ -473,7 +497,7 @@ function redrawReferencedLines(baseTable){
         newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
         grp.insertAdjacentElement("afterbegin", newElement);
         newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-        newElement.setAttribute("class", "line"+baseTable.title);
+        newElement.setAttribute("class", "line-"+baseTable.title);
         newElement.setAttribute("x1", endPointX);
         newElement.setAttribute("y1", startPointY);
         newElement.setAttribute("x2", endPointX);
@@ -501,6 +525,6 @@ processTheCommand("CREATE TABLE employee_details(idd int, address varchar(100), 
 showProperties();
 
 drawReferencedLines();
-redrawReferencedLines(getTable("TABELU"));
+//redrawReferencedLines(getTable("TABELU"));
 
 export default getTables;
