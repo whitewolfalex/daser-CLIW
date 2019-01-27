@@ -476,7 +476,7 @@ function drawReferencedLines(){
     }
 }
 
-function redrawReferencedLines(baseTable){
+/*function redrawReferencedLines(baseTable){
 
     if(baseTable.references.length){
     
@@ -506,7 +506,7 @@ function redrawReferencedLines(baseTable){
         grp.insertAdjacentElement("afterbegin", newElement);
 
     }
-}
+}*/
 
 processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, nume2 int, PRIMARY KEY(num, nume));");
 
