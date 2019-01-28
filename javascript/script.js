@@ -12,6 +12,8 @@ export class Table {
         this.title = title;
         this.properties = properties;
         this.references = references;
+        this.lastPositionX = 0;
+        this.lastPositionY = 0;
     }
 
     setX(newX) {
@@ -108,7 +110,7 @@ export function createTable(title, properties, references, coordinates) {
     }
 
     //#region DrawTheTable 
-    let newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+    let newGroup = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
     newGroup.setAttribute("id", "group-"+table.title);
 
     let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
@@ -430,7 +432,7 @@ function createSqlCommand(mytext) {
     createTable(tableName, properties, globalReferences);
 }
 
-function getTable(tableName) {
+export function getTable(tableName) {
     for (let i = 0; i < tables.length; i++) {
         if (tables[i].title == tableName) {
             return tables[i];
