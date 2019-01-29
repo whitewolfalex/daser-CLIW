@@ -370,6 +370,11 @@ window.requestAlterNameDatatype = function requestAlterNameDatatype() {
     var columnsBody = document.getElementById('columns-body');
     var keyBody = document.getElementById('key-body');
 
+    var columnsTab = document.getElementById('column-tab');
+    var keysTab = document.getElementById('key-tab-active');
+
+    columnsTab.setAttribute('id', 'column-tab-active');
+    keysTab.setAttribute('id', 'key-tab');
 
     if (keyBody.style.display != undefined && keyBody.style.display == 'block') {
         keyBody.style.display = 'none';
@@ -384,6 +389,14 @@ window.requestAlterPrimaryKey = function requestAlterPrimaryKey() {
     // get the tab to display 
     var columnsBody = document.getElementById('columns-body');
     var keyBody = document.getElementById('key-body');
+
+    var columnsTab = document.getElementById('column-tab-active');
+    var keysTab = document.getElementById('key-tab');
+
+    keysTab.removeAttribute('id');
+    keysTab.setAttribute('id', 'key-tab-active');
+    columnsTab.removeAttribute('id');
+    columnsTab.setAttribute('id', 'column-tab');
 
     if (columnsBody.style.display != undefined && columnsBody.style.display == 'block') {
         columnsBody.style.display = 'none';

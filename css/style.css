@@ -570,14 +570,21 @@ select{
     cursor: pointer;
 }
 
-#column-tab:hover,
-#key-tab:hover{
+#column-tab-active{
+    margin-left: 60px;
+    cursor: pointer;
     text-decoration: underline;
 }
 
 #key-tab{
     margin-left: 10px;
     cursor: pointer;
+}
+
+#key-tab-active{
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 #columns-body,
