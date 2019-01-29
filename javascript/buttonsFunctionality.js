@@ -360,7 +360,7 @@ window.requestCreateForeignKey = function requestCreateForeignKey() {
         popUp.style.display = 'none';
         console.log(tables);
     } else {
-        displayValidateFieldsError();
+        showErrorBanner();
     }
 }
 
@@ -495,22 +495,28 @@ window.setPrimary = function setPrimary() {
     var tableName = document.getElementById('table-selection-pk').value;
 
     //get the non primary key and set it to primary key
-    var nonPkKeyName = document.getElementById('option-non-pk-choice').value;
+    var nonPkKeyName = document.getElementById('option-non-pk-choice');
 
-    var tableObect = getTableByName(tableName);
+    if (nonPkKeyName != undefined && nonPkKeyName.value != '') {
 
-    // change the column chosen to be primary key
-    var props = tableObect.properties;
+        //get the table object to change properties
+        var tableObect = getTableByName(tableName);
 
-    for (let i = 0; i < props.length; i++) {
-        if (props[i].name == nonPkKeyName) {
-            props[i].isPrimaryKey = true;
-            console.log('am pus proprietatea ', props[i]);
+        // change the column chosen to be primary key
+        var props = tableObect.properties;
 
+        for (let i = 0; i < props.length; i++) {
+            if (props[i].name == nonPkKeyName.value) {
+                props[i].isPrimaryKey = true;
+                console.log('am pus proprietatea ', props[i]);
+
+            }
         }
-    }
 
-    showConfirmBanner();
+        showConfirmBanner();
+    } else {
+        showErrorBanner();
+    }
 }
 
 //unset a column from primary key to simple column
@@ -519,21 +525,25 @@ window.unsetPrimary = function unsetPrimary() {
     var tableName = document.getElementById('table-selection-pk').value;
 
     //get the non primary key and set it to primary key
-    var nonPkKeyName = document.getElementById('option-pk-choice').value;
+    var pkKeyName = document.getElementById('option-pk-choice');
 
-    var tableObect = getTableByName(tableName);
+    if (pkKeyName != undefined && pkKeyName.value != '') {
+        var tableObect = getTableByName(tableName);
 
-    // change the column chosen to be primary key
-    var props = tableObect.properties;
+        // change the column chosen to be primary key
+        var props = tableObect.properties;
 
-    for (let i = 0; i < props.length; i++) {
-        if (props[i].name == nonPkKeyName) {
-            props[i].isPrimaryKey = false;
-            console.log('am pus proprietatea ', props[i]);
+        for (let i = 0; i < props.length; i++) {
+            if (props[i].name == pkKeyName.value) {
+                props[i].isPrimaryKey = false;
+                console.log('am pus proprietatea ', props[i]);
 
+            }
         }
+        showConfirmBanner();
+    } else {
+        showErrorBanner();
     }
-    showConfirmBanner();
 }
 
 export function showConfirmBanner() {
@@ -541,8 +551,8 @@ export function showConfirmBanner() {
     document.getElementById('alert9').style.display = 'block';
 }
 
-// display error message when user did not choose tables and columns for foreign key
-export function displayValidateFieldsError() {
+export function showErrorBanner() {
+    // confirm banner 
     document.getElementById('alert7').style.display = 'block';
 }
 
