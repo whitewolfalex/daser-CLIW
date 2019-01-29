@@ -176,7 +176,7 @@ window.changeColumnName = function changeColumnName(event) {
 
     script.removeElementsByClass('column-options');
   } else {
-    btns.displayValidateFieldsError();
+    btns.showErrorBanner();
   }
 }
 
@@ -256,7 +256,7 @@ window.requestDelete = function requestDelete() {
       deleteTableSelection(tableSelection);
     }
   }else{
-    btns.displayValidateFieldsError();
+    btns.showErrorBanner();
   }
 }
 
