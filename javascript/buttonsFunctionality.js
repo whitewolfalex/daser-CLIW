@@ -3,6 +3,7 @@ import closePopUp, * as popUps from "./displayWindows.js";
 
 var tables = [];
 var tablePksMap = new Map();
+var currentRadioColumnName;
 
 //prevent back button
 {
@@ -16,6 +17,10 @@ var tablePksMap = new Map();
 //Initialize Data
 {
     tables = script.getTables();
+    window.onbeforeunload = function() {
+        return "You will lost your data";
+    } 
+    document.getElementById('sql-command').focus();
 }
 
 window.exportSqlCommands = function exportSqlCommands() {
@@ -267,7 +272,6 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
 
     //get the datatype that respect the datatype of first column selected above
     var datatype = getDataTypeOfColumn(firstTableName, currentRadioColumnName);
-    alert(datatype);
 
     //get the columns of second selected table based on datatype
     var cols = getColumnsOfATablesByDataType(tableName, datatype);
@@ -308,6 +312,9 @@ window.renderColumnSelectionFk2 = function renderColumnSelectionFk2() {
 
 //function that creates foreign key
 window.requestCreateForeignKey = function requestCreateForeignKey() {
+    // parent pop up
+    var popUp = document.getElementById('fkTableWindow');
+
 
     // first table selected
     var firstTable = document.getElementById('table-selection-fk').value;
@@ -350,6 +357,7 @@ window.requestCreateForeignKey = function requestCreateForeignKey() {
         ftReferences.referencedColumns.push(secondColumn);
 
         firstTableObject.references.push(ftReferences);
+        popUp.style.display = 'none';
         console.log(tables);
     }else{
         displayValidateFieldsError();
@@ -450,7 +458,6 @@ function getDataTypeOfColumn(tableName, columnName) {
             var props = tables[i].properties;
             for (let j = 0; j < props.length; j++) {
                 if (props[j].name == columnName) {
-                    alert("am gasit tipul ", props[j].datatype);
                     return props[j].datatype;
                 }
             }

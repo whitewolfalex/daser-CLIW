@@ -9,6 +9,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        window.onbeforeunload = function() {
+            return "You will lost your data";
+        } 
+    </script>
+    <input type="file" id="real-file" accept="text/plain" hidden="hidden" />
 </head>
 
 <body>
@@ -340,11 +346,6 @@
     <script type="module" src="../javascript/displayWindows.js"></script>
     <script type="module" src="../javascript/script.js"></script>
     <script type="module" src="../javascript/importSql.js"></script>
-    <script type="text/javascript">
-        window.onbeforeunload = function() {
-            return "You will lost your data";
-        } 
-    </script>
     <input type="file" id="real-file" accept="text/plain" hidden="hidden" />
 </body>
 
