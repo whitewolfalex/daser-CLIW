@@ -17,9 +17,9 @@ var currentRadioColumnName;
 //Initialize Data
 {
     tables = script.getTables();
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
         return "You will lost your data";
-    } 
+    }
     document.getElementById('sql-command').focus();
 }
 
@@ -359,9 +359,186 @@ window.requestCreateForeignKey = function requestCreateForeignKey() {
         firstTableObject.references.push(ftReferences);
         popUp.style.display = 'none';
         console.log(tables);
-    }else{
+    } else {
         displayValidateFieldsError();
     }
+}
+
+// function that changes the tabs from alter table pop up
+window.requestAlterNameDatatype = function requestAlterNameDatatype() {
+    // get the tab to display 
+    var columnsBody = document.getElementById('columns-body');
+    var keyBody = document.getElementById('key-body');
+
+
+    if (keyBody.style.display != undefined && keyBody.style.display == 'block') {
+        keyBody.style.display = 'none';
+        columnsBody.style.display = 'block';
+    } else {
+        columnsBody.style.display = 'block';
+    }
+}
+
+// same function for primary key tab
+window.requestAlterPrimaryKey = function requestAlterPrimaryKey() {
+    // get the tab to display 
+    var columnsBody = document.getElementById('columns-body');
+    var keyBody = document.getElementById('key-body');
+
+    if (columnsBody.style.display != undefined && columnsBody.style.display == 'block') {
+        columnsBody.style.display = 'none';
+        keyBody.style.display = 'block';
+    } else {
+        keyBody.style.display = 'block';
+    }
+
+    renderTablesAlterPrimaryKey();
+}
+
+// render the tables for pk alter keys
+window.renderTablesAlterPrimaryKey = function renderTablesAlterPrimaryKey() {
+    var selectElement = document.getElementById('table-selection-pk');
+
+    script.removeElementsByClass('option-element-tables-pk');
+
+    for (let i = 0; i < tables.length; i++) {
+        // create an option element to add to the select element
+        var optionElement = document.createElement('option');
+        optionElement.setAttribute('class', 'option-element-tables-pk');
+        optionElement.setAttribute('value', tables[i].title);
+
+        // create text node to add to option element with table name
+        var text = document.createTextNode(tables[i].title);
+
+        // add text to option element
+        optionElement.appendChild(text);
+
+        // now we add the option element to the select element
+        selectElement.appendChild(optionElement);
+    }
+
+}
+
+// function that renders columns from alter table primary keys
+window.renderPkColumnSelection = function renderPkColumnSelection() {
+    // get the name of the selected table 
+    var tableName = document.getElementById('table-selection-pk').value;
+
+    // get the primary keys columns of the table
+    var columns = getPrimaryKeysOfTable(tableName);
+    console.log('cheile primare : ', columns);
+
+    // get the select element to add options 
+    var selectElement = document.getElementById('column-selection-pk');
+
+    script.removeElementsByClass('option-element-tables-columns-pk');
+
+    //render the columns
+    for (let i = 0; i < columns.length; i++) {
+        // create an option element to add to the select element
+        var optionElement = document.createElement('option');
+        optionElement.setAttribute('id', 'option-pk-choice');
+        optionElement.setAttribute('class', 'option-element-tables-columns-pk');
+        optionElement.setAttribute('value', columns[i]);
+
+        // create text node to add to option element with table name
+        var text = document.createTextNode(columns[i]);
+
+        // add text to option element
+        optionElement.appendChild(text);
+
+        // now we add the option element to the select element
+        selectElement.appendChild(optionElement);
+    }
+
+    // render the non pks also
+    renderNonPkColumnSelection();
+}
+
+// function that renders columns from alter table non primary keys
+window.renderNonPkColumnSelection = function renderNonPkColumnSelection() {
+    // get the name of the selected table 
+    var tableName = document.getElementById('table-selection-pk').value;
+
+    // get the primary keys columns of the table
+    var columns = getNonPrimaryKeysOfTable(tableName);
+    console.log('cheile neprimare : ', columns);
+
+    // get the select element to add options 
+    var selectElement = document.getElementById('column-selection-non-pk');
+
+    script.removeElementsByClass('option-element-tables-columns-non-pk');
+
+    //render the columns
+    for (let i = 0; i < columns.length; i++) {
+        // create an option element to add to the select element
+        var optionElement = document.createElement('option');
+        optionElement.setAttribute('id', 'option-non-pk-choice');
+        optionElement.setAttribute('class', 'option-element-tables-columns-non-pk');
+        optionElement.setAttribute('value', columns[i]);
+
+        // create text node to add to option element with table name
+        var text = document.createTextNode(columns[i]);
+
+        // add text to option element
+        optionElement.appendChild(text);
+
+        // now we add the option element to the select element
+        selectElement.appendChild(optionElement);
+    }
+
+}
+
+//set a column to primary key
+window.setPrimary = function setPrimary() {
+    // get the table name 
+    var tableName = document.getElementById('table-selection-pk').value;
+
+    //get the non primary key and set it to primary key
+    var nonPkKeyName = document.getElementById('option-non-pk-choice').value;
+
+    var tableObect = getTableByName(tableName);
+
+    // change the column chosen to be primary key
+    var props = tableObect.properties;
+
+    for (let i = 0; i < props.length; i++) {
+        if (props[i].name == nonPkKeyName) {
+            props[i].isPrimaryKey = true;
+            console.log('am pus proprietatea ', props[i]);
+
+        }
+    }
+
+    showConfirmBanner();
+}
+
+//unset a column from primary key to simple column
+window.unsetPrimary = function unsetPrimary() {
+    // get the table name 
+    var tableName = document.getElementById('table-selection-pk').value;
+
+    //get the non primary key and set it to primary key
+    var nonPkKeyName = document.getElementById('option-pk-choice').value;
+
+    var tableObect = getTableByName(tableName);
+
+    // change the column chosen to be primary key
+    var props = tableObect.properties;
+
+    for (let i = 0; i < props.length; i++) {
+        if (props[i].name == nonPkKeyName) {
+            props[i].isPrimaryKey = false;
+            console.log('am pus proprietatea ', props[i]);
+
+        }
+    }
+    showConfirmBanner();
+}
+
+export function showConfirmBanner() {
+    // confirm banner 
+    document.getElementById('alert9').style.display = 'block';
 }
 
 // display error message when user did not choose tables and columns for foreign key
@@ -401,6 +578,24 @@ function getPrimaryKeysOfTable(table) {
             var props = tables[i].properties;
             for (let j = 0; j < props.length; j++) {
                 if (props[j].isPrimaryKey) {
+                    keys.push(props[j].name);
+                }
+            }
+        }
+    }
+    return keys;
+}
+
+//get the pkeys of a table
+function getNonPrimaryKeysOfTable(table) {
+    var keys = [];
+
+    for (let i = 0; i < tables.length; i++) {
+        console.log(tables[i]);
+        if (table == tables[i].title) {
+            var props = tables[i].properties;
+            for (let j = 0; j < props.length; j++) {
+                if (!props[j].isPrimaryKey) {
                     keys.push(props[j].name);
                 }
             }

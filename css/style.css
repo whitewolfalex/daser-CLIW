@@ -120,7 +120,8 @@ body{
 #alert5,
 #alert6,
 #alert7,
-#alert8{
+#alert8,
+#alert9{
     display: none;
     padding: 20px;
     background-color: #f44336;
@@ -152,6 +153,10 @@ body{
 
 #alert6 .closebtn{
     margin-top: 20px;
+}
+
+#alert9{
+    background-color: green;
 }
   
 .closebtn {
@@ -342,7 +347,10 @@ body{
 
 /* pop up foreign key */
 #submit-btn,
-#delete-btn{
+#delete-btn,
+#submit-btn-pk,
+#submit-btn-add-pk,
+#submit-btn-remove-pk{
     background-color: inherit;
     color: white;
     border: solid white 1px;
@@ -351,8 +359,19 @@ body{
     margin-left: 110px;
 }
 
+#submit-btn-add-pk{
+    margin-left: 87px;
+}
+
+#submit-btn-remove-pk{
+    margin-left: 80px;
+}
+
 #submit-btn:hover,
-#delete-btn:hover{
+#delete-btn:hover,
+#submit-btn-pk:hover,
+#submit-btn-add-pk:hover,
+#submit-btn-remove-pk:hover{
     background-color: white;
     color: black;
     border: solid white 1px;
@@ -544,6 +563,26 @@ select{
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+#column-tab{
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+#column-tab:hover,
+#key-tab:hover{
+    text-decoration: underline;
+}
+
+#key-tab{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#columns-body,
+#key-body{
+    display: none;
 }
 
 @media only screen and (max-width: 630px) {

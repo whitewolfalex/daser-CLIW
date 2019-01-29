@@ -131,7 +131,7 @@ window.changeColumnName = function changeColumnName(event) {
 
   console.log(oldColumnName != 'none' && oldColumnName != undefined);
 
-  if (oldColumnName != 'none' && newColumnName != '') {
+  if (oldColumnName != 'none') {
     //obtinem proprietatile tabelului selectat
     for (let i = 0; i < tables.length; i++) {
       if (tables[i].title == currentTable) {
@@ -151,7 +151,6 @@ window.changeColumnName = function changeColumnName(event) {
       for (let j = 0; j < properties.length; j++) {
         if (properties[j].name == oldColumnName) {
           properties[j].datatype = selectedDatatype;
-          alert(properties[j].datatype);
         }
       }
     }
@@ -167,15 +166,15 @@ window.changeColumnName = function changeColumnName(event) {
         }
         //the column is foreign key
       } else {
-        alert("You changed the data.");
+        //alert("You changed the data.");
       }
       //new column name is null or undefined
     }
-
+    closePopUpp(event);
     rebuildTable(currentTable, properties, references, coordinates);
+    btns.showConfirmBanner();
 
     script.removeElementsByClass('column-options');
-    closePopUp(event);
   } else {
     btns.displayValidateFieldsError();
   }
@@ -297,6 +296,19 @@ window.cancelDelete = function cancelDelete() {
 //inchiderea ferestei de creare/alter/delete tabel la nivel de front-end
 window.closePopUp = function closePopUp(event) {
   var closeBtn = document.getElementById(event.target.parentNode.parentNode.parentNode.id);
+  var closeBtnn = document.getElementById(event.target.parentNode.parentNode.parentNode);
+  console.log(closeBtn);
+  if (closeBtn.style.display == 'none') {
+    closeBtn.style.display = 'block';
+  } else {
+    closeBtn.style.display = 'none';
+  }
+}
+
+//inchiderea ferestei de alter tabel la nivel de front-end
+window.closePopUpp = function closePopUp(event) {
+  var closeBtn = document.getElementById(event.target.parentNode.parentNode.parentNode.parentNode.id);
+  //console.log('close btn', closeBtn);
   if (closeBtn.style.display == 'none') {
     closeBtn.style.display = 'block';
   } else {

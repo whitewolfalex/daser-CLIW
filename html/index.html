@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript">
-        window.onbeforeunload = function() {
+        window.onbeforeunload = function () {
             return "You will lost your data";
         } 
     </script>
@@ -58,6 +58,10 @@
             <div id="alert8">
                 <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                 Warning! You can't go back, you will lose your data.
+            </div>
+            <div id="alert9">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                    Changes saved.
             </div>
 
             <input type="text" id="sql-command" placeholder="SQL COMMAND" />
@@ -151,54 +155,93 @@
                 </div>
 
                 <div id="pop-up-body">
-                    <label> Table name
+                    <div>
+                        <span id="column-tab" onclick="requestAlterNameDatatype();">Columns</span>
+                        <span id="key-tab" onclick="requestAlterPrimaryKey();">Keys</span>
+                    </div>
+                    <div id="columns-body">
+                        <label> Table name
+                            <br>
+                            <select id="table-selection" onchange="renderColumnSelection();">
+                                <option value="none">Choose a table</option>
+                            </select>
+                        </label>
                         <br>
-                        <select id="table-selection" onchange="renderColumnSelection();">
-                            <option value="none">Choose a table</option>
-                        </select>
-                    </label>
-                    <br>
-                    <br>
-                    <label> Column name
                         <br>
-                        <select id="column-selection">
-                            <option value="none">Choose a column</option>
-                        </select>
-                    </label>
+                        <label> Column name
+                            <br>
+                            <select id="column-selection">
+                                <option value="none">Choose a column</option>
+                            </select>
+                        </label>
 
-                    <label> Data type
+                        <label> Data type
+                            <br>
+                            <select id="datatype-selection">
+                                <option value="none">Choose datatype</option>
+                                <option value="TINYINT">TINYINT</option>
+                                <option value="SMALLINT">SMALLINT</option>
+                                <option value="MEDIUMINT">MEDIUMINT</option>
+                                <option value="BIGINT">BIGINT</option>
+                                <option value="INT">INT</option>
+                                <option value="DATE">DATE</option>
+                                <option value="DATETIME">DATETIME</option>
+                                <option value="TIMESTAMP">TIMESTAMP</option>
+                                <option value="TIME">TIME</option>
+                                <option value="TINYTEXT">TINYTEXT</option>
+                                <option value="MEDIUMTEXT">MEDIUMTEXT</option>
+                                <option value="LONGTEXT">LONGTEXT</option>
+                                <option value="TEXT">TEXT</option>
+                                <option value="TINYBLOB">TINYBLOB</option>
+                                <option value="MEDIUMBLOB">MEDIUMBLOB</option>
+                                <option value="LONGBLOB">LONGBLOB</option>
+                                <option value="BLOB">BLOB</option>
+                                <option value="ENUM">ENUM</option>
+                                <option value="CHAR">CHAR</option>
+                                <option value="VARCHAR">VARCHAR</option>
+                            </select>
+                        </label>
                         <br>
-                        <select id="datatype-selection">
-                            <option value="none">Choose datatype</option>
-                            <option value="TINYINT">TINYINT</option>
-                            <option value="SMALLINT">SMALLINT</option>
-                            <option value="MEDIUMINT">MEDIUMINT</option>
-                            <option value="BIGINT">BIGINT</option>
-                            <option value="INT">INT</option>
-                            <option value="DATE">DATE</option>
-                            <option value="DATETIME">DATETIME</option>
-                            <option value="TIMESTAMP">TIMESTAMP</option>
-                            <option value="TIME">TIME</option>
-                            <option value="TINYTEXT">TINYTEXT</option>
-                            <option value="MEDIUMTEXT">MEDIUMTEXT</option>
-                            <option value="LONGTEXT">LONGTEXT</option>
-                            <option value="TEXT">TEXT</option>
-                            <option value="TINYBLOB">TINYBLOB</option>
-                            <option value="MEDIUMBLOB">MEDIUMBLOB</option>
-                            <option value="LONGBLOB">LONGBLOB</option>
-                            <option value="BLOB">BLOB</option>
-                            <option value="ENUM">ENUM</option>
-                            <option value="CHAR">CHAR</option>
-                            <option value="VARCHAR">VARCHAR</option>
-                        </select>
-                    </label>
-                    <br>
-                    <label> New column name
+                        <label> New column name
+                            <br>
+                            <input type="text" id="new-column-name" />
+                        </label>
+                        <div id="submit-button-pop-up">
+                            <button id="submit-btn" onclick="changeColumnName(event);">Submit</button>
+                        </div>
+                    </div>
+
+                    <div id="key-body" onclick="renderTablesAlterPrimaryKey();">
+                        <label> Table name
+                            <br>
+                            <select id="table-selection-pk" onchange="renderPkColumnSelection();">
+                                <option value="none">Choose a table</option>
+                            </select>
+                        </label>
                         <br>
-                        <input type="text" id="new-column-name" />
-                    </label>
-                    <div id="submit-button-pop-up">
-                        <button id="submit-btn" onclick="changeColumnName(event);">Submit</button>
+                        <br>
+                        <br>
+                        <br>
+                        <label> Column name ( Non primary )
+                            <br>
+                            <select id="column-selection-non-pk">
+                                <option value="none">Choose a column</option>
+                            </select>
+                        </label>
+                        <div id="submit-pk-btn">
+                                <button id="submit-btn-add-pk" onclick="setPrimary();">Set Primary</button>
+                        </div>
+                        <br>
+                        <br>
+                        <label> Column name ( Primary )
+                            <br>
+                            <select id="column-selection-pk">
+                                <option value="none">Choose a column</option>
+                            </select>
+                        </label>
+                        <div id="submit-pk-btn">
+                                <button id="submit-btn-remove-pk" onclick="unsetPrimary();">Unset Primary</button>
+                        </div>
                     </div>
                 </div>
             </div>
