@@ -121,7 +121,8 @@ body{
 #alert6,
 #alert7,
 #alert8,
-#alert9{
+#alert9,
+#alert10{
     display: none;
     padding: 20px;
     background-color: #f44336;

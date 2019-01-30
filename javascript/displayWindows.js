@@ -49,6 +49,9 @@ window.displayAlterTable = function displayAlterTable() {
     closeInactivePopUps(alterTableWindow);
   }
   renderTablesSelection("table-options", "table-selection");
+
+  // display the columns tab by default
+  document.getElementById('columns-body').style.display = 'block';
 }
 
 //stergerea unui tabel deja existent la nivel de front-end
@@ -255,7 +258,7 @@ window.requestDelete = function requestDelete() {
     else {
       deleteTableSelection(tableSelection);
     }
-  }else{
+  } else {
     btns.showErrorBanner();
   }
 }

@@ -4,6 +4,7 @@ import closePopUp, * as popUps from "./displayWindows.js";
 var tables = [];
 var tablePksMap = new Map();
 var currentRadioColumnName;
+var foreignKeys = {};
 
 //prevent back button
 {
@@ -212,6 +213,9 @@ window.renderColumnSelectionFk = function renderColumnSelectionFk() {
     //get the columns of the tabel
     var cols = getPrimaryKeysOfTable(tableName);
 
+    //refresh second columns
+    script.removeElementsByClass('second-fk-columns-container-span');
+
     //render the columns as inputs checkbox
     for (let i = 0; i < cols.length; i++) {
         //create span element
@@ -348,17 +352,33 @@ window.requestCreateForeignKey = function requestCreateForeignKey() {
             }
         }
 
-        // now we create the foreign key between selected tables / columns 
-        var firstTableObject = getTableByName(firstTable);
+        // check if there already exists a foreign key 
+        var foreignKeysKeys = Object.keys(foreignKeys);
+        //get the value from dictionary that has my currentkey
 
-        var ftReferences = new script.References();
-        ftReferences.referencedTable = secondTable;
-        ftReferences.currentColumns.push(firstColumn);
-        ftReferences.referencedColumns.push(secondColumn);
+        if (foreignKeys[secondTable + secondColumn] != firstTable + firstColumn) {
+            // now we create the foreign key between selected tables / columns 
+            var firstTableObject = getTableByName(firstTable);
 
-        firstTableObject.references.push(ftReferences);
-        popUp.style.display = 'none';
-        console.log(tables);
+            var ftReferences = new script.References();
+            ftReferences.referencedTable = secondTable;
+            ftReferences.currentColumns.push(firstColumn);
+            ftReferences.referencedColumns.push(secondColumn);
+
+            firstTableObject.references.push(ftReferences);
+
+            // store primary keys in a structure to check if there is already a foreign key created
+            foreignKeys[firstTable + firstColumn] = secondTable + secondColumn;
+            console.log(foreignKeys);
+            script.removeElementsByClass('table-selections-fk2');
+            script.removeElementsByClass('second-fk-columns-container-span');
+            popUp.style.display = 'none';
+            console.log(tables);
+
+        } else {
+            showFkBanner();
+        }
+
     } else {
         showErrorBanner();
     }
@@ -567,6 +587,10 @@ export function showConfirmBanner() {
 export function showErrorBanner() {
     // confirm banner 
     document.getElementById('alert7').style.display = 'block';
+}
+
+function showFkBanner() {
+    document.getElementById('alert10').style.display = 'block';
 }
 
 //get table object by name
