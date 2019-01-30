@@ -256,6 +256,7 @@ window.requestDelete = function requestDelete() {
       confirmare.style.display = 'block';
     }
     else {
+      script.deleteReferencedLines(tableSelection);
       deleteTableSelection(tableSelection);
     }
   } else {
@@ -284,6 +285,7 @@ window.confirmDelete = function confirmDelete() {
   var references = getTableReferences(tableSelection);
 
   for (let index = 0; index < references.length; index++) {
+    script.deleteReferencedLines(references[index].referencedTable);
     script.deleteTable(references[index].referencedTable);
   }
 
