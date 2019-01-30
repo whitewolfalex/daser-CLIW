@@ -8,6 +8,7 @@ var xOffset = 23;
 var yOffset = 195;
 var moveTable = false;
 var tableToMove;
+var tableToUpdate;
 var groupSVGx = 0;
 var groupSVGy = 0;
 schemaSVG.onmousedown = dragMouseDown;
@@ -30,6 +31,7 @@ function dragMouseDown(e)
             if(table.y + table.lastPositionY + groupSVGy <= e.clientY-yOffset && e.clientY-yOffset <= table.y + table.lastPositionY + groupSVGy + table.height){
                 moveTable = true;
                 tableToMove = table.title;
+                tableToUpdate = script.getTable(tableToMove);
                 tableSVG = document.getElementById("group-" + tableToMove);
             }
         }
@@ -60,6 +62,9 @@ function elementDrag(e)
     if(moveTable){
         tableSVG.setAttribute('x', currentPositionX);
         tableSVG.setAttribute('y', currentPositionY);
+        tableToUpdate.lastPositionX = currentPositionX;
+        tableToUpdate.lastPositionY = currentPositionY;
+        script.redrawReferencedLines(tableToUpdate);
     }
     else{
         groupSVG.setAttribute('x', currentPositionX);
@@ -70,9 +75,9 @@ function elementDrag(e)
 function closeDragElement() 
 {
     if(moveTable){
-        let tableToUpdate = script.getTable(tableToMove);
         tableToUpdate.lastPositionX = currentPositionX;
         tableToUpdate.lastPositionY = currentPositionY;
+        script.redrawReferencedLines(tableToUpdate);
     }
     moveTable = false;
     lastPositionX = currentPositionX;
