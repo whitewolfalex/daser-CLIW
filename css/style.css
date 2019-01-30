@@ -1,3 +1,4 @@
+
 input{
     text-transform: uppercase;
 }
@@ -310,11 +311,29 @@ body{
 
 #infoWindow-text-container {
     padding: 10px;
+    color: white;
+    overflow-y: scroll;
+    height: 630px;
 
 }
-#infoWindow-text-container h1{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: white;
+#infoWindow-text-container li{
+    font-size: 18px;
+    margin: 40px 0px;
+}
+
+#infoWindow-text-container h3{
+    font-size: 18px;
+    font-weight: 300;    
+}
+
+#infoWindow-text-container span{
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.5s ease;
+}
+
+#infoWindow-text-container span:hover{
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,1);   
 }
 
 .fas.fa-times{
@@ -379,15 +398,12 @@ body{
     cursor: pointer;
 }
 
-#submit-button-pop-up{
-    text-align: center;
-}
-
 #submit-btn-fk{
     background-color: inherit;
     color: white;
     border: solid white 1px;
     padding: 10px;
+    margin-left: 120px;
 }
 
 #submit-btn-fk:hover{
