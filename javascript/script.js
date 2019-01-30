@@ -312,6 +312,7 @@ function getTableNameFromSplittedText(text) {
 }
 
 function createSqlCommand(mytext) {
+    let hasReference = false;
     var properties = [];
     var globalReferences = [];
     var primaryKeys = [];
@@ -411,6 +412,7 @@ function createSqlCommand(mytext) {
                             allKeysPrimary = false;
                     }
                     if (allKeysPrimary) {
+                        hasReference = true;
                         globalReferences.push(references);
                     }
                 }
@@ -430,6 +432,9 @@ function createSqlCommand(mytext) {
     }
 
     createTable(tableName, properties, globalReferences);
+    if(hasReference){
+        drawLine(getTable(tableName),refTable);
+    }
 }
 
 export function getTable(tableName) {
@@ -448,73 +453,64 @@ function exists(array, element) {
     return false;
 }
 
-function drawReferencedLines(){
-    for (let i = 0; i < tables.length; ++i){
-        if(tables[i].references.length){
-            let refTable = getTable(tables[i].references[0].referencedTable);
-            let startPointX = tables[i].x + tables[i].width/2;
-            let startPointY = tables[i].y + tables[i].height/2;
-            let endPointX = refTable.x + refTable.width/2;
-            let endPointY = refTable.y + refTable.height/2;
-            let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
+function drawLine(baseTable, refTable){
+    let startPointX = (baseTable.x + baseTable.lastPositionX) + baseTable.width/2;
+    let startPointY = (baseTable.y + baseTable.lastPositionY) + baseTable.height/2;
+    let endPointX = (refTable.x + refTable.lastPositionX) + refTable.width/2;
+    let endPointY = (refTable.y + refTable.lastPositionY) + refTable.height/2;
+    let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
 
-            let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-            newElement.setAttribute("class", tables[i].title+"-"+tables[i].references[0].referencedTable);
-            newElement.setAttribute("x1", startPointX);
-            newElement.setAttribute("y1", startPointY);
-            newElement.setAttribute("x2", intermediatePointX);
-            newElement.setAttribute("y2", startPointY);
-            newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
-            grp.insertAdjacentElement("afterbegin", newElement);
-            newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-            newElement.setAttribute("class", tables[i].title+"-"+tables[i].references[0].referencedTable);
-            newElement.setAttribute("x1", endPointX);
-            newElement.setAttribute("y1", startPointY);
-            newElement.setAttribute("x2", endPointX);
-            newElement.setAttribute("y2", endPointY);
-            newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
-            grp.insertAdjacentElement("afterbegin", newElement);
-        }
-    }
+    let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+    newElement.setAttribute("class", baseTable.title+"-"+refTable.title);
+    newElement.setAttribute("x1", startPointX);
+    newElement.setAttribute("y1", startPointY);
+    newElement.setAttribute("x2", intermediatePointX);
+    newElement.setAttribute("y2", startPointY);
+    newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+    grp.insertAdjacentElement("afterbegin", newElement);
+    newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+    newElement.setAttribute("class", baseTable.title+"-"+refTable.title);
+    newElement.setAttribute("x1", endPointX);
+    newElement.setAttribute("y1", startPointY);
+    newElement.setAttribute("x2", endPointX);
+    newElement.setAttribute("y2", endPointY);
+    newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
+    grp.insertAdjacentElement("afterbegin", newElement);
 }
 
-/*function redrawReferencedLines(baseTable){
+export function redrawReferencedLines(baseTable){
 
-    if(baseTable.references.length){
-    
-        removeElementsByClass("line-"+baseTable.title);
-        let refTable = getTable(baseTable.references[0].referencedTable);
-        let startPointX = baseTable.x + baseTable.width/2;
-        let startPointY = baseTable.y + baseTable.height/2;
-        let endPointX = refTable.x + refTable.width/2;
-        let endPointY = refTable.y + refTable.height/2;
-        let intermediatePointX = startPointX > endPointX ? endPointX-2 : endPointX+2;
-
-        let newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-        newElement.setAttribute("class", "line-"+baseTable.title);
-        newElement.setAttribute("x1", startPointX);
-        newElement.setAttribute("y1", startPointY);
-        newElement.setAttribute("x2", intermediatePointX);
-        newElement.setAttribute("y2", startPointY);
-        newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
-        grp.insertAdjacentElement("afterbegin", newElement);
-        newElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
-        newElement.setAttribute("class", "line-"+baseTable.title);
-        newElement.setAttribute("x1", endPointX);
-        newElement.setAttribute("y1", startPointY);
-        newElement.setAttribute("x2", endPointX);
-        newElement.setAttribute("y2", endPointY);
-        newElement.setAttribute("style","stroke:#FFF;stroke-width:4;");
-        grp.insertAdjacentElement("afterbegin", newElement);
-
+    let tableReferences = baseTable.references;
+    if (tableReferences.length > 0) {
+        for(let i=0; i<tableReferences.length; ++i){
+            removeElementsByClass(baseTable.title+"-"+tableReferences[i].referencedTable);
+        }
     }
-}*/
+    deleteReferencedLines(baseTable.title);
+
+    if (tableReferences.length > 0) {
+        for(let i=0; i<tableReferences.length; ++i){
+            let refTable = getTable(tableReferences[i].referencedTable);
+            drawLine(baseTable,refTable);
+        }
+    }
+
+    tables.forEach(table => {
+        if(table.references.length){
+            for(let i = 0; i < table.references.length; ++i){
+                if(table.references[i].referencedTable == baseTable.title){
+                    drawLine(table, baseTable)
+                }
+            }
+        }
+    });
+}
 
 processTheCommand("CREATE TABLE          tabel(       nume INT NOT NULL, num int, nume2 int, PRIMARY KEY(num, nume));");
 
 processTheCommand("CREATE TABLE tabelu(numelemeuecelmailung int NOT NULL, num int, numiii int, FOREIGN KEY(num, numiii) REFERENCES tabel(nume, num))");
 
-processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int);");
+processTheCommand("CREATE TABLE tabelul(nume int, num int NOT NULL, num int, PRIMARY KEY(nume));");
 
 processTheCommand("CREATE TABLE Persons (ID int NOT NULL, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY(FirstName, LastName));");
 
@@ -525,8 +521,5 @@ processTheCommand("CREATE TABLE employee_details(idd int, address varchar(100), 
 //processTheCommand("DROP TABLE tabel");
 
 showProperties();
-
-drawReferencedLines();
-//redrawReferencedLines(getTable("TABELU"));
 
 export default getTables;
