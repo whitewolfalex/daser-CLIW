@@ -288,7 +288,7 @@ export function processTheCommand(tempText) {
     }
 }
 
-function deleteReferencedLines(baseTable){
+export function deleteReferencedLines(baseTable){
     tables.forEach(table => {
         if(table.references.length){
             for(let i = 0; i < table.references.length; ++i){
