@@ -9,12 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript">
+    <script>
         window.onbeforeunload = function () {
             return "You will lost your data";
         } 
     </script>
-    <input type="file" id="real-file" accept="text/plain" hidden="hidden" />
 </head>
 
 <body>
@@ -95,7 +94,7 @@
             <div id="createTableWindow">
                 <div id="createTableWindow-header">
                     <p>CREATE TABLE</p>
-                    <button id="close-button" onclick="closePopUp(event);ResetTheCreateTablePopup();">
+                    <button class="close-button" onclick="closePopUp(event);ResetTheCreateTablePopup();">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -153,12 +152,12 @@
             <div id="alterTableWindow">
                 <div id="alterTableWindow-header">
                     <p>ALTER TABLE</p>
-                    <button id="close-button" onclick="closePopUp(event)">
+                    <button class="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
 
-                <div id="pop-up-body">
+                <div class="pop-up-body">
                     <div>
                         <span id="column-tab-active" onclick="requestAlterNameDatatype();">Columns</span>
                         <span id="key-tab" onclick="requestAlterPrimaryKey();">Keys</span>
@@ -211,7 +210,7 @@
                             <br>
                             <input type="text" id="new-column-name" />
                         </label>
-                        <div id="submit-button-pop-up">
+                        <div class="submit-button-pop-up">
                             <button id="submit-btn" onclick="changeColumnName(event);">Submit</button>
                         </div>
                     </div>
@@ -232,7 +231,7 @@
                                 <option value="none">Choose a column</option>
                             </select>
                         </label>
-                        <div id="submit-pk-btn">
+                        <div class="submit-pk-btn">
                             <button id="submit-btn-add-pk" onclick="setPrimary();">Set Primary</button>
                         </div>
                         <br>
@@ -242,7 +241,7 @@
                                 <option value="none">Choose a column</option>
                             </select>
                         </label>
-                        <div id="submit-pk-btn">
+                        <div class="submit-pk-btn">
                             <button id="submit-btn-remove-pk" onclick="unsetPrimary();">Unset Primary</button>
                         </div>
                     </div>
@@ -252,12 +251,12 @@
             <div id="fkTableWindow">
                 <div id="fkTableWindow-header">
                     <p>CREATE FOREIGN KEY</p>
-                    <button id="close-button" onclick="closePopUp(event)">
+                    <button class="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
 
-                <div id="pop-up-body">
+                <div class="pop-up-body">
                     <label> Table name
                         <br>
                         <select id="table-selection-fk" onchange="renderColumnSelectionFk();">
@@ -275,7 +274,7 @@
                     <div id="second-fk-columns-container">
                     </div>
 
-                    <div id="submit-button-pop-up">
+                    <div class="submit-button-pop-up">
                         <button id="submit-btn-fk" onclick="requestCreateForeignKey();">Submit</button>
                     </div>
                 </div>
@@ -284,12 +283,12 @@
             <div id="deleteTableWindow">
                 <div id="deleteTableWindow-header">
                     <p>DELETE TABLE</p>
-                    <button id="close-button" onclick="closePopUp(event)">
+                    <button class="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
 
-                <div id="pop-up-body">
+                <div class="pop-up-body">
                     <label> Table name
                         <br>
                         <select id="table-delete-selection" onchange="renderReferencedTables()">
@@ -297,7 +296,7 @@
                         </select>
                     </label>
                     <div id="referencedTables"></div>
-                    <div id="submit-button-pop-up">
+                    <div class="submit-button-pop-up">
                         <button id="delete-btn" onclick="requestDelete()">Delete</button>
                     </div>
                     <div id="delete-pop-up-window">
@@ -311,7 +310,7 @@
             <div id="infoWindow">
                 <div id="infoWindow-header">
                     <p>INFO</p>
-                    <button id="close-button" onclick="closePopUp(event)">
+                    <button class="close-button" onclick="closePopUp(event)">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -322,56 +321,105 @@
                         <li>
                             You can create a table in different ways.
                         </li>
-                        <p> The first and the most used one is from the <span onmouseenter="HighlightElementOn('element1');" onmouseleave="HighlightElementOff('element1');">Create table button.</span></p>
-                        <p> Inside the pop-up that gets open, you need to fill the fields in order to create a table.</p>
-                        <p> If you want to add more columns, press the Add column button.</p>
-                        <p> Once all the fields are filled in, press the Submit button and see the results.</p>
-                        <p> If an error occurs, a small toastr will appear with a specific message.</p>
-                        <p> Another way to create a table is by executing a sql command. This command can be written inside <span onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the <span onmouseenter="HighlightElementOn('element3');" onmouseleave="HighlightElementOff('element3');">Run command button</span>.</p>
-                        <p> The last way to create a table is by importing the proper command into the app. This can be done using the <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span></p>
+                        <li> The first and the most used one is from the
+                            <span onmouseenter="HighlightElementOn('element1');"
+                                onmouseleave="HighlightElementOff('element1');">Create table button.</span>
+                        </li>
+                        <li> Inside the pop-up that gets open, you need to fill the fields in order to create a table.</li>
+                        <li> If you want to add more columns, press the Add column button.</li>
+                        <li> Once all the fields are filled in, press the Submit button and see the results.</li>
+                        <li> If an error occurs, a small toastr will appear with a specific message.</li>
+                        <li> Another way to create a table is by executing a sql command. This command can be written inside
+                            <span
+                                onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the
+                            <span onmouseenter="HighlightElementOn('element3');"
+                                onmouseleave="HighlightElementOff('element3');">Run command button</span>.</li>
+                        <li> The last way to create a table is by importing the proper command into the app. This can be done
+                            using the
+                            <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span>
+                        </li>
                         <li>
                             You can alter a table in different ways.
                         </li>
-                        <p> The first and the most used one is from the <span onmouseenter="HighlightElementOn('element2');" onmouseleave="HighlightElementOff('element2');">Alter table button.</span></p>
-                        <p> Inside the pop-up that gets open, you need to fill the fields in order to alter a table.</p>
-                        <p> Once all the fields are filled in, press the Submit button and see the results.</p>
-                        <p> If you want to add alter keys, press the Keys button.</p>
-                        <p> You can set a column to be a primary key, or unset it from being primary key. Once picked the desired table, select the column which needs to be set or unset as primary key, and press the button underneath the dropdown.</p>
-                        <p> If an error occurs, a small toastr will appear with a specific message.</p>
-                        <p> Another way to alter a table is by executing a sql command. This command can be written inside <span onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the <span onmouseenter="HighlightElementOn('element3');" onmouseleave="HighlightElementOff('element3');">Run command button</span>.</p>
-                        <p> The last way to alter a table is by importing the proper command into the app. This can be done using the <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span></p>
+                        <li> The first and the most used one is from the
+                            <span onmouseenter="HighlightElementOn('element2');"
+                                onmouseleave="HighlightElementOff('element2');">Alter table button.</span>
+                        </li>
+                        <li> Inside the pop-up that gets open, you need to fill the fields in order to alter a table.</li>
+                        <li> Once all the fields are filled in, press the Submit button and see the results.</li>
+                        <li> If you want to add alter keys, press the Keys button.</li>
+                        <li> You can set a column to be a primary key, or unset it from being primary key. Once picked the desired
+                            table, select the column which needs to be set or unset as primary key, and press the button
+                            underneath the dropdown.</li>
+                        <li> If an error occurs, a small toastr will appear with a specific message.</li>
+                        <li> Another way to alter a table is by executing a sql command. This command can be written inside
+                            <span
+                                onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the
+                            <span onmouseenter="HighlightElementOn('element3');"
+                                onmouseleave="HighlightElementOff('element3');">Run command button</span>.</li>
+                        <li> The last way to alter a table is by importing the proper command into the app. This can be done using
+                            the
+                            <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span>
+                        </li>
                         <li>
                             You can create a foreign key in different ways.
                         </li>
-                        <p> The first and the most used one is from the <span onmouseenter="HighlightElementOn('element4');" onmouseleave="HighlightElementOff('element4');">Create foreign key button.</span></p>
-                        <p> Inside the pop-up that gets open, you need to fill the fields in order to create a foreign key.</p>
-                        <p> Once all the fields are filled in, press the Submit button and see the results.</p>
-                        <p> If an error occurs, a small toastr will appear with a specific message.</p>
-                        <p> Another way to create a foreign key is by executing a sql command. This command can be written inside <span onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the <span onmouseenter="HighlightElementOn('element3');" onmouseleave="HighlightElementOff('element3');">Run command button</span>.</p>
-                        <p> The last way to create a foreign key is by importing the proper command into the app. This can be done using the <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span></p>
+                        <li> The first and the most used one is from the
+                            <span onmouseenter="HighlightElementOn('element4');"
+                                onmouseleave="HighlightElementOff('element4');">Create foreign key button.</span>
+                        </li>
+                        <li> Inside the pop-up that gets open, you need to fill the fields in order to create a foreign key.</li>
+                        <li> Once all the fields are filled in, press the Submit button and see the results.</li>
+                        <li> If an error occurs, a small toastr will appear with a specific message.</li>
+                        <li> Another way to create a foreign key is by executing a sql command. This command can be written inside
+                            <span onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the
+                            <span onmouseenter="HighlightElementOn('element3');"
+                                onmouseleave="HighlightElementOff('element3');">Run command button</span>.</li>
+                        <li> The last way to create a foreign key is by importing the proper command into the app. This can be
+                            done using the
+                            <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span>
+                        </li>
                         <li>
                             You can delete a table in different ways.
                         </li>
-                        <p> The first and the most used one is from the <span onmouseenter="HighlightElementOn('element5');" onmouseleave="HighlightElementOff('element5');">Delete button.</span></p>
-                        <p> Inside the pop-up that gets open, you need to select the table that you want to delete.</p>
-                        <p> Press the Submit button and see the results.</p>
-                        <p> If an error occurs, a small toastr will appear with a specific message.</p>
-                        <p> Another way to delete a table is by executing a sql command. This command can be written inside <span onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the <span onmouseenter="HighlightElementOn('element3');" onmouseleave="HighlightElementOff('element3');">Run command button</span>.</p>
-                        <p> The last way to delete a table is by importing the proper command into the app. This can be done using the <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span></p>
+                        <li> The first and the most used one is from the
+                            <span onmouseenter="HighlightElementOn('element5');"
+                                onmouseleave="HighlightElementOff('element5');">Delete button.</span>
+                        </li>
+                        <li> Inside the pop-up that gets open, you need to select the table that you want to delete.</li>
+                        <li> Press the Submit button and see the results.</li>
+                        <li> If an error occurs, a small toastr will appear with a specific message.</li>
+                        <li> Another way to delete a table is by executing a sql command. This command can be written inside
+                            <span
+                                onmouseenter="HighlightElementOn('sql-command');" onmouseleave="HighlightElementOff('sql-command');">Sql command input</span>, and in order to run it, press the
+                            <span onmouseenter="HighlightElementOn('element3');"
+                                onmouseleave="HighlightElementOff('element3');">Run command button</span>.</li>
+                        <li> The last way to delete a table is by importing the proper command into the app. This can be done
+                            using the
+                            <span onmouseenter="HighlightElementOn('custom-button');" onmouseleave="HighlightElementOff('custom-button');">Import Sql command button</span>
+                        </li>
                         <li>
                             You can export the database schema view as an SVG.
                         </li>
-                        <p> In order to export the database schema as an SVG, you need to click the <span onmouseenter="HighlightElementOn('element7');" onmouseleave="HighlightElementOff('element7');">Export as Svg button.</span></p>
+                        <li> In order to export the database schema as an SVG, you need to click the
+                            <span onmouseenter="HighlightElementOn('element7');"
+                                onmouseleave="HighlightElementOff('element7');">Export as Svg button.</span>
+                        </li>
                         <li>
                             You can export the commands needed to create the database schema.
                         </li>
-                        <p> In order to export the sql commands related to the database schema built in our app, you need to click the <span onmouseenter="HighlightElementOn('element6');" onmouseleave="HighlightElementOff('element6');">Export Sql Commands button.</span></p>
+                        <li> In order to export the sql commands related to the database schema built in our app, you need to
+                            click the
+                            <span onmouseenter="HighlightElementOn('element6');" onmouseleave="HighlightElementOff('element6');">Export Sql Commands button.</span>
+                        </li>
                         <li>
                             You can move tables, zoom in and out in the database schema view.
                         </li>
-                        <p> In order to zoom in/out, you can use the mouse wheel, or the <span  onmouseenter="HighlightElementOn('element8');HighlightElementOn('element9');" onmouseleave="HighlightElementOff('element8');HighlightElementOff('element9');">Zoom In/Out buttons</span>.</p>
-                        <p> In order to move all the tables, double click and drag inside the database schema view.</p>
-                        <p> If you want to move just one table, double click on that table and drag it into the desired place.</p>
+                        <li> In order to zoom in/out, you can use the mouse wheel, or the
+                            <span onmouseenter="HighlightElementOn('element8');HighlightElementOn('element9');"
+                                onmouseleave="HighlightElementOff('element8');HighlightElementOff('element9');">Zoom In/Out buttons</span>.</li>
+                        <li> In order to move all the tables, double click and drag inside the database schema view.</li>
+                        <li> If you want to move just one table, double click on that table and drag it into the desired place.</li>
                     </ol>
                 </div>
             </div>

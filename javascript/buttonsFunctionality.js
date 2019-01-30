@@ -107,6 +107,8 @@ window.exportSqlCommands = function exportSqlCommands() {
 
                 if (m < references[0].referencedColumns.length - 1) {
                     content += ', ';
+                }else{
+                    content += ')';
                 }
 
             }
@@ -550,6 +552,7 @@ window.setPrimary = function setPrimary() {
     } else {
         showErrorBanner();
     }
+    script.removeElementsByClass('option-element-tables-columns-non-pk');
 }
 
 //unset a column from primary key to simple column

@@ -296,14 +296,14 @@ body{
     color: #000;
 }
 
-#close-button{
+.close-button{
   background-color: inherit;
   color: white;
   border: none;
   float: right;
 }
 
-#close-button i {
+.close-button i {
   font-size: 20px;
   top: 15px;
   position: relative;
@@ -424,6 +424,7 @@ body{
   cursor: pointer;
 }
 
+.pop-up-body,
 #pop-up-body{
     color: white;
     font-size: 20px;
