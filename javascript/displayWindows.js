@@ -2,7 +2,7 @@ import * as script from "./script.js";
 import * as btns from "./buttonsFunctionality.js";
 
 
-var popUpWindows = ["createTableWindow", "alterTableWindow", "fkTableWindow", "deleteTableWindow"];
+var popUpWindows = ["createTableWindow", "alterTableWindow", "fkTableWindow", "deleteTableWindow", "infoWindow"];
 var tables;
 {
   tables = script.tables;
@@ -77,7 +77,7 @@ window.displayInfoWindow = function displayInfoWindow() {
   }
   else {
     infoWindow.style.display = "block";
-    closeInactivePopUps(deleteTableWindow);
+    closeInactivePopUps(infoWindow);
   }
 }
 

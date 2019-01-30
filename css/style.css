@@ -379,12 +379,15 @@ body{
     cursor: pointer;
 }
 
+#submit-button-pop-up{
+    text-align: center;
+}
+
 #submit-btn-fk{
     background-color: inherit;
     color: white;
     border: solid white 1px;
     padding: 10px;
-    margin-left: 120px;
 }
 
 #submit-btn-fk:hover{
