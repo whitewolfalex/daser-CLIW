@@ -244,8 +244,9 @@ window.formatSqlInput = function formatSqlInput(text) {
     return textFormatted;
 }
 window.runSQL = function runSQL() {
-    var text = document.getElementById('sql-command').value;
-    processTheCommand(text);
+    var text = document.getElementById('sql-command');
+    processTheCommand(text.value);
+    text.value = "";
 }
 
 export function processTheCommand(tempText) {
