@@ -12,6 +12,9 @@ realFileBtn.addEventListener("change", function(event){
         openFile(event);
     } else {
         document.getElementById("alert2").style.display = 'block';
+        setTimeout(function() {
+            document.getElementById("alert2").style.display = 'none';
+        }, 2000);
     }
 });
 

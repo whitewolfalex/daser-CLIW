@@ -130,7 +130,8 @@ body{
 #alert7,
 #alert8,
 #alert9,
-#alert10{
+#alert10,
+#alert11{
     display: none;
     padding: 20px;
     background-color: #f44336;

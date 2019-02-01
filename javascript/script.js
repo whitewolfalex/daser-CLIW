@@ -284,6 +284,9 @@ export function processTheCommand(tempText) {
         }
         else {
             document.getElementById("alert").style.display = 'block';
+            setTimeout(function() {
+                document.getElementById("alert").style.display = 'none';
+            }, 2000);
         }
     }
 }
@@ -317,7 +320,13 @@ function createSqlCommand(mytext) {
     var globalReferences = [];
     var primaryKeys = [];
     var tableName = getTableNameFromSplittedText(mytext[0]);
-
+    if(getTable(tableName)){
+        document.getElementById("alert11").style.display = 'block';
+        setTimeout(function() {
+        document.getElementById("alert11").style.display = 'none';
+        }, 2000);
+        return;
+    }
 
     for (let i = 1; i < mytext.length; i++) {
 
@@ -453,7 +462,7 @@ function exists(array, element) {
     return false;
 }
 
-function drawLine(baseTable, refTable){
+export function drawLine(baseTable, refTable){
     let startPointX = (baseTable.x + baseTable.lastPositionX) + baseTable.width/2;
     let startPointY = (baseTable.y + baseTable.lastPositionY) + baseTable.height/2;
     let endPointX = (refTable.x + refTable.lastPositionX) + refTable.width/2;

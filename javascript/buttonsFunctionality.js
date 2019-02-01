@@ -11,6 +11,9 @@ var foreignKeys = {};
     history.pushState(null, null, location.href);
     window.onpopstate = function () {
         document.getElementById('alert8').style.display = 'block';
+        setTimeout(function() {
+            document.getElementById("alert8").style.display = 'none';
+        }, 2000);
         history.go(1);
     };
 }
@@ -377,6 +380,8 @@ window.requestCreateForeignKey = function requestCreateForeignKey() {
             popUp.style.display = 'none';
             console.log(tables);
 
+            script.drawLine(script.getTable(firstTable),script.getTable(secondTable));
+
         } else {
             showFkBanner();
         }
@@ -585,15 +590,24 @@ window.unsetPrimary = function unsetPrimary() {
 export function showConfirmBanner() {
     // confirm banner 
     document.getElementById('alert9').style.display = 'block';
+    setTimeout(function() {
+        document.getElementById("alert9").style.display = 'none';
+    }, 2000);
 }
 
 export function showErrorBanner() {
     // confirm banner 
     document.getElementById('alert7').style.display = 'block';
+    setTimeout(function() {
+        document.getElementById("alert7").style.display = 'none';
+    }, 2000);
 }
 
 function showFkBanner() {
     document.getElementById('alert10').style.display = 'block';
+    setTimeout(function() {
+        document.getElementById("alert10").style.display = 'none';
+    }, 2000);
 }
 
 //get table object by name

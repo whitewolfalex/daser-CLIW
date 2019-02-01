@@ -61,6 +61,9 @@ runBtn.addEventListener("click", function(){
     // table name validation
     if(!tableName.toUpperCase().match(/[A-Z]+$/)){
         document.getElementById("alert3").style.display = 'block';
+        setTimeout(function() {
+            document.getElementById("alert3").style.display = 'none';
+        }, 2000);
         return;
     }
     
@@ -70,6 +73,9 @@ runBtn.addEventListener("click", function(){
         // column name validation
         if(!columnName.toUpperCase().match(/[A-Z]+$/)){
             document.getElementById("alert4").style.display = 'block';
+            setTimeout(function() {
+                document.getElementById("alert4").style.display = 'none';
+            }, 2000);
             return;
         }
         sqlCommand += columnName.toUpperCase() + " ";
@@ -80,10 +86,16 @@ runBtn.addEventListener("click", function(){
         // datatype validation
         if(datatypeValue.value !='' && !(datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
             document.getElementById("alert5").style.display = 'block';
+            setTimeout(function() {
+                document.getElementById("alert5").style.display = 'none';
+            }, 2000);
             return;
         }
         if((datatypeValue.value < 1 || datatypeValue.value > 255)  && (datatype.toUpperCase() == "CHAR" || datatype.toUpperCase() == "VARCHAR")){
             document.getElementById("alert6").style.display = 'block';
+            setTimeout(function() {
+                document.getElementById("alert6").style.display = 'none';
+            }, 2000);
             return;
         }
         sqlCommand += datatype.toUpperCase(); 
