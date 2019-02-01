@@ -97,7 +97,9 @@
                 <li typeof="schema:content" property="schema:citation">
                     Import SQL
                 </li>
-
+                <li typeof="schema:content" property="schema:citation">
+                    Info
+                </li>
             </ol>
         </section>
         <section>
@@ -126,6 +128,82 @@
                     folosind command input dupa cum arata imaginea urmatoare:
                 </p>
                 <img typeof="sa:image" src="../schemaImagini/scholary_createTable4.png" alt="diagrama-usecase">
+            </section>
+        </section>
+
+        <section>
+            <h3>2. Alter table</h3>
+            <section property="schema:architecture">
+                <h4>Pop-up pentru alter table</h4>
+                <p>Utilizatorul poate sa modifice un tabel deja existent in DOM prin accesarea butonului de "alter
+                    table" care deschide un pop-up unde se poate modifica atat date vizibile despre tabel precum nume
+                    coloana cat si date logice precum cheile primare si/sau chei straine, dupa cum arata imaginea
+                    urmatoare:</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_alterTable1.png" alt="diagrama arhitecturala">
+                <p>Daca utilizatorul doreste sa modifice cheile primare sau straine trebuie sa acceseze zona de "key"
+                    si sa completeze urmatoarele campuri dupa cum arata in figura urmatoare:</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_alterTable2.png" alt="diagrama arhitecturala">
+                <p>Dupa completarea coloanelor, utilizatorul apasa butonul 'submit' si ii apare tabelul modificat.De
+                    exemplu pentru tabelul "tabel" coloana nume doresc sa ii modific datatype din int in tinyint.</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_alterTable3.png" alt="diagrama arhitecturala">
+            </section>
+        </section>
+        <section>
+            <h3>3. Foreign key</h3>
+            <section property="schema:architecture">
+                <h4>Pop-up pentru foreign key</h4>
+                <p>Utilizatorul poate crea chei straine cu tabelele existe(generate logic) prin accesare butonului de
+                    "create foreign key" care deschide un pop-up de tipul urmator:</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_foreignKey.png" alt="diagrama arhitecturala">
+            </section>
+        </section>
+        <section>
+            <h3>4. Delete table</h3>
+            <section property="schema:architecture">
+                <h4>a. Pop-up pentru delete table</h4>
+                <p>Utilizatorul poate sa sterge tabele prin mai multe metode, iar una dintre acestea este prin a accesa
+                    butonul de delete table, care deschide un pop-up special pentru "delete table", unde poate selecta
+                    numele tabelului.</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_deleteTable2.png" alt="diagrama arhitecturala">
+                <p>Daca tabelul selectat are ca referinta alt tabel, exista un alert unde avertizeaza
+                    utilizatorul ca si tabelul referentiat se va sterge daca va accesa 'confirm', in cazul in care
+                    apasa 'Cancel' revine la pasul initial de a selecta tabelul dorit pentru stergere.</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_deleteTable1.png" alt="diagrama arhitecturala">
+            </section>
+
+            <section property="schema:use-case">
+                <h4>b. SQL command input</h4>
+                <p>De asemenea utilizatorul poate sterge un tabel cu aceleasi functionalitati si restrictii ca mai sus,
+                    folosind command input dupa cum arata imaginea urmatoare:
+                </p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_deleteTable3.png" alt="diagrama-usecase">
+                <img typeof="sa:image" src="../schemaImagini/scholary_deleteTable4.png" alt="diagrama-usecase">
+            </section>
+        </section>
+
+        <section>
+            <h3>5. Export SVG</h3>
+            <section property="schema:architecture">
+                <p>Utilizatorul poate sa exporta schema bazei de date in format SVG prin accesarea butonului de "export
+                    SVG":</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_exportSVG.png" alt="diagrama arhitecturala">
+            </section>
+        </section>
+        <section>
+            <h3>6. Export SQL commands</h3>
+            <section property="schema:architecture">
+                <p>Utilizatorul poate sa exporta comenziile schemei bazei de date prin accesarea butonului de "export
+                    sql commands":</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_exportSQLcommands.png" alt="diagrama arhitecturala">
+            </section>
+        </section>
+        <section>
+            <h3>7. Import SQL commands</h3>
+            <section property="schema:architecture">
+                <p>Utilizatorul poate sa importe comenziile sql pentru a creea schema bazei de date aferenta prin accesarea butonului de "import
+                    sql commands":</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_importSQLcommands1.png" alt="diagrama arhitecturala">
+                <img typeof="sa:image" src="../schemaImagini/scholary_importSQLcommands2.png" alt="diagrama arhitecturala">
             </section>
         </section>
     </article>
