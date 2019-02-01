@@ -125,6 +125,9 @@
                             <li typeof="schema:content" property="schema:citation">
                                 Import SQL
                             </li>
+                            <li typeof="schema:content" property="schema:citation">
+                                SVGs Logic (Draw, Movement, Zoom)
+                            </li>
                         </ul>
                     </li>
                     <li typeof="schema:content" property="schema:citation">
@@ -410,6 +413,93 @@
                     si relatii intre ele.
                 </p>
             </section>
+        </section>
+
+        <section>
+            <h3>6. Implementare</h3>
+
+            <h4>Create table</h4>
+
+            <p>
+                In vederea crearii de tabele am creat o clasa Table. Aceasta clasa contine proprietati si metode necesare in interactiunea userului cu tabelele 
+                cat si in interactiunea dintre tabele intre ele. Pentru a tine cont de toate tabelele create de utilizator am creat o lista cu toate instantele 
+                obiectului Table. Crearea de tabele am facut-o posibila prin cele 3 metode cerute in cerinta implementarii aplicatiei. Prima posibilitate este in 
+                introducerea comenzii sql aferente pentru crearea unui tabel in inputul SQL Command si rularea acesteia prin apasarea tastei Enter, sau a butonului 
+                de run sql command situat langa. Pentru a afisa tabelele in pozitii unice la creare, am implementat o modalitate de a constrange spatiul de instantiere 
+                pe suprafata svg-ului folosind o metoda simpla de a verifica coliziunea dintre tabele. Coordonatele unui tabel nou creat sunt preluate random pe baza unor 
+                constrangeri de minim si maxim, date de catre suprafata schemei svg. In vederea afisarii coloanelor si a tipurilor de date, dimensiunile tabelelor au o latime 
+                fixata, variind numai inaltimea lor, pe baza numarului de coloane. Cu cat numarul coloanelor creste, cu atat inaltimea tabelului este mai mare pentru a putea afisa 
+                totul intr-o maniera placuta. O alta modalitate de a crea tabele este prin ferestra de Create Table. Fereastra ce este afisata din javascript, ea existand pe tot parcursul 
+                rularii aplicatiei ascunsa in DOM. Prin apasarea butonului de Create Table, javascript face fereastra vizibila, optiunile disponibile in aceasta fiind un simplu formular, creat 
+                de asemenea dinamic prin javascript. Butonul +, prin apasarea lui face un apel catre o functie javascript ce adauga in dom, la locatia potrivita in fereastra de create table a 
+                unor noi campuri pentru coloane si tipul acestora de date. Toate aceste informatii sunt salvate in proprietatiile tabelului, mai apoi tabelul fiind adaugat in lista de tabele.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/table_code.png" alt="table_code">
+            <p>
+                Validarea unei comenzi de create table este facuta in javascript pe baza unei expresii regulate. Prin aceasta, daca comanda este valida, urmeaza a fi sparta in bucati pentru a obtine 
+                informatiile necesare tabelului. In caz de invalidare a comenzii, niste pop-up-uri cu scopul de a notifica userul ca o eroare a avut loc, cu un mesaj specific au fost create si sunt facute 
+                vizibil in pagina. Aceste pop-up-uri, se pot inchide apasand un buton in forma de cruce, sau prin apasarea tastei Esc. Daca utilizatorul nu actioneaza printr-o comanda, 
+                dupa 2 secunde, pop-up-ul de eroare se inchide automat. Pentru aceasta o functie ce transpune fereastra cu mesajul de eroare pe hide se activeaza in urma unui timeout setat.  
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/collision_code.png" alt="constraint">
+
+            <h4>Alter table</h4>
+            <p>
+                Pentru a crea functionalitatea de Alter table, am creat functii ce modifica informatiile asupra unui tabel. In primul rand o functie ce ne returneaza tabelul dorit pe baza de nume, acesta fiind unic,
+                 a fost creata. Aceasta functie este cea mai utilizata in aplicatie. O fereastra cu field-uri necesare/disponibile alterarii a fost creata. Prin aceasta fereastra utilizatorul poate altera atat coloanele, cat si cheile dintr-o tabela.
+                 Orice informatie completata in aceste field-uri, se trimite la apasarea butonului Submit si este prelucrata de o functie in javascript pentru a face modificarile necesare tabelului dorit.
+                 Daca o eroare este intampinata, se recurge la un mecanism de fall-back pentru a nu modifica inutil tabelul, si este afisata fereastra cu mesajul de eroare specific.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/alterTable_code.png" alt="alter table">
+
+            <h4>Foreign Key</h4>
+            <p>
+                    Pentru a memora referintele unui tabel catre alt tabel, am creat o clasa noua References. Daca un tabel are o cheie straina cu un alt tabel, 
+                    acesta va avea o instanta de tip References cu informatiile necesare foreign key-ului, precum: tabelul catre care se face referinta, coloanele care fac referinta, si 
+                    coloanele catre care se face referentierea.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/foreignkeycode.png" alt="foreign key">
+
+            <h4>Delete table</h4>
+            <p>
+                Pentru stergerea tabelelor am creat de asemenea ca pentru orice comanda, posibilitatea de a fi rulata pe baza unei comenzi sql, sau din fereastra corespunzatoare acestei optiuni.
+                 Pentru aceasta am creat o functie , cat si un regex pentru validarea comenzii cat si ferestre cu mesaje corespunzatoare in caz de eroare. Functia va sterge din lista de tabele tabelul dorit,
+                 in urma caruia va sterge si legaturile altor tabele cu acesta, cat si legaturile acestuia cu restul tabelelor. Despre legaturi, atat vizibil la nivel de frontend cat si la nivel logic, voi descrie mai jos.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/stergereaTabelelorCod.png" alt="delete tables">
+
+            <h4>Export SVG</h4>
+            <p>
+                Pentru exportarea in format SVG am asignat dinamic atribute schemei SVG, si am folosit Blob de tipul xml/svg cu optiunile potrivite. Pentru 
+                a descarca continutul utilizatorului, din javascript am creat un element de tipul ancora cu atributul download setat. Fortam un click asupra acestui element si 
+                apoi il stergem din pagina pentru a nu lasa garbage in aplicatie. In acest moment, continutul atasat in href este descarcat automat in calculatorul utilizatorului.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/exportAsSVG.png" alt="export svg">
+
+            <h4>Export SQL</h4>
+            <p>
+                Pentru exportarea comenzilor sql aferente crearii schemei de baze de date, am creat o functie ce parcurge tabelele si referintele acestora si creaza secventa de comenzi 
+                prin care se poate crea o reprezentare identica cu cea de pe aceasta aplicatie. Pentru descarcarea acestor comenzi am folosit aceeasi metoda ca la exportarea SVG.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/exportsql.png" alt="export sql">
+
+            <h4>Import SQL</h4>
+            <p>
+                Pentru Importarea de comenzi sql, am creat un input de tip file, ascuns in aplicatie, si un buton menit sa triggeruiasca acest input cu scopul de a stiliza aspectul standard 
+                al butonului de choose file. Am restrictionat accesul acestuia la fisiere de tip text, iar in cazul de erori am creat o fereastra cu mesaj corespunzator ce este afisata la orice problema.
+                Fisierul de comenzi, odata importat, este citit intr-o functie javascript, divizat pe comenzi, si rulat folosind functiile anterioare, comanda cu comanda.
+            </p>
+            <img typeof="sa:image" src="../schemaImagini/importSql.png" alt="import sql">
+
+            <h4>SVGs Logic (Draw, Movement, Zoom)</h4>
+            <p>
+                Pentru a desena SVG-urile aferente tabelelor si legaturilor dintre acestea. Am memorat in aceste instante coordonatele unde acestea sunt pozitionate. Pe baza coordonatelor,
+                din javascript cream obiecte dinamic de tipul "rect" sau "line" pe care le inseram in DOM. Aceste obiecte au proprietati corespunzatoare cu cele ale tabelelor din partea logica a aplicatiei.
+            </p>
+            <p>
+                Pentru mutare, am creat o detectare a cursorului peste schema SVG, la dublu click verificam pozitia cursorului. Daca acesta se afla in perimetrul unui tabel,
+                acesta este mutat luand in considerare si legaturile pe care acesta le are cu alte tabele. Pentru a se vedea o tranzitie fluenta a mutarii, legaturile dintre tabele sunt sterse si adaugate din nou, la fiecare frame.
+            </p>
         </section>
     </article>
 </body>
