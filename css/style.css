@@ -1,3 +1,10 @@
+.ol-uncountable{
+    list-style-type: none;
+}
+
+.sub-li-element{
+    padding-left: 20px;
+}
 
 input{
     text-transform: uppercase;
@@ -288,8 +295,8 @@ body{
     display: none;
 }
 #delete-pop-up-window button{
-    background-color:none;
-    border:none;
+    cursor: pointer;
+    border: none;
     font-size: 20px;
 }
 #delete-pop-up-window p{
@@ -304,8 +311,8 @@ body{
 }
 
 .close-button i {
-  font-size: 20px;
-  top: 15px;
+  font-size: 20px!important;
+  top: 15px!important;
   position: relative;
 }
 
@@ -371,7 +378,7 @@ body{
 #submit-btn-remove-pk{
     background-color: inherit;
     color: white;
-    border: solid white 1px;
+    border: solid 1px;
     padding: 10px;
     margin-top: 10px;
     margin-left: 110px;
@@ -392,7 +399,7 @@ body{
 #submit-btn-remove-pk:hover{
     background-color: white;
     color: black;
-    border: solid white 1px;
+    border: solid 1px;
     animation-duration: 0.5s;
     transition-duration: 0.5s;
     cursor: pointer;
@@ -401,7 +408,7 @@ body{
 #submit-btn-fk{
     background-color: inherit;
     color: white;
-    border: solid white 1px;
+    border: solid 1px;
     padding: 10px;
     margin-left: 120px;
 }
@@ -409,7 +416,7 @@ body{
 #submit-btn-fk:hover{
     background-color: white;
     color: black;
-    border: solid white 1px;
+    border: solid 1px;
     animation-duration: 0.5s;
     transition-duration: 0.5s;
     cursor: pointer;
@@ -530,7 +537,7 @@ select{
     transform: translate(200px,50px);
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     width: 10px;
 }
 
@@ -544,7 +551,7 @@ select{
 
 ::-webkit-scrollbar-thumb:hover {
     background:  #777;
-}
+}*/
 
 .tooltip {
     position: relative;
