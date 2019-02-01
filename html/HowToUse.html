@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ro" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daser scholary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <article resource="#" typeof="schema:ScholarlyArticle">
+        <header>
+            <h1 property="schema:name">DASER</h1>
+            <p role="note" property="schema:alternateName">
+                Editor schema baza de date
+            </p>
+        </header>
+        <meta property="schema:accessibilityFeature" content="alternativeText">
+
+        <section typeof="sa:AuthorsList">
+            <h2>Autori</h2>
+            <ul>
+                <li typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="https://www.facebook.com/madalina">
+                        <meta property="schema:givenName" content="Madalina">
+                        <meta property="schema:familyName" content="Jitaru">
+                        <span property="schema:name">Madalina Jitaru</span>
+                    </span>
+                    <a href="#sf" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/bin/Main/">Student
+                        @Faculty of computer science</a>
+                    <ul>
+                        <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                            <a href="jitaru_mada@yahoo.com" property="schema:email">jitaru_mada@yahoo.com</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="https://www.facebook.com/Dani">
+                        <meta property="schema:givenName" content="Alexandru Daniel">
+                        <meta property="schema:familyName" content="Marian">
+                        <span property="schema:name">Marian Alexandru Daniel</span>
+                    </span>
+                    <a href="#sf" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/bin/Main/">Student
+                        @Faculty of computer science</a>
+                    <ul>
+                        <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                            <a href="Alexandru.Marian@centric.eu" property="schema:email">Alexandru.Marian@centric.eu</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person" resource="https://www.facebook.com/Al3x.Lx">
+                        <meta property="schema:givenName" content="Alexandru">
+                        <meta property="schema:familyName" content="Bodnar">
+                        <span property="schema:name">Alexandru Bodnar</span>
+                    </span>
+                    <a href="#sf" property="sa:roleAffiliation" resource="https://www.info.uaic.ro/bin/Main/">Student
+                        @Faculty of computer science</a>
+                    <ul>
+                        <li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+                            <a href="alexandrubodnar10@gmail.com" property="schema:email">alexandrubodnar10@gmail.com</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </section>
+
+        <section>
+            <h2>Cuprins - How to use</h2>
+            <ol>
+                <li typeof="schema:content" property="schema:citation">
+                    Create table
+                </li>
+
+                <li typeof="schema:content" property="schema:citation">
+                    Alter table
+                </li>
+
+                <li typeof="schema:content" property="schema:citation">
+                    Foreign key
+                </li>
+
+                <li typeof="schema:content" property="schema:citation">
+                    Delete table
+                </li>
+                <li typeof="schema:content" property="schema:citation">
+                    Export SVG
+                </li>
+                <li typeof="schema:content" property="schema:citation">
+                    Export SQL
+                </li>
+                <li typeof="schema:content" property="schema:citation">
+                    Import SQL
+                </li>
+
+            </ol>
+        </section>
+        <section>
+            <h3>1. Create table</h3>
+            <section property="schema:architecture">
+                <h4>a. Pop-up pentru create table</h4>
+                <p>Utilizatorul poate sa creeze tabele prin mai multe metode, iar una dintre acestea este prin a accesa
+                    butonul de create table, care deschide un pop-up special pentru "create table", unde poate selecta
+                    numele tabelului, numele coloanei, datatype pentru fiecare coloana in parte si nu il ultimul
+                    valoare pentru datatype.Ultimul rand, anume "Datatype value" se refera la faptul ca daca
+                    utilizatorul alege ca si datatype int sau varchar trebuie sa ii dea valoarea exacta si anume 0-255.</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_createTable1.png" alt="diagrama arhitecturala">
+                <p>Daca utilizatorul doreste sa adauge mai mult coloane pentru un singur tabel, trebuie sa accesze
+                    butonul de "+" si pop-up se mareste si ii ofera posibilitatea de a da scroll si de a adauga mai
+                    multe coloare dupa cum se observa in imaginea urmatoare:</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_createTable2.png" alt="diagrama arhitecturala">
+                <p>Dupa completarea coloanelor, utilizatorul apasa butonul '>' si ii apare tabelul creat daca acesta nu
+                    exista deja in DOM, in caz contrar ii apare un alert cu mesasjul "tabel name
+                    already exists".</p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_createTable3.png" alt="diagrama arhitecturala">
+            </section>
+
+            <section property="schema:use-case">
+                <h4>b. SQL command input</h4>
+                <p>De asemenea utilizatorul poate crea un tabel cu aceleasi functionalitati si restrictii ca mai sus,
+                    folosind command input dupa cum arata imaginea urmatoare:
+                </p>
+                <img typeof="sa:image" src="../schemaImagini/scholary_createTable4.png" alt="diagrama-usecase">
+            </section>
+        </section>
+    </article>
+</body>
+
+</html>
